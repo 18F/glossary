@@ -1,0 +1,25 @@
+{
+  "name": "glossary",
+  "version": "0.1.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/18F/glossary.git"
+  },
+  "scripts": {
+    "test": "mochify tests/glossary.js"
+  },
+  "dependencies": {
+    "accordion": "git+https://github.com/jmcarp/accordion.git",
+    "jquery": "^2.1.4",
+    "list.js": "git://github.com/jmcarp/list.js.git",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5",
+    "mochify": "^2.13.0",
+    "sinon": "^1.16.1",
+    "watch": "^0.16.0"
+  }
+}
