@@ -5,8 +5,6 @@
 var chai = require('chai');
 var expect = chai.expect;
 
-var $ = require('jquery');
-
 var Glossary = require('../src/glossary').Glossary;
 
 var terms = [
@@ -22,34 +20,34 @@ var terms = [
 
 function isOpen(glossary) {
   return glossary.isOpen &&
-    glossary.$body.hasClass('is-open') &&
-    glossary.$body.attr('aria-hidden') === 'false' &&
-    glossary.$toggle.hasClass('active');
+    glossary.$body.classList.contains('is-open') &&
+    glossary.$body.getAttribute('aria-hidden') === 'false' &&
+    glossary.$toggle.classList.contains('active');
 }
 
 function isClosed(glossary) {
   return !glossary.isOpen &&
-    !glossary.$body.hasClass('is-open') &&
-    glossary.$body.attr('aria-hidden') === 'true' &&
-    !glossary.$toggle.hasClass('active');
+    !glossary.$body.classList.contains('is-open') &&
+    glossary.$body.getAttribute('aria-hidden') === 'true' &&
+    !glossary.$toggle.classList.contains('active');
 }
 
 describe('glossary', function() {
   before(function() {
-    this.$fixture = $('<div id="fixtures"></div>');
-    $('body').append(this.$fixture);
+    this.fixture = document.createElement('div');
+    this.fixture.id = 'fixtures';
+    document.body.appendChild(this.fixture);
   });
 
   beforeEach(function() {
-    this.$fixture.empty().append(
+    this.fixture.innerHTML =
       '<button class="js-glossary-toggle"></button>' +
       '<span class="term" data-term="foo"></span>' +
       '<div id="glossary">' +
         '<button class="toggle"></button>' +
         '<input class="glossary__search" />' +
         '<ul class="glossary__list js-accordion"></ul>' +
-      '</div>'
-    );
+      '</div>';
     this.glossary = new Glossary(terms, {body: '#glossary'});
   });
 
@@ -75,8 +73,8 @@ describe('glossary', function() {
   });
 
   it('linkifies terms in the document', function() {
-    var $term = this.$fixture.find('.term');
-    expect($term.attr('title')).to.equal('Click to define');
+    var $term = this.fixture.querySelector('.term');
+    expect($term.title).to.equal('Click to define');
     $term.click();
     var items = this.glossary.list.visibleItems;
     expect(items.length).to.equal(1);

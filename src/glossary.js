@@ -1,13 +1,21 @@
 'use strict';
 
-/* global require, module, document */
+/* global document */
 
-var $ = require('jquery');
 var _ = require('underscore');
 var List = require('list.js');
 var accordion = require('accordion/src/accordion');
 
 var KEYCODE_ESC = 27;
+
+// https://davidwalsh.name/element-matches-selector
+function selectorMatches(el, selector) {
+  var p = Element.prototype;
+  var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function(s) {
+    return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
+  };
+  return f.call(el, selector);
+}
 
 var ITEM_TEMPLATE =
   '<li id="glossary-list-item" class="glossary__item">' +
@@ -27,15 +35,21 @@ var defaultSelectors = {
 };
 
 function removeTabindex($elm) {
-  $elm
-    .find('a, button, :input, [tabindex]')
-    .attr('tabindex', '-1');
+  var elms = getTabIndex($elm);
+  [].forEach.call(elms, function(elm) {
+    elm.setAttribute('tabIndex', '-1');
+  });
 }
 
 function restoreTabindex($elm) {
-  $elm
-    .find('a, button, :input, [tabindex]')
-    .attr('tabindex', '0');
+  var elms = getTabIndex($elm);
+  [].forEach.call(elms, function(elm) {
+    elm.setAttribute('tabIndex', '0');
+  });
+}
+
+function getTabIndex($elm) {
+  return $elm.querySelectorAll('a, button, input, [tabindex]');
 }
 
 /**
@@ -45,35 +59,35 @@ function restoreTabindex($elm) {
  * @param {Object} selectors - CSS selectors for glossary components
  */
 function Glossary(terms, selectors) {
-  var self = this;
+  this.terms = terms;
+  this.selectors = _.extend({}, defaultSelectors, selectors);
 
-  self.terms = terms;
-  self.selectors = _.extend({}, defaultSelectors, selectors);
-
-  self.$body = $(self.selectors.body);
-  self.$toggle = $(self.selectors.toggle);
-  self.$search = this.$body.find('.glossary__search');
+  this.$body = document.querySelector(this.selectors.body);
+  this.$toggle = document.querySelector(this.selectors.toggle);
+  this.$search = this.$body.querySelector('.glossary__search');
 
   // Initialize state
-  self.isOpen = false;
+  this.isOpen = false;
 
   // Update DOM
-  self.populate();
-  self.linkTerms();
+  this.populate();
+  this.linkTerms();
 
   // Remove tabindices
-  removeTabindex(self.$body);
+  removeTabindex(this.$body);
 
   // Initialize accordions
-  self.$body.find('.js-accordion').each(function(idx, elm) {
-    Object.create(accordion).init($(elm));
+  var accordions = this.$body.querySelectorAll('.js-accordion');
+  [].forEach.call(accordions, function(elm) {
+    Object.create(accordion).init(elm);
   });
 
   // Bind listeners
-  self.$toggle.on('click', this.toggle.bind(this));
-  self.$body.on('click', '.toggle', this.toggle.bind(this));
-  self.$search.on('input', this.handleInput.bind(this));
-  $(document.body).on('keyup', this.handleKeyup.bind(this));
+  this.$toggle.addEventListener('click', this.toggle.bind(this));
+  this.$body.addEventListener('click', '.toggle', this.toggle.bind(this));
+  this.$search.addEventListener('input', this.handleInput.bind(this));
+
+  document.body.addEventListener('keyup', this.handleKeyup.bind(this));
 }
 
 /** Populate internal list.js list of terms */
@@ -90,39 +104,46 @@ Glossary.prototype.populate = function() {
 
 /** Add links to terms in body */
 Glossary.prototype.linkTerms = function() {
-  var self = this;
-  var $terms = $(self.selectors.term);
-  $terms.each(function(){
-    var $term = $(this);
-    $term.attr('title', 'Click to define')
-      .attr('tabindex', 0)
-      .data('term', $term.data('term').toLowerCase());
+  var $terms = document.querySelectorAll(this.selectors.term);
+  [].forEach.call($terms, function(term) {
+    term.setAttribute('title', 'Click to define');
+    term.setAttribute('tabIndex', 0);
+    term.setAttribute('data-term', (term.getAttribute('data-term') || '').toLowerCase());
   });
-  $terms.on('click keypress', function(e) {
-    if (e.which === 13 || e.type === 'click') {
-      self.show();
-      self.findTerm($(this).data('term'));
+  document.body.addEventListener('click', this.handleTermTouch.bind(this));
+  document.body.addEventListener('keyup', this.handleTermTouch.bind(this));
+};
+
+Glossary.prototype.handleTermTouch = function(e) {
+  if (e.which === 13 || e.type === 'click') {
+    if (selectorMatches(e.target, this.selectors.term)) {
+      this.show();
+      this.findTerm(e.target.getAttribute('data-term'));
     }
-  });
+  }
 };
 
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
-  this.$search.val(term);
+  this.$search.value = term;
 
   // Highlight the term and remove other highlights
-  this.$body.find('.term--highlight').removeClass('term--highlight');
-  this.$body.find('span[data-term="' + term + '"]').addClass('term--highlight');
+  [].forEach.call(this.$body.querySelectorAll('.term--highlight'), function(term) {
+    term.classList.remove('term--highlight');
+  });
+  [].forEach.call(this.$body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
+    term.classList.add('term--highlight');
+  });
   this.list.filter(function(item) {
     return item._values['glossary-term'].toLowerCase() === term;
   });
 
   // Hack: Expand text for selected item
   this.list.search();
-  _.each(this.list.visibleItems, function(item) {
-    var $elm = $(item.elm).find('div');
-    if ($elm.hasClass('accordion--collapsed')) {
-      $elm.find('.accordion__button').click();
+  this.list.visibleItems.forEach(function(item) {
+    var $elm = item.elm.querySelector('div');
+    if ($elm.classList.contains('accordion--collapsed')) {
+      $elm.querySelector('.accordion__button').click();
     }
   });
 };
@@ -133,23 +154,25 @@ Glossary.prototype.toggle = function() {
 };
 
 Glossary.prototype.show = function() {
-  this.$body.addClass('is-open').attr('aria-hidden', 'false');
-  this.$toggle.addClass('active');
+  this.$body.classList.add('is-open');
+  this.$body.setAttribute('aria-hidden', 'false');
+  this.$toggle.classList.add('active');
   this.$search.focus();
   this.isOpen = true;
   restoreTabindex(this.$body);
 };
 
 Glossary.prototype.hide = function() {
-  this.$body.removeClass('is-open').attr('aria-hidden', 'true');
-  this.$toggle.removeClass('active');
+  this.$body.classList.remove('is-open');
+  this.$body.setAttribute('aria-hidden', 'true');
+  this.$toggle.classList.remove('active');
   this.$toggle.focus();
   this.isOpen = false;
   removeTabindex(this.$body);
 };
 
 /** Remove existing filters on input */
-Glossary.prototype.handleInput = function(e) {
+Glossary.prototype.handleInput = function() {
   if (this.list.filtered) {
     this.list.filter();
   }
