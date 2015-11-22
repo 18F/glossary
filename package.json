@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "accordion": "git+https://github.com/jmcarp/accordion.git",
-    "jquery": "^2.1.4",
     "list.js": "git://github.com/jmcarp/list.js.git",
     "underscore": "^1.8.3"
   },
