@@ -32,6 +32,20 @@ function isClosed(glossary) {
     !glossary.$toggle.classList.contains('active');
 }
 
+// See http://stackoverflow.com/a/15948355/1222326
+function click(elm) {
+  var e = document.createEvent('MouseEvent');
+  e.initMouseEvent(
+    'click',
+    true /* bubble */, true /* cancelable */,
+    window, null,
+    0, 0, 0, 0, /* coordinates */
+    false, false, false, false, /* modifier keys */
+    0 /*left*/, null
+  );
+  elm.dispatchEvent(e);
+}
+
 describe('glossary', function() {
   before(function() {
     this.fixture = document.createElement('div');
@@ -75,7 +89,7 @@ describe('glossary', function() {
   it('linkifies terms in the document', function() {
     var $term = this.fixture.querySelector('.term');
     expect($term.title).to.equal('Click to define');
-    $term.click();
+    click($term);
     var items = this.glossary.list.visibleItems;
     expect(items.length).to.equal(1);
     expect(items[0].elm.innerText.indexOf('foo')).to.be.greaterThan(-1);
