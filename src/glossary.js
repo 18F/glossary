@@ -4,7 +4,7 @@
 
 var _ = require('underscore');
 var List = require('list.js');
-var accordion = require('accordion/src/accordion');
+var Accordion = require('accordion/src/accordion').Accordion;
 
 var KEYCODE_ESC = 27;
 
@@ -19,18 +19,15 @@ function selectorMatches(el, selector) {
 
 var ITEM_TEMPLATE =
   '<li id="glossary-list-item" class="glossary__item">' +
-    '<div class="js-accordion_header accordion__header">' +
-      '<h4 class="glossary-term"></h4>' +
-      '<button class="button button--secondary accordion__button js-accordion_button">' +
-        '<span class="js-accordion_text u-visually-hidden" data-show="Show definition" data-hide="Hide definition"></span>' +
-      '</button>' +
-    '</div>' +
-    '<p class="glossary-definition js-accordion_item"></p>' +
+    '<button class="accordion__header glossary-term">' +
+    '</button>' +
+    '<p class="glossary-definition"></p>' +
   '</li>';
 
 var defaultSelectors = {
   body: '#glossary',
   toggle: '.js-glossary-toggle',
+  close: '.js-glossary-close',
   term: '.term'
 };
 
@@ -64,6 +61,7 @@ function Glossary(terms, selectors) {
 
   this.$body = document.querySelector(this.selectors.body);
   this.$toggle = document.querySelector(this.selectors.toggle);
+  this.$close = document.querySelector(this.selectors.close);
   this.$search = this.$body.querySelector('.glossary__search');
 
   // Initialize state
@@ -77,13 +75,11 @@ function Glossary(terms, selectors) {
   removeTabindex(this.$body);
 
   // Initialize accordions
-  var accordions = this.$body.querySelectorAll('.js-accordion');
-  [].forEach.call(accordions, function(elm) {
-    Object.create(accordion).init(elm);
-  });
+  new Accordion();
 
   // Bind listeners
   this.$toggle.addEventListener('click', this.toggle.bind(this));
+  this.$close.addEventListener('click', this.hide.bind(this));
   this.$body.addEventListener('click', '.toggle', this.toggle.bind(this));
   this.$search.addEventListener('input', this.handleInput.bind(this));
 
