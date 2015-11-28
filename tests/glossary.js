@@ -58,7 +58,9 @@ describe('glossary', function() {
       '<button class="js-glossary-toggle"></button>' +
       '<span class="term" data-term="foo"></span>' +
       '<div id="glossary">' +
-        '<button class="toggle"></button>' +
+        '<button class="js-glossary-close">' +
+          '<span>Hide glossary</span>' +
+        '</button>' +
         '<input class="glossary__search" />' +
         '<ul class="glossary__list js-accordion"></ul>' +
       '</div>';
