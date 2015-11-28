@@ -15,11 +15,10 @@
     "list.js": "git://github.com/jmcarp/list.js.git",
     "underscore": "^1.8.3"
   },
+  "main": "src/glossary.js",
   "devDependencies": {
     "chai": "^3.2.0",
     "mocha": "^2.2.5",
-    "mochify": "^2.13.0",
-    "sinon": "^1.16.1",
-    "watch": "^0.16.0"
+    "mochify": "^2.13.0"
   }
 }

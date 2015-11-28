@@ -5,7 +5,7 @@
 var chai = require('chai');
 var expect = chai.expect;
 
-var Glossary = require('../src/glossary').Glossary;
+var Glossary = require('../src/glossary');
 
 var terms = [
   {

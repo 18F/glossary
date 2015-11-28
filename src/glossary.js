@@ -4,7 +4,7 @@
 
 var _ = require('underscore');
 var List = require('list.js');
-var Accordion = require('accordion/src/accordion').Accordion;
+var Accordion = require('accordion');
 
 var KEYCODE_ENTER = 13;
 var KEYCODE_ESC = 27;
@@ -194,4 +194,4 @@ Glossary.prototype.handleKeyup = function(e) {
   }
 };
 
-module.exports = {Glossary: Glossary};
+module.exports = Glossary;
