@@ -1,7 +1,5 @@
 'use strict';
 
-/* global document */
-
 var _ = require('underscore');
 var List = require('list.js');
 var Accordion = require('accordion');
@@ -22,12 +20,6 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
-function addEventListener(elm, event, callback) {
-  if (elm) {
-    elm.addEventListener(event, callback);
-  }
-}
-
 var ITEM_TEMPLATE =
   '<li id="glossary-list-item" class="glossary__item">' +
     '<button class="accordion__header glossary-term">' +
@@ -42,22 +34,22 @@ var defaultSelectors = {
   term: '.term'
 };
 
-function removeTabindex($elm) {
-  var elms = getTabIndex($elm);
+function removeTabindex(elm) {
+  var elms = getTabIndex(elm);
   forEach(elms, function(elm) {
     elm.setAttribute('tabIndex', '-1');
   });
 }
 
-function restoreTabindex($elm) {
-  var elms = getTabIndex($elm);
+function restoreTabindex(elm) {
+  var elms = getTabIndex(elm);
   forEach(elms, function(elm) {
     elm.setAttribute('tabIndex', '0');
   });
 }
 
-function getTabIndex($elm) {
-  return $elm.querySelectorAll('a, button, input, [tabindex]');
+function getTabIndex(elm) {
+  return elm.querySelectorAll('a, button, input, [tabindex]');
 }
 
 /**
@@ -70,10 +62,10 @@ function Glossary(terms, selectors) {
   this.terms = terms;
   this.selectors = _.extend({}, defaultSelectors, selectors);
 
-  this.$body = document.querySelector(this.selectors.body);
-  this.$toggle = document.querySelector(this.selectors.toggle);
-  this.$close = document.querySelector(this.selectors.close);
-  this.$search = this.$body.querySelector('.glossary__search');
+  this.body = document.querySelector(this.selectors.body);
+  this.toggleBtn = document.querySelector(this.selectors.toggle);
+  this.closeBtn = document.querySelector(this.selectors.close);
+  this.search = this.body.querySelector('.glossary__search');
 
   // Initialize state
   this.isOpen = false;
@@ -83,18 +75,18 @@ function Glossary(terms, selectors) {
   this.linkTerms();
 
   // Remove tabindices
-  removeTabindex(this.$body);
+  removeTabindex(this.body);
 
   // Initialize accordions
-  new Accordion();
+  this.accordion = new Accordion();
 
   // Bind listeners
-  addEventListener(this.$toggle, 'click', this.toggle.bind(this));
-  addEventListener(this.$close, 'click', this.hide.bind(this));
-  addEventListener(this.$body, 'click', '.toggle', this.toggle.bind(this));
-  addEventListener(this.$search, 'input', this.handleInput.bind(this));
-
-  document.body.addEventListener('keyup', this.handleKeyup.bind(this));
+  this.listeners = [];
+  this.addEventListener(this.toggleBtn, 'click', this.toggle.bind(this));
+  this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
+  this.addEventListener(this.body, 'click', '.toggle', this.toggle.bind(this));
+  this.addEventListener(this.search, 'input', this.handleInput.bind(this));
+  this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
 }
 
 /** Populate internal list.js list of terms */
@@ -111,8 +103,8 @@ Glossary.prototype.populate = function() {
 
 /** Add links to terms in body */
 Glossary.prototype.linkTerms = function() {
-  var $terms = document.querySelectorAll(this.selectors.term);
-  forEach($terms, function(term) {
+  var terms = document.querySelectorAll(this.selectors.term);
+  forEach(terms, function(term) {
     term.setAttribute('title', 'Click to define');
     term.setAttribute('tabIndex', 0);
     term.setAttribute('data-term', (term.getAttribute('data-term') || '').toLowerCase());
@@ -132,13 +124,13 @@ Glossary.prototype.handleTermTouch = function(e) {
 
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
-  this.$search.value = term;
+  this.search.value = term;
 
   // Highlight the term and remove other highlights
-  forEach(this.$body.querySelectorAll('.term--highlight'), function(term) {
+  forEach(this.body.querySelectorAll('.term--highlight'), function(term) {
     term.classList.remove('term--highlight');
   });
-  forEach(this.$body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
+  forEach(this.body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
     term.classList.add('term--highlight');
   });
   this.list.filter(function(item) {
@@ -148,9 +140,9 @@ Glossary.prototype.findTerm = function(term) {
   // Hack: Expand text for selected item
   this.list.search();
   this.list.visibleItems.forEach(function(item) {
-    var $elm = item.elm.querySelector('div');
-    if ($elm && $elm.classList.contains('accordion--collapsed')) {
-      $elm.querySelector('.accordion__button').click();
+    var elm = item.elm.querySelector('div');
+    if (elm && elm.classList.contains('accordion--collapsed')) {
+      elm.querySelector('.accordion__button').click();
     }
   });
 };
@@ -161,21 +153,21 @@ Glossary.prototype.toggle = function() {
 };
 
 Glossary.prototype.show = function() {
-  this.$body.classList.add('is-open');
-  this.$body.setAttribute('aria-hidden', 'false');
-  this.$toggle.classList.add('active');
-  this.$search.focus();
+  this.body.classList.add('is-open');
+  this.body.setAttribute('aria-hidden', 'false');
+  this.toggleBtn.classList.add('active');
+  this.search.focus();
   this.isOpen = true;
-  restoreTabindex(this.$body);
+  restoreTabindex(this.body);
 };
 
 Glossary.prototype.hide = function() {
-  this.$body.classList.remove('is-open');
-  this.$body.setAttribute('aria-hidden', 'true');
-  this.$toggle.classList.remove('active');
-  this.$toggle.focus();
+  this.body.classList.remove('is-open');
+  this.body.setAttribute('aria-hidden', 'true');
+  this.toggleBtn.classList.remove('active');
+  this.toggleBtn.focus();
   this.isOpen = false;
-  removeTabindex(this.$body);
+  removeTabindex(this.body);
 };
 
 /** Remove existing filters on input */
@@ -192,6 +184,24 @@ Glossary.prototype.handleKeyup = function(e) {
       this.hide();
     }
   }
+};
+
+Glossary.prototype.addEventListener = function(elm, event, callback) {
+  if (elm) {
+    elm.addEventListener(event, callback);
+    this.listeners.push({
+      elm: elm,
+      event: event,
+      callback: callback
+    });
+  }
+};
+
+Glossary.prototype.destroy = function() {
+  this.accordion.destroy();
+  this.listeners.forEach(function(listener) {
+    listener.elm.removeEventListener(listener.event, listener.callback);
+  });
 };
 
 module.exports = Glossary;

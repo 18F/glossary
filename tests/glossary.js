@@ -1,7 +1,5 @@
 'use strict';
 
-/* global require, describe, before, beforeEach, it */
-
 var chai = require('chai');
 var expect = chai.expect;
 
@@ -20,16 +18,16 @@ var terms = [
 
 function isOpen(glossary) {
   return glossary.isOpen &&
-    glossary.$body.classList.contains('is-open') &&
-    glossary.$body.getAttribute('aria-hidden') === 'false' &&
-    glossary.$toggle.classList.contains('active');
+    glossary.body.classList.contains('is-open') &&
+    glossary.body.getAttribute('aria-hidden') === 'false' &&
+    glossary.toggleBtn.classList.contains('active');
 }
 
 function isClosed(glossary) {
   return !glossary.isOpen &&
-    !glossary.$body.classList.contains('is-open') &&
-    glossary.$body.getAttribute('aria-hidden') === 'true' &&
-    !glossary.$toggle.classList.contains('active');
+    !glossary.body.classList.contains('is-open') &&
+    glossary.body.getAttribute('aria-hidden') === 'true' &&
+    !glossary.toggleBtn.classList.contains('active');
 }
 
 // See http://stackoverflow.com/a/15948355/1222326
@@ -104,4 +102,9 @@ describe('glossary', function() {
     expect(items[0].elm.innerText.indexOf('foo')).to.be.greaterThan(-1);
   });
 
+  it('removes event listeners on destroy', function() {
+    this.glossary.destroy();
+    this.glossary.toggleBtn.click();
+    expect(isOpen(this.glossary)).to.be.false;
+  });
 });
