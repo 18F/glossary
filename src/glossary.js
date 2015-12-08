@@ -144,14 +144,9 @@ Glossary.prototype.findTerm = function(term) {
     return item._values['glossary-term'].toLowerCase() === term;
   });
 
-  // Hack: Expand text for selected item
   this.list.search();
-  this.list.visibleItems.forEach(function(item) {
-    var elm = item.elm.querySelector('div');
-    if (elm && elm.classList.contains('accordion--collapsed')) {
-      elm.querySelector('.accordion__button').click();
-    }
-  });
+  var button = this.list.visibleItems[0].elm.querySelector('button');
+  this.accordion.expand(button);
 };
 
 Glossary.prototype.toggle = function() {
