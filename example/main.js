@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var Glossary = require('../src/glossary').Glossary;
+var Glossary = require('../src/glossary');
 var terms = require('./terms.json');
 
 new Glossary(terms);
@@ -108,35 +108,29 @@ var defaultSelectors = {
 };
 
 var Accordion = function(selectors, opts) {
-  var self = this;
-  self.selectors = _.extend({}, defaultSelectors, selectors);
-  self.opts = _.extend({}, defaultOpts, opts);
+  this.selectors = _.extend({}, defaultSelectors, selectors);
+  this.opts = _.extend({}, defaultOpts, opts);
 
-  self.body = document.querySelector(this.selectors.body);
-  self.triggers = self.findTriggers();
+  this.body = document.querySelector(this.selectors.body);
+  this.triggers = this.findTriggers();
 
-  self.body.addEventListener('click', function(e) {
-    if ( _.contains(self.triggers, e.target) ) {
-      if (self.opts.collapseOthers) {
-        self.collapseAll();
-      }
-      self.toggle(e.target);
-    }
-  });
+  this.listeners = [];
+  this.addEventListener(this.body, 'click', this.handleClickBody.bind(this));
+};
+
+Accordion.prototype.handleClickBody = function(e) {
+  if (_.contains(this.triggers, e.target)) {
+    this.toggle(e.target);
+  }
 };
 
 Accordion.prototype.findTriggers = function() {
   var self = this;
   var triggers = this.body.querySelectorAll(this.selectors.trigger);
-  var newTriggers = [];
-  var index = 0;
-  _.each(triggers, function(trigger) {
+  _.each(triggers, function(trigger, index) {
     self.setAria(trigger, index);
-    newTriggers.push(trigger);
-    index++;
   });
-
-  return newTriggers;
+  return triggers;
 };
 
 Accordion.prototype.setAria = function(trigger, index) {
@@ -145,16 +139,18 @@ Accordion.prototype.setAria = function(trigger, index) {
   trigger.setAttribute('aria-controls', contentID);
   trigger.setAttribute('aria-expanded', 'false');
   content.setAttribute('id', contentID);
-  content.setAttribute('aria-hidden', true);
-}
+  content.setAttribute('aria-hidden', 'true');
+};
 
 Accordion.prototype.toggle = function(elm) {
-  var button = elm;
   var f = elm.getAttribute('aria-expanded') === 'true' ? this.collapse : this.expand;
-  f.call(this, button);
+  f.call(this, elm);
 };
 
 Accordion.prototype.expand = function(button) {
+  if (this.opts.collapseOthers) {
+    this.collapseAll();
+  }
   var content = document.querySelector('#' + button.getAttribute('aria-controls'));
   button.setAttribute('aria-expanded', 'true');
   button.classList.add(this.opts.classes.expandedButton);
@@ -170,7 +166,7 @@ Accordion.prototype.collapse = function(button) {
 
 Accordion.prototype.collapseAll = function() {
   var self = this;
-  this.triggers.forEach(function(trigger) {
+  _.each(this.triggers, function(trigger) {
     self.collapse(trigger);
   });
 };
@@ -182,7 +178,24 @@ Accordion.prototype.expandAll = function() {
   });
 };
 
-module.exports = {Accordion: Accordion};
+Accordion.prototype.addEventListener = function(elm, event, callback) {
+  if (elm) {
+    elm.addEventListener(event, callback);
+    this.listeners.push({
+      elm: elm,
+      event: event,
+      callback: callback
+    });
+  }
+};
+
+Accordion.prototype.destroy = function() {
+  this.listeners.forEach(function(listener) {
+    listener.elm.removeEventListener(listener.event, listener.callback);
+  });
+};
+
+module.exports = Accordion;
 
 },{"underscore":22}],4:[function(require,module,exports){
 /*
@@ -2992,12 +3005,11 @@ module.exports = function(list) {
 },{}],23:[function(require,module,exports){
 'use strict';
 
-/* global document */
-
 var _ = require('underscore');
 var List = require('list.js');
-var Accordion = require('accordion/src/accordion').Accordion;
+var Accordion = require('accordion');
 
+var KEYCODE_ENTER = 13;
 var KEYCODE_ESC = 27;
 
 // https://davidwalsh.name/element-matches-selector
@@ -3009,9 +3021,13 @@ function selectorMatches(el, selector) {
   return f.call(el, selector);
 }
 
+function forEach(values, callback) {
+  return [].forEach.call(values, callback);
+}
+
 var ITEM_TEMPLATE =
-  '<li id="glossary-list-item" class="glossary__item">' +
-    '<button class="accordion__header glossary-term">' +
+  '<li id="glossary-list-item">' +
+    '<button class="glossary-term">' +
     '</button>' +
     '<p class="glossary-definition"></p>' +
   '</li>';
@@ -3023,22 +3039,26 @@ var defaultSelectors = {
   term: '.term'
 };
 
-function removeTabindex($elm) {
-  var elms = getTabIndex($elm);
-  [].forEach.call(elms, function(elm) {
+var defaultClasses = {
+  termHighlight: 'term--highlight',
+};
+
+function removeTabindex(elm) {
+  var elms = getTabIndex(elm);
+  forEach(elms, function(elm) {
     elm.setAttribute('tabIndex', '-1');
   });
 }
 
-function restoreTabindex($elm) {
-  var elms = getTabIndex($elm);
-  [].forEach.call(elms, function(elm) {
+function restoreTabindex(elm) {
+  var elms = getTabIndex(elm);
+  forEach(elms, function(elm) {
     elm.setAttribute('tabIndex', '0');
   });
 }
 
-function getTabIndex($elm) {
-  return $elm.querySelectorAll('a, button, input, [tabindex]');
+function getTabIndex(elm) {
+  return elm.querySelectorAll('a, button, input, [tabindex]');
 }
 
 /**
@@ -3046,15 +3066,17 @@ function getTabIndex($elm) {
  * @constructor
  * @param {Array} terms - Term objects with "glossary-term" and "glossary-definition" keys
  * @param {Object} selectors - CSS selectors for glossary components
+ * @param {Object} classes - CSS classes to be applied for styling
  */
-function Glossary(terms, selectors) {
+function Glossary(terms, selectors, classes) {
   this.terms = terms;
   this.selectors = _.extend({}, defaultSelectors, selectors);
+  this.classes = _.extend({}, defaultClasses, classes);
 
-  this.$body = document.querySelector(this.selectors.body);
-  this.$toggle = document.querySelector(this.selectors.toggle);
-  this.$close = document.querySelector(this.selectors.close);
-  this.$search = this.$body.querySelector('.glossary__search');
+  this.body = document.querySelector(this.selectors.body);
+  this.toggleBtn = document.querySelector(this.selectors.toggle);
+  this.closeBtn = document.querySelector(this.selectors.close);
+  this.search = this.body.querySelector('.glossary__search');
 
   // Initialize state
   this.isOpen = false;
@@ -3064,18 +3086,18 @@ function Glossary(terms, selectors) {
   this.linkTerms();
 
   // Remove tabindices
-  removeTabindex(this.$body);
+  removeTabindex(this.body);
 
   // Initialize accordions
-  new Accordion();
+  this.accordion = new Accordion();
 
   // Bind listeners
-  this.$toggle.addEventListener('click', this.toggle.bind(this));
-  this.$close.addEventListener('click', this.hide.bind(this));
-  this.$body.addEventListener('click', '.toggle', this.toggle.bind(this));
-  this.$search.addEventListener('input', this.handleInput.bind(this));
-
-  document.body.addEventListener('keyup', this.handleKeyup.bind(this));
+  this.listeners = [];
+  this.addEventListener(this.toggleBtn, 'click', this.toggle.bind(this));
+  this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
+  this.addEventListener(this.body, 'click', '.toggle', this.toggle.bind(this));
+  this.addEventListener(this.search, 'input', this.handleInput.bind(this));
+  this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
 }
 
 /** Populate internal list.js list of terms */
@@ -3092,8 +3114,8 @@ Glossary.prototype.populate = function() {
 
 /** Add links to terms in body */
 Glossary.prototype.linkTerms = function() {
-  var $terms = document.querySelectorAll(this.selectors.term);
-  [].forEach.call($terms, function(term) {
+  var terms = document.querySelectorAll(this.selectors.term);
+  forEach(terms, function(term) {
     term.setAttribute('title', 'Click to define');
     term.setAttribute('tabIndex', 0);
     term.setAttribute('data-term', (term.getAttribute('data-term') || '').toLowerCase());
@@ -3103,7 +3125,7 @@ Glossary.prototype.linkTerms = function() {
 };
 
 Glossary.prototype.handleTermTouch = function(e) {
-  if (e.which === 13 || e.type === 'click') {
+  if (e.which === KEYCODE_ENTER || e.type === 'click') {
     if (selectorMatches(e.target, this.selectors.term)) {
       this.show();
       this.findTerm(e.target.getAttribute('data-term'));
@@ -3113,27 +3135,23 @@ Glossary.prototype.handleTermTouch = function(e) {
 
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
-  this.$search.value = term;
+  this.search.value = term;
+  var highlightClass = this.classes.termHighlight;
 
   // Highlight the term and remove other highlights
-  [].forEach.call(this.$body.querySelectorAll('.term--highlight'), function(term) {
-    term.classList.remove('term--highlight');
+  forEach(this.body.querySelectorAll('.' + highlightClass), function(term) {
+    term.classList.remove(highlightClass);
   });
-  [].forEach.call(this.$body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
-    term.classList.add('term--highlight');
+  forEach(this.body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
+    term.classList.add(highlightClass);
   });
   this.list.filter(function(item) {
     return item._values['glossary-term'].toLowerCase() === term;
   });
 
-  // Hack: Expand text for selected item
   this.list.search();
-  this.list.visibleItems.forEach(function(item) {
-    var $elm = item.elm.querySelector('div');
-    if ($elm.classList.contains('accordion--collapsed')) {
-      $elm.querySelector('.accordion__button').click();
-    }
-  });
+  var button = this.list.visibleItems[0].elm.querySelector('button');
+  this.accordion.expand(button);
 };
 
 Glossary.prototype.toggle = function() {
@@ -3142,21 +3160,19 @@ Glossary.prototype.toggle = function() {
 };
 
 Glossary.prototype.show = function() {
-  this.$body.classList.add('is-open');
-  this.$body.setAttribute('aria-hidden', 'false');
-  this.$toggle.classList.add('active');
-  this.$search.focus();
+  this.body.setAttribute('aria-hidden', 'false');
+  this.toggleBtn.setAttribute('aria-expanded','true');
+  this.search.focus();
   this.isOpen = true;
-  restoreTabindex(this.$body);
+  restoreTabindex(this.body);
 };
 
 Glossary.prototype.hide = function() {
-  this.$body.classList.remove('is-open');
-  this.$body.setAttribute('aria-hidden', 'true');
-  this.$toggle.classList.remove('active');
-  this.$toggle.focus();
+  this.body.setAttribute('aria-hidden', 'true');
+  this.toggleBtn.setAttribute('aria-expanded','false');
+  this.toggleBtn.focus();
   this.isOpen = false;
-  removeTabindex(this.$body);
+  removeTabindex(this.body);
 };
 
 /** Remove existing filters on input */
@@ -3175,6 +3191,24 @@ Glossary.prototype.handleKeyup = function(e) {
   }
 };
 
-module.exports = {Glossary: Glossary};
+Glossary.prototype.addEventListener = function(elm, event, callback) {
+  if (elm) {
+    elm.addEventListener(event, callback);
+    this.listeners.push({
+      elm: elm,
+      event: event,
+      callback: callback
+    });
+  }
+};
 
-},{"accordion/src/accordion":3,"list.js":4,"underscore":22}]},{},[1]);
+Glossary.prototype.destroy = function() {
+  this.accordion.destroy();
+  this.listeners.forEach(function(listener) {
+    listener.elm.removeEventListener(listener.event, listener.callback);
+  });
+};
+
+module.exports = Glossary;
+
+},{"accordion":3,"list.js":4,"underscore":22}]},{},[1]);
