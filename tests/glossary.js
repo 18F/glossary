@@ -18,16 +18,14 @@ var terms = [
 
 function isOpen(glossary) {
   return glossary.isOpen &&
-    glossary.body.classList.contains('is-open') &&
     glossary.body.getAttribute('aria-hidden') === 'false' &&
-    glossary.toggleBtn.classList.contains('active');
+    glossary.toggleBtn.getAttribute('aria-expanded') === 'true';
 }
 
 function isClosed(glossary) {
   return !glossary.isOpen &&
-    !glossary.body.classList.contains('is-open') &&
     glossary.body.getAttribute('aria-hidden') === 'true' &&
-    !glossary.toggleBtn.classList.contains('active');
+    glossary.toggleBtn.getAttribute('aria-expanded') === 'false';
 }
 
 // See http://stackoverflow.com/a/15948355/1222326
