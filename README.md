@@ -3,7 +3,90 @@
 [![Build Status](https://img.shields.io/travis/18F/glossary/master.svg)](https://travis-ci.org/18F/glossary)
 [![Test Coverage](https://img.shields.io/codecov/c/github/18F/glossary/master.svg)](https://codecov.io/github/18F/glossary)
 
-A work in progress.
+# Getting started
+## Download
+### Via npm (coming soon)
+```
+npm install 18f-glossary
+```
+
+## Create your data
+Create a `terms.json` that follows the following pattern:
+
+```
+{
+  {
+    "glossary-term": "Glossary",
+    "glossary-definition": "A useful tool for finding the definitions of terms"
+  }
+}
+```
+
+## Set up your HTML
+The following is the bare-minum HTML needed in your document:
+
+```
+	<button class="js-glossary-toggle">Glossary</button>
+	<div id="glossary" aria-describedby="glossary-title" aria-hidden="true">
+	  <button title="Close glossary" class="js-glossary-close">Hide glossary</button>
+	  <h2 id="glossary-title">Glossary</h2>
+	  <label for="glossary-search">Filter glossary terms</label>
+	  <input id="glossary-search" class="js-glossary-search" type="search" placeholder="e.g. Committee">
+	  <ul class="js-glossary-search"></ul>
+	</div>
+```
+
+It includes a toggle button, a div for the glossary, a close button inside the glossary, a title, a search input and label, and a `<ul>` for the terms.
+
+Then, to add glossary terms to the body of the page, add a `data-term` attribute to the terms. For example:
+
+```
+A <span data-term="committee">committee</span> is a thing.
+```
+
+The data attribute must match the text of the term in your JSON file exactly, but it is not case-sensitive.
+
+
+## Initialize
+In whichever file you initialize your JavaScript components, initialize the glossary like so:
+
+```
+	var glossary = require('18f-glossary');
+	
+	// JSON file of terms and definitions
+	var terms = require('terms');
+	
+	// Optional configurion objects
+	var selectors = { ... };
+	var classes = { ... };
+	
+	new glossary.Glossary(terms, selectors, classes);
+
+```
+
+# Configuration
+The constructor accepts an optional hash of selectors as its second parameter:
+
+- `body`: ID or class of the glossary panel that will be shown and hidden. _Default_: `#glossary`
+- `close`: ID or class of the close button inside the glossary panel. _Default_: `.js-glossary-close`
+- `list`: ID or class of the `<ul>` that will be populated with terms. _Default_: `.js-glossary-list`
+- `search`: ID or class of the `<input>` that will be used to filter the list. _Default_: `.js-glossary-search`
+- `toggle`: ID or class of the element that will be used to open and close the glossary in the main body of the document. _Default_: `.js-glossary-toggle`
+
+The constructor also accepts an optional hash of class names to be applied to to the DOM as it's third parameter. Currently this only has one property:
+
+- `termHighlight`: The class to be applied to terms in the body when they are highlighted 
+
+# Methods
+- `Glossary.show()`: Show the glossary
+- `Glossary.hide()`: Hide the glossary
+- `Glossary.toggle()`: Toggle the glossary open or closed
+- `Glossary.destroy()`: Completely remove the glossary from the DOM
+- `Glossary.findTerm(term)`: If the glossary is opens, filters the list down to the term called, expands the term, and highlights the associated term in the DOM
+
+# Styling
+With the exception of the `termHighlight` class, all styling is handled via ARIA attributes. You will need to add styles for `aria-hidden="true"` in order to hide the glossary panel and the glossary definitions. You may also add styles for `button[aria-expanded="true"]` which will change the display of the terms buttons when opened. 
+
 
 ## Public domain
 
