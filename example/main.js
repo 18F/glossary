@@ -3034,8 +3034,10 @@ var ITEM_TEMPLATE =
 
 var defaultSelectors = {
   body: '#glossary',
+  search: '.js-glossary-search',
   toggle: '.js-glossary-toggle',
-  close: '.js-glossary-close'
+  close: '.js-glossary-close',
+  list: '.js-glossary-list'
 };
 
 var defaultClasses = {
@@ -3075,7 +3077,7 @@ function Glossary(terms, selectors, classes) {
   this.body = document.querySelector(this.selectors.body);
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
-  this.search = this.body.querySelector('.glossary__search');
+  this.search = this.body.querySelector(this.selectors.search);
 
   // Initialize state
   this.isOpen = false;
@@ -3101,11 +3103,14 @@ function Glossary(terms, selectors, classes) {
 
 /** Populate internal list.js list of terms */
 Glossary.prototype.populate = function() {
+  var listClass = this.selectors.list.split('.')[1];
+  var searchClass = this.selectors.search.split('.')[1];
+
   var options = {
     item: ITEM_TEMPLATE,
     valueNames: ['glossary-term'],
-    listClass: 'glossary__list',
-    searchClass: 'glossary__search',
+    listClass: listClass,
+    searchClass: searchClass,
   };
   this.list = new List('glossary', options, this.terms);
   this.list.sort('glossary-term', {order: 'asc'});

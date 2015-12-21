@@ -57,8 +57,8 @@ describe('glossary', function() {
         '<button class="js-glossary-close">' +
           '<span>Hide glossary</span>' +
         '</button>' +
-        '<input class="glossary__search" />' +
-        '<ul class="glossary__list js-accordion"></ul>' +
+        '<input class="js-glossary-search" />' +
+        '<ul class="js-glossary-list js-accordion"></ul>' +
       '</div>';
     this.glossary = new Glossary(terms, {body: '#glossary'});
   });
