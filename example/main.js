@@ -3026,7 +3026,7 @@ function forEach(values, callback) {
 }
 
 var ITEM_TEMPLATE =
-  '<li id="glossary-list-item">' +
+  '<li>' +
     '<button class="glossary-term">' +
     '</button>' +
     '<p class="glossary-definition"></p>' +
@@ -3035,8 +3035,7 @@ var ITEM_TEMPLATE =
 var defaultSelectors = {
   body: '#glossary',
   toggle: '.js-glossary-toggle',
-  close: '.js-glossary-close',
-  term: '.term'
+  close: '.js-glossary-close'
 };
 
 var defaultClasses = {
@@ -3106,7 +3105,7 @@ Glossary.prototype.populate = function() {
     item: ITEM_TEMPLATE,
     valueNames: ['glossary-term'],
     listClass: 'glossary__list',
-    searchClass: 'glossary__search'
+    searchClass: 'glossary__search',
   };
   this.list = new List('glossary', options, this.terms);
   this.list.sort('glossary-term', {order: 'asc'});
@@ -3114,7 +3113,7 @@ Glossary.prototype.populate = function() {
 
 /** Add links to terms in body */
 Glossary.prototype.linkTerms = function() {
-  var terms = document.querySelectorAll(this.selectors.term);
+  var terms = document.querySelectorAll('[data-term]');
   forEach(terms, function(term) {
     term.setAttribute('title', 'Click to define');
     term.setAttribute('tabIndex', 0);
@@ -3126,7 +3125,7 @@ Glossary.prototype.linkTerms = function() {
 
 Glossary.prototype.handleTermTouch = function(e) {
   if (e.which === KEYCODE_ENTER || e.type === 'click') {
-    if (selectorMatches(e.target, this.selectors.term)) {
+    if (selectorMatches(e.target, '[data-term]')) {
       this.show();
       this.findTerm(e.target.getAttribute('data-term'));
     }

@@ -30,8 +30,7 @@ var ITEM_TEMPLATE =
 var defaultSelectors = {
   body: '#glossary',
   toggle: '.js-glossary-toggle',
-  close: '.js-glossary-close',
-  term: '.term'
+  close: '.js-glossary-close'
 };
 
 var defaultClasses = {
@@ -109,7 +108,7 @@ Glossary.prototype.populate = function() {
 
 /** Add links to terms in body */
 Glossary.prototype.linkTerms = function() {
-  var terms = document.querySelectorAll(this.selectors.term);
+  var terms = document.querySelectorAll('[data-term]');
   forEach(terms, function(term) {
     term.setAttribute('title', 'Click to define');
     term.setAttribute('tabIndex', 0);
@@ -121,7 +120,7 @@ Glossary.prototype.linkTerms = function() {
 
 Glossary.prototype.handleTermTouch = function(e) {
   if (e.which === KEYCODE_ENTER || e.type === 'click') {
-    if (selectorMatches(e.target, this.selectors.term)) {
+    if (selectorMatches(e.target, '[data-term]')) {
       this.show();
       this.findTerm(e.target.getAttribute('data-term'));
     }
