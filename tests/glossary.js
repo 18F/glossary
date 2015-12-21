@@ -52,7 +52,7 @@ describe('glossary', function() {
   beforeEach(function() {
     this.fixture.innerHTML =
       '<button class="js-glossary-toggle"></button>' +
-      '<span class="term" data-term="foo"></span>' +
+      '<span data-term="foo"></span>' +
       '<div id="glossary">' +
         '<button class="js-glossary-close">' +
           '<span>Hide glossary</span>' +
@@ -85,7 +85,7 @@ describe('glossary', function() {
   });
 
   it('linkifies terms in the document', function() {
-    var $term = this.fixture.querySelector('.term');
+    var $term = this.fixture.querySelector('[data-term]');
     expect($term.title).to.equal('Click to define');
     click($term);
     var items = this.glossary.list.visibleItems;
