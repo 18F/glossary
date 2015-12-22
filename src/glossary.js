@@ -85,7 +85,7 @@ function Glossary(terms, selectors, classes) {
   removeTabindex(this.body);
 
   // Initialize accordions
-  this.accordion = new Accordion();
+  this.accordion = new Accordion({body: this.selectors.list});
 
   // Bind listeners
   this.listeners = [];
@@ -98,8 +98,9 @@ function Glossary(terms, selectors, classes) {
 
 /** Populate internal list.js list of terms */
 Glossary.prototype.populate = function() {
-  var listClass = this.selectors.list.split('.')[1];
-  var searchClass = this.selectors.search.split('.')[1];
+  var glossaryId = this.selectors.body.slice(1)
+  var listClass = this.selectors.list.slice(1);
+  var searchClass = this.selectors.search.slice(1);
 
   var options = {
     item: ITEM_TEMPLATE,
@@ -107,7 +108,7 @@ Glossary.prototype.populate = function() {
     listClass: listClass,
     searchClass: searchClass,
   };
-  this.list = new List('glossary', options, this.terms);
+  this.list = new List(glossaryId, options, this.terms);
   this.list.sort('glossary-term', {order: 'asc'});
 };
 

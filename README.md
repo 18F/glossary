@@ -67,10 +67,10 @@ In whichever file you initialize your JavaScript components, initialize the glos
 # Configuration
 The constructor accepts an optional hash of selectors as its second parameter:
 
-- `body`: ID or class of the glossary panel that will be shown and hidden. _Default_: `#glossary`
+- `body`: ID of the glossary panel that will be shown and hidden. _Default_: `#glossary`
 - `close`: ID or class of the close button inside the glossary panel. _Default_: `.js-glossary-close`
-- `list`: ID or class of the `<ul>` that will be populated with terms. _Default_: `.js-glossary-list`
-- `search`: ID or class of the `<input>` that will be used to filter the list. _Default_: `.js-glossary-search`
+- `list`: Class of the `<ul>` that will be populated with terms. _Default_: `.js-glossary-list`
+- `search`: Class of the `<input>` that will be used to filter the list. _Default_: `.js-glossary-search`
 - `toggle`: ID or class of the element that will be used to open and close the glossary in the main body of the document. _Default_: `.js-glossary-toggle`
 
 The constructor also accepts an optional hash of class names to be applied to to the DOM as it's third parameter. Currently this only has one property:
