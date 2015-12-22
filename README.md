@@ -16,8 +16,8 @@ Create a `terms.json` that follows the following pattern:
 ```
 {
   {
-    "glossary-term": "Glossary",
-    "glossary-definition": "A useful tool for finding the definitions of terms"
+    "term": "Glossary",
+    "definition": "A useful tool for finding the definitions of terms"
   }
 }
 ```
@@ -73,9 +73,11 @@ The constructor accepts an optional hash of selectors as its second parameter:
 - `search`: Class of the `<input>` that will be used to filter the list. _Default_: `.js-glossary-search`
 - `toggle`: ID or class of the element that will be used to open and close the glossary in the main body of the document. _Default_: `.js-glossary-toggle`
 
-The constructor also accepts an optional hash of class names to be applied to to the DOM as it's third parameter. Currently this only has one property:
+The constructor also accepts an optional hash of class names to be applied to to the DOM as its third parameter.
 
-- `termHighlight`: The class to be applied to terms in the body when they are highlighted 
+- `definitionClass`: Single class applied to the `<div>` that contains the term's definition. _Default_: `glossary__definition`
+- `highlightedTerm`: Single class applied to terms in the body when they are highlighted. _Default_: `term--higlight`
+- `termClass`: Single class applied to the `<button>` element that opens the definition. _Default_: `glossary__term`
 
 # Methods
 - `Glossary.show()`: Show the glossary
@@ -85,8 +87,9 @@ The constructor also accepts an optional hash of class names to be applied to to
 - `Glossary.findTerm(term)`: If the glossary is opens, filters the list down to the term called, expands the term, and highlights the associated term in the DOM
 
 # Styling
-With the exception of the `termHighlight` class, all styling is handled via ARIA attributes. You will need to add styles for `aria-hidden="true"` in order to hide the glossary panel and the glossary definitions. You may also add styles for `button[aria-expanded="true"]` which will change the display of the terms buttons when opened. 
+To style the glossary terms and defintions in the accordion list, either use the default classes or whichever ones you passed in. To change the style of the button's when the accordion elements are expanded, you can select for `aria-expanded="true"]`.
 
+You will need to add styles for `aria-hidden="true"` in order to hide the glossary panel and the glossary definitions.
 
 ## Public domain
 
