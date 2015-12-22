@@ -20,13 +20,6 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
-var ITEM_TEMPLATE =
-  '<li>' +
-    '<button class="glossary-term">' +
-    '</button>' +
-    '<p class="glossary-definition"></p>' +
-  '</li>';
-
 var defaultSelectors = {
   body: '#glossary',
   search: '.js-glossary-search',
@@ -36,7 +29,9 @@ var defaultSelectors = {
 };
 
 var defaultClasses = {
-  termHighlight: 'term--highlight',
+  definitionClass: 'glossary__definition',
+  highlightedTerm: 'term--highlight',
+  termClass: 'glossary__term'
 };
 
 function removeTabindex(elm) {
@@ -73,12 +68,14 @@ function Glossary(terms, selectors, classes) {
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
   this.search = this.body.querySelector(this.selectors.search);
+  this.list = this.body.querySelector(this.selectors.list);
 
   // Initialize state
   this.isOpen = false;
 
   // Update DOM
   this.populate();
+  this.initList();
   this.linkTerms();
 
   // Remove tabindices
@@ -96,20 +93,43 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
 }
 
-/** Populate internal list.js list of terms */
 Glossary.prototype.populate = function() {
-  var glossaryId = this.selectors.body.slice(1)
+  var self = this;
+  var terms = this.terms.map(function(term) {
+    return {
+      'term': term.term,
+      'definition': term.definition,
+      'termClass': self.classes.termClass,
+      'definitionClass': self.classes.definitionClass
+    };
+  });
+
+  var itemTemplate = _.template(
+    '<li>' +
+      '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
+      '</button>' +
+      '<div class="{{ definitionClass }}">{{ definition }}</div>' +
+    '</li>',
+    {interpolate: /\{\{(.+?)\}\}/g}
+  );
+
+  terms.forEach(function(term) {
+    this.list.insertAdjacentHTML('beforeend', itemTemplate(term));
+  }, this);
+};
+
+/** Initialize list.js list of terms */
+Glossary.prototype.initList = function() {
+  var glossaryId = this.selectors.body.slice(1);
   var listClass = this.selectors.list.slice(1);
   var searchClass = this.selectors.search.slice(1);
-
   var options = {
-    item: ITEM_TEMPLATE,
-    valueNames: ['glossary-term'],
+    valueNames: ['data-glossary-term'],
     listClass: listClass,
     searchClass: searchClass,
   };
-  this.list = new List(glossaryId, options, this.terms);
-  this.list.sort('glossary-term', {order: 'asc'});
+  this.list = new List(glossaryId, options);
+  this.list.sort('data-glossary-term', {order: 'asc'});
 };
 
 /** Add links to terms in body */
@@ -136,7 +156,7 @@ Glossary.prototype.handleTermTouch = function(e) {
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
   this.search.value = term;
-  var highlightClass = this.classes.termHighlight;
+  var highlightClass = this.classes.highlightedTerm;
 
   // Highlight the term and remove other highlights
   forEach(this.body.querySelectorAll('.' + highlightClass), function(term) {
@@ -146,7 +166,7 @@ Glossary.prototype.findTerm = function(term) {
     term.classList.add(highlightClass);
   });
   this.list.filter(function(item) {
-    return item._values['glossary-term'].toLowerCase() === term;
+    return item._values['data-glossary-term'].toLowerCase() === term;
   });
 
   this.list.search();

@@ -7,12 +7,12 @@ var Glossary = require('../src/glossary');
 
 var terms = [
   {
-    'glossary-term': 'foo',
-    'glossary-definition': 'definition of foo',
+    'term': 'foo',
+    'definition': 'definition of foo',
   },
   {
-    'glossary-term': 'bar',
-    'glossary-definition': 'definition of bar',
+    'term': 'bar',
+    'definition': 'definition of bar',
   }
 ];
 
@@ -58,7 +58,7 @@ describe('glossary', function() {
           '<span>Hide glossary</span>' +
         '</button>' +
         '<input class="js-glossary-search" />' +
-        '<ul class="js-glossary-list js-accordion"></ul>' +
+        '<ul class="js-glossary-list"></ul>' +
       '</div>';
     this.glossary = new Glossary(terms, {body: '#glossary'});
   });
