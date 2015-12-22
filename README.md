@@ -87,7 +87,7 @@ The constructor also accepts an optional hash of class names to be applied to to
 - `Glossary.findTerm(term)`: If the glossary is opens, filters the list down to the term called, expands the term, and highlights the associated term in the DOM
 
 # Styling
-To style the glossary terms and defintions in the accordion list, either use the default classes or whichever ones you passed in. To change the style of the button's when the accordion elements are expanded, you can select for `aria-expanded="true"]`.
+To style the glossary terms and defintions in the accordion list, either use the default classes or whichever ones you passed in. To change the style of the buttons when the accordion elements are expanded, you can select for `aria-expanded="true"]`.
 
 You will need to add styles for `aria-hidden="true"` in order to hide the glossary panel and the glossary definitions.
 
