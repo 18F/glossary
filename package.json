@@ -1,8 +1,8 @@
 {
-  "name": "glossary",
+  "name": "glossary-panel",
+  "author": "18F",
   "version": "0.1.0",
-  "description": "",
-  "main": "src/accordion.js",
+  "description": "18F Site Glossary Panel",
   "repository": {
     "type": "git",
     "url": "git://github.com/18F/glossary.git"
@@ -20,5 +20,9 @@
     "chai": "^3.2.0",
     "mocha": "^2.2.5",
     "mochify": "^2.13.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/18f/glossary/issues"
+  },
+  "license": "SEE LICENSE IN README.md"
 }

@@ -7,7 +7,7 @@
 ## Download
 ### Via npm (coming soon)
 ```
-npm install 18f-glossary
+npm install @18f/glossary
 ```
 
 ## Create your data
@@ -52,14 +52,14 @@ In whichever file you initialize your JavaScript components, initialize the glos
 
 ```
 	var glossary = require('18f-glossary');
-	
+
 	// JSON file of terms and definitions
 	var terms = require('terms');
-	
+
 	// Optional configurion objects
 	var selectors = { ... };
 	var classes = { ... };
-	
+
 	new glossary.Glossary(terms, selectors, classes);
 
 ```

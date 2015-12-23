@@ -20,6 +20,15 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
+var itemTemplate = _.template(
+  '<li>' +
+    '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
+    '</button>' +
+    '<div class="{{ definitionClass }}">{{ definition }}</div>' +
+  '</li>',
+  {interpolate: /\{\{(.+?)\}\}/g}
+);
+
 var defaultSelectors = {
   body: '#glossary',
   search: '.js-glossary-search',
@@ -94,27 +103,14 @@ function Glossary(terms, selectors, classes) {
 }
 
 Glossary.prototype.populate = function() {
-  var self = this;
-  var terms = this.terms.map(function(term) {
-    return {
-      'term': term.term,
-      'definition': term.definition,
-      'termClass': self.classes.termClass,
-      'definitionClass': self.classes.definitionClass
+  this.terms.forEach(function(term) {
+    var opts = {
+      term: term.term,
+      definition: term.definition,
+      termClass: this.classes.termClass,
+      definitionClass: this.classes.definitionClass
     };
-  });
-
-  var itemTemplate = _.template(
-    '<li>' +
-      '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
-      '</button>' +
-      '<div class="{{ definitionClass }}">{{ definition }}</div>' +
-    '</li>',
-    {interpolate: /\{\{(.+?)\}\}/g}
-  );
-
-  terms.forEach(function(term) {
-    this.list.insertAdjacentHTML('beforeend', itemTemplate(term));
+    this.list.insertAdjacentHTML('beforeend', itemTemplate(opts));
   }, this);
 };
 
@@ -181,7 +177,7 @@ Glossary.prototype.toggle = function() {
 
 Glossary.prototype.show = function() {
   this.body.setAttribute('aria-hidden', 'false');
-  this.toggleBtn.setAttribute('aria-expanded','true');
+  this.toggleBtn.setAttribute('aria-expanded', 'true');
   this.search.focus();
   this.isOpen = true;
   restoreTabindex(this.body);
@@ -189,7 +185,7 @@ Glossary.prototype.show = function() {
 
 Glossary.prototype.hide = function() {
   this.body.setAttribute('aria-hidden', 'true');
-  this.toggleBtn.setAttribute('aria-expanded','false');
+  this.toggleBtn.setAttribute('aria-expanded', 'false');
   this.toggleBtn.focus();
   this.isOpen = false;
   removeTabindex(this.body);
