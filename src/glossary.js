@@ -31,10 +31,10 @@ var itemTemplate = _.template(
 
 var defaultSelectors = {
   body: '#glossary',
-  search: '.js-glossary-search',
   toggle: '.js-glossary-toggle',
   close: '.js-glossary-close',
-  list: '.js-glossary-list'
+  listClass: '.js-glossary-list',
+  searchClass: '.js-glossary-search'
 };
 
 var defaultClasses = {
@@ -76,8 +76,8 @@ function Glossary(terms, selectors, classes) {
   this.body = document.querySelector(this.selectors.body);
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
-  this.search = this.body.querySelector(this.selectors.search);
-  this.list = this.body.querySelector(this.selectors.list);
+  this.search = this.body.querySelector(this.selectors.searchClass);
+  this.list = this.body.querySelector(this.selectors.listClass);
 
   // Initialize state
   this.isOpen = false;
@@ -91,7 +91,7 @@ function Glossary(terms, selectors, classes) {
   removeTabindex(this.body);
 
   // Initialize accordions
-  this.accordion = new Accordion({body: this.selectors.list});
+  this.accordion = new Accordion({body: this.selectors.listClass});
 
   // Bind listeners
   this.listeners = [];
@@ -117,8 +117,8 @@ Glossary.prototype.populate = function() {
 /** Initialize list.js list of terms */
 Glossary.prototype.initList = function() {
   var glossaryId = this.selectors.body.slice(1);
-  var listClass = this.selectors.list.slice(1);
-  var searchClass = this.selectors.search.slice(1);
+  var listClass = this.selectors.listClass.slice(1);
+  var searchClass = this.selectors.searchClass.slice(1);
   var options = {
     valueNames: ['data-glossary-term'],
     listClass: listClass,
