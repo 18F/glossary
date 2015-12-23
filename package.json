@@ -8,6 +8,7 @@
     "url": "git://github.com/18F/glossary.git"
   },
   "scripts": {
+    "build": "browserify example/init.js > example/main.js",
     "test": "mochify tests/glossary.js"
   },
   "dependencies": {
