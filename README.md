@@ -4,10 +4,13 @@
 [![Test Coverage](https://img.shields.io/codecov/c/github/18F/glossary/master.svg)](https://codecov.io/github/18F/glossary)
 
 # Getting started
+# About
+Add a simple glossary panel to your site to help your users understand jargon-y terms. As seen on [betaFEC](https://beta.fec.gov) and [EITI](https://useiti.doi.gov/).
+
 ## Download
 ### Via npm (coming soon)
 ```
-npm install @18f/glossary
+npm install @18f/glossary-panel
 ```
 
 ## Create your data
@@ -91,6 +94,7 @@ To style the glossary terms and defintions in the accordion list, either use the
 
 You will need to add styles for `aria-hidden="true"` in order to hide the glossary panel and the glossary definitions.
 
+# License
 ## Public domain
 
 This project is in the worldwide [public domain](LICENSE.md). As stated in [CONTRIBUTING](CONTRIBUTING.md):
