@@ -17,12 +17,12 @@ npm install @18f/glossary-panel
 Create a `terms.json` that follows the following pattern:
 
 ```
-{
+[
   {
     "term": "Glossary",
     "definition": "A useful tool for finding the definitions of terms"
   }
-}
+]
 ```
 
 ## Set up your HTML
