@@ -79,6 +79,7 @@ The constructor accepts an optional hash of selectors as its second parameter:
 The constructor also accepts an optional hash of class names to be applied to to the DOM as its third parameter.
 
 - `definitionClass`: Single class applied to the `<div>` that contains the term's definition. _Default_: `glossary__definition`
+- `glossaryItemClass`: Single class applied to the `<li>` that contains the term and deffinition. _Default_: `glossary__item`
 - `highlightedTerm`: Single class applied to terms in the body when they are highlighted. _Default_: `term--higlight`
 - `termClass`: Single class applied to the `<button>` element that opens the definition. _Default_: `glossary__term`
 

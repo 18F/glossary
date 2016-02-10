@@ -21,7 +21,7 @@ function forEach(values, callback) {
 }
 
 var itemTemplate = _.template(
-  '<li>' +
+  '<li {{ glossaryItemClass }}>' +
     '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
     '</button>' +
     '<div class="{{ definitionClass }}">{{ definition }}</div>' +
@@ -39,6 +39,7 @@ var defaultSelectors = {
 
 var defaultClasses = {
   definitionClass: 'glossary__definition',
+  glossaryItemClass: 'glossary__item',
   highlightedTerm: 'term--highlight',
   termClass: 'glossary__term'
 };
@@ -107,8 +108,9 @@ Glossary.prototype.populate = function() {
     var opts = {
       term: term.term,
       definition: term.definition,
-      termClass: this.classes.termClass,
-      definitionClass: this.classes.definitionClass
+      definitionClass: this.classes.definitionClass,
+      glossaryItemClass: this.class.glossaryItemClass,
+      termClass: this.classes.termClass
     };
     this.list.insertAdjacentHTML('beforeend', itemTemplate(opts));
   }, this);
