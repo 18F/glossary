@@ -2,7 +2,7 @@
 
 var _ = require('underscore');
 var List = require('list.js');
-var Accordion = require('accordion');
+var Accordion = require('@18f/accordion').Accordion;
 
 var KEYCODE_ENTER = 13;
 var KEYCODE_ESC = 27;
@@ -109,7 +109,7 @@ Glossary.prototype.populate = function() {
       term: term.term,
       definition: term.definition,
       definitionClass: this.classes.definitionClass,
-      glossaryItemClass: this.class.glossaryItemClass,
+      glossaryItemClass: this.classes.glossaryItemClass,
       termClass: this.classes.termClass
     };
     this.list.insertAdjacentHTML('beforeend', itemTemplate(opts));
