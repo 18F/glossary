@@ -92,7 +92,7 @@ function Glossary(terms, selectors, classes) {
   removeTabindex(this.body);
 
   // Initialize accordions
-  this.accordion = new Accordion({body: this.selectors.listClass});
+  this.accordion = new Accordion({body: this.selectors.listClass}, {contentPrefix: 'glossary'});
 
   // Bind listeners
   this.listeners = [];
