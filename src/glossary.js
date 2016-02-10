@@ -21,7 +21,7 @@ function forEach(values, callback) {
 }
 
 var itemTemplate = _.template(
-  '<li {{ glossaryItemClass }}>' +
+  '<li class="{{ glossaryItemClass }}">' +
     '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
     '</button>' +
     '<div class="{{ definitionClass }}">{{ definition }}</div>' +

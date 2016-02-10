@@ -97,6 +97,7 @@ var _ = require('underscore');
 
 var defaultOpts = {
   collapseOthers: false,
+  customHiding: false,
 };
 
 var defaultSelectors = {
@@ -137,6 +138,7 @@ Accordion.prototype.setAria = function(trigger, index) {
   trigger.setAttribute('aria-expanded', 'false');
   content.setAttribute('id', contentID);
   content.setAttribute('aria-hidden', 'true');
+  this.setStyles(content);
 };
 
 Accordion.prototype.toggle = function(elm) {
@@ -151,12 +153,14 @@ Accordion.prototype.expand = function(button) {
   var content = document.getElementById(button.getAttribute('aria-controls'));
   button.setAttribute('aria-expanded', 'true');
   content.setAttribute('aria-hidden', 'false');
+  this.setStyles(content);
 };
 
 Accordion.prototype.collapse = function(button) {
   var content = document.getElementById(button.getAttribute('aria-controls'));
   button.setAttribute('aria-expanded', 'false');
   content.setAttribute('aria-hidden', 'true');
+  this.setStyles(content);
 };
 
 Accordion.prototype.collapseAll = function() {
@@ -171,6 +175,14 @@ Accordion.prototype.expandAll = function() {
   this.triggers.forEach(function(trigger) {
     self.expand(trigger);
   });
+};
+
+Accordion.prototype.setStyles = function(content) {
+  var prop = content.getAttribute('aria-hidden') === 'true' ? 'none' : 'block';
+
+  if (!this.opts.customHiding) {
+    content.style.display = prop;
+  };
 };
 
 Accordion.prototype.addEventListener = function(elm, event, callback) {
@@ -190,7 +202,7 @@ Accordion.prototype.destroy = function() {
   });
 };
 
-module.exports = Accordion;
+module.exports = { Accordion: Accordion };
 
 },{"underscore":22}],4:[function(require,module,exports){
 /*
@@ -3002,7 +3014,7 @@ module.exports = function(list) {
 
 var _ = require('underscore');
 var List = require('list.js');
-var Accordion = require('accordion');
+var Accordion = require('@18f/accordion').Accordion;
 
 var KEYCODE_ENTER = 13;
 var KEYCODE_ESC = 27;
@@ -3021,7 +3033,7 @@ function forEach(values, callback) {
 }
 
 var itemTemplate = _.template(
-  '<li>' +
+  '<li class="{{ glossaryItemClass }}">' +
     '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
     '</button>' +
     '<div class="{{ definitionClass }}">{{ definition }}</div>' +
@@ -3031,14 +3043,15 @@ var itemTemplate = _.template(
 
 var defaultSelectors = {
   body: '#glossary',
-  search: '.js-glossary-search',
   toggle: '.js-glossary-toggle',
   close: '.js-glossary-close',
-  list: '.js-glossary-list'
+  listClass: '.js-glossary-list',
+  searchClass: '.js-glossary-search'
 };
 
 var defaultClasses = {
   definitionClass: 'glossary__definition',
+  glossaryItemClass: 'glossary__item',
   highlightedTerm: 'term--highlight',
   termClass: 'glossary__term'
 };
@@ -3076,8 +3089,8 @@ function Glossary(terms, selectors, classes) {
   this.body = document.querySelector(this.selectors.body);
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
-  this.search = this.body.querySelector(this.selectors.search);
-  this.list = this.body.querySelector(this.selectors.list);
+  this.search = this.body.querySelector(this.selectors.searchClass);
+  this.list = this.body.querySelector(this.selectors.listClass);
 
   // Initialize state
   this.isOpen = false;
@@ -3091,7 +3104,7 @@ function Glossary(terms, selectors, classes) {
   removeTabindex(this.body);
 
   // Initialize accordions
-  this.accordion = new Accordion({body: this.selectors.list});
+  this.accordion = new Accordion({body: this.selectors.listClass});
 
   // Bind listeners
   this.listeners = [];
@@ -3103,14 +3116,13 @@ function Glossary(terms, selectors, classes) {
 }
 
 Glossary.prototype.populate = function() {
-  var self = this;
-
   this.terms.forEach(function(term) {
     var opts = {
       term: term.term,
       definition: term.definition,
-      termClass: this.classes.termClass,
-      definitionClass: this.classes.definitionClass
+      definitionClass: this.classes.definitionClass,
+      glossaryItemClass: this.classes.glossaryItemClass,
+      termClass: this.classes.termClass
     };
     this.list.insertAdjacentHTML('beforeend', itemTemplate(opts));
   }, this);
@@ -3119,8 +3131,8 @@ Glossary.prototype.populate = function() {
 /** Initialize list.js list of terms */
 Glossary.prototype.initList = function() {
   var glossaryId = this.selectors.body.slice(1);
-  var listClass = this.selectors.list.slice(1);
-  var searchClass = this.selectors.search.slice(1);
+  var listClass = this.selectors.listClass.slice(1);
+  var searchClass = this.selectors.searchClass.slice(1);
   var options = {
     valueNames: ['data-glossary-term'],
     listClass: listClass,
@@ -3229,4 +3241,4 @@ Glossary.prototype.destroy = function() {
 
 module.exports = Glossary;
 
-},{"accordion":3,"list.js":4,"underscore":22}]},{},[1]);
+},{"@18f/accordion":3,"list.js":4,"underscore":22}]},{},[1]);
