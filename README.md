@@ -13,20 +13,8 @@ Add a simple glossary panel to your site to help your users understand jargon-y 
 npm install @18f/glossary-panel
 ```
 
-## Create your data
-Create a `terms.json` that follows the following pattern:
-
-```
-[
-  {
-    "term": "Glossary",
-    "definition": "A useful tool for finding the definitions of terms"
-  }
-]
-```
-
 ## Set up your HTML
-The following is the bare-minum HTML needed in your document:
+The following is the bare minum HTML needed in your document:
 
 ```
 	<button class="js-glossary-toggle">Glossary</button>
@@ -68,15 +56,26 @@ In whichever file you initialize your JavaScript components, initialize the glos
 ```
 
 # Configuration
-The constructor accepts an optional hash of selectors as its second parameter:
+The constructor expects an array of objects (`terms`) that follows this pattern:
 
-- `body`: ID of the glossary panel that will be shown and hidden. _Default_: `#glossary`
+```
+[
+  {
+    "term": "Glossary",
+    "definition": "A useful tool for finding the definitions of terms"
+  }
+]
+```
+
+The constructor also accepts an optional hash of `selectors` as its second parameter:
+
+- `glossaryID`: ID of the glossary panel that will be shown and hidden. _Default_: `#glossary`
 - `close`: ID or class of the close button inside the glossary panel. _Default_: `.js-glossary-close`
 - `listClass`: Class of the `<ul>` that will be populated with terms. _Default_: `.js-glossary-list`
 - `searchClass`: Class of the `<input>` that will be used to filter the list. _Default_: `.js-glossary-search`
 - `toggle`: ID or class of the element that will be used to open and close the glossary in the main body of the document. _Default_: `.js-glossary-toggle`
 
-The constructor also accepts an optional hash of class names to be applied to to the DOM as its third parameter.
+And you can pass an optional hash of `classes` to be applied to to the DOM:
 
 - `definitionClass`: Single class applied to the `<div>` that contains the term's definition. _Default_: `glossary__definition`
 - `glossaryItemClass`: Single class applied to the `<li>` that contains the term and deffinition. _Default_: `glossary__item`
@@ -91,9 +90,9 @@ The constructor also accepts an optional hash of class names to be applied to to
 - `Glossary.findTerm(term)`: If the glossary is opens, filters the list down to the term called, expands the term, and highlights the associated term in the DOM
 
 # Styling
-To style the glossary terms and defintions in the accordion list, either use the default classes or whichever ones you passed in. To change the style of the buttons when the accordion elements are expanded, you can select for `aria-expanded="true"]`.
+To style the glossary terms and defintions in the accordion list, either use the default classes or whichever ones you passed in. To change the style of the buttons when the accordion elements are expanded, you can select for `[aria-expanded="true"]`.
 
-You will need to add styles for `aria-hidden="true"` in order to hide the glossary panel and the glossary definitions.
+You will need to add styles for `[aria-hidden="true"]` in order to hide the glossary panel and the glossary definitions.
 
 # License
 ## Public domain

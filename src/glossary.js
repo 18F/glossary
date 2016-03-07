@@ -30,7 +30,7 @@ var itemTemplate = _.template(
 );
 
 var defaultSelectors = {
-  body: '#glossary',
+  glossaryID: '#glossary',
   toggle: '.js-glossary-toggle',
   close: '.js-glossary-close',
   listClass: '.js-glossary-list',
@@ -74,7 +74,7 @@ function Glossary(terms, selectors, classes) {
   this.selectors = _.extend({}, defaultSelectors, selectors);
   this.classes = _.extend({}, defaultClasses, classes);
 
-  this.body = document.querySelector(this.selectors.body);
+  this.body = document.querySelector(this.selectors.glossaryID);
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
   this.search = this.body.querySelector(this.selectors.searchClass);
@@ -118,7 +118,7 @@ Glossary.prototype.populate = function() {
 
 /** Initialize list.js list of terms */
 Glossary.prototype.initList = function() {
-  var glossaryId = this.selectors.body.slice(1);
+  var glossaryId = this.selectors.glossaryID.slice(1);
   var listClass = this.selectors.listClass.slice(1);
   var searchClass = this.selectors.searchClass.slice(1);
   var options = {
