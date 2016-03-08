@@ -2,7 +2,7 @@
 
 var _ = require('underscore');
 var List = require('list.js');
-var Accordion = require('@18f/accordion').Accordion;
+var Accordion = require('aria-accordion').Accordion;
 
 var KEYCODE_ENTER = 13;
 var KEYCODE_ESC = 27;
