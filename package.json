@@ -12,7 +12,7 @@
     "test": "mochify tests/glossary.js"
   },
   "dependencies": {
-    "@18f/accordion": "git://github.com/18f/accordion.git#content-prefix",
+    "@18f/accordion": "git://github.com/18f/accordion.git",
     "list.js": "git://github.com/jmcarp/list.js.git",
     "underscore": "^1.8.3"
   },
