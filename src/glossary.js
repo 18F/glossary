@@ -2,7 +2,7 @@
 
 var _ = require('underscore');
 var List = require('list.js');
-var Accordion = require('accordion');
+var Accordion = require('aria-accordion').Accordion;
 
 var KEYCODE_ENTER = 13;
 var KEYCODE_ESC = 27;
@@ -20,18 +20,28 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
-var ITEM_TEMPLATE =
-  '<li id="glossary-list-item" class="glossary__item">' +
-    '<button class="accordion__header glossary-term">' +
+var itemTemplate = _.template(
+  '<li class="{{ glossaryItemClass }}">' +
+    '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
     '</button>' +
-    '<p class="glossary-definition"></p>' +
-  '</li>';
+    '<div class="{{ definitionClass }}">{{ definition }}</div>' +
+  '</li>',
+  {interpolate: /\{\{(.+?)\}\}/g}
+);
 
 var defaultSelectors = {
-  body: '#glossary',
+  glossaryID: '#glossary',
   toggle: '.js-glossary-toggle',
   close: '.js-glossary-close',
-  term: '.term'
+  listClass: '.js-glossary-list',
+  searchClass: '.js-glossary-search'
+};
+
+var defaultClasses = {
+  definitionClass: 'glossary__definition',
+  glossaryItemClass: 'glossary__item',
+  highlightedTerm: 'term--highlight',
+  termClass: 'glossary__term'
 };
 
 function removeTabindex(elm) {
@@ -57,28 +67,32 @@ function getTabIndex(elm) {
  * @constructor
  * @param {Array} terms - Term objects with "glossary-term" and "glossary-definition" keys
  * @param {Object} selectors - CSS selectors for glossary components
+ * @param {Object} classes - CSS classes to be applied for styling
  */
-function Glossary(terms, selectors) {
+function Glossary(terms, selectors, classes) {
   this.terms = terms;
   this.selectors = _.extend({}, defaultSelectors, selectors);
+  this.classes = _.extend({}, defaultClasses, classes);
 
-  this.body = document.querySelector(this.selectors.body);
+  this.body = document.querySelector(this.selectors.glossaryID);
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
-  this.search = this.body.querySelector('.glossary__search');
+  this.search = this.body.querySelector(this.selectors.searchClass);
+  this.list = this.body.querySelector(this.selectors.listClass);
 
   // Initialize state
   this.isOpen = false;
 
   // Update DOM
   this.populate();
+  this.initList();
   this.linkTerms();
 
   // Remove tabindices
   removeTabindex(this.body);
 
   // Initialize accordions
-  this.accordion = new Accordion();
+  this.accordion = new Accordion({body: this.selectors.listClass}, {contentPrefix: 'glossary'});
 
   // Bind listeners
   this.listeners = [];
@@ -89,21 +103,36 @@ function Glossary(terms, selectors) {
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
 }
 
-/** Populate internal list.js list of terms */
 Glossary.prototype.populate = function() {
+  this.terms.forEach(function(term) {
+    var opts = {
+      term: term.term,
+      definition: term.definition,
+      definitionClass: this.classes.definitionClass,
+      glossaryItemClass: this.classes.glossaryItemClass,
+      termClass: this.classes.termClass
+    };
+    this.list.insertAdjacentHTML('beforeend', itemTemplate(opts));
+  }, this);
+};
+
+/** Initialize list.js list of terms */
+Glossary.prototype.initList = function() {
+  var glossaryId = this.selectors.glossaryID.slice(1);
+  var listClass = this.selectors.listClass.slice(1);
+  var searchClass = this.selectors.searchClass.slice(1);
   var options = {
-    item: ITEM_TEMPLATE,
-    valueNames: ['glossary-term'],
-    listClass: 'glossary__list',
-    searchClass: 'glossary__search'
+    valueNames: ['data-glossary-term'],
+    listClass: listClass,
+    searchClass: searchClass,
   };
-  this.list = new List('glossary', options, this.terms);
-  this.list.sort('glossary-term', {order: 'asc'});
+  this.list = new List(glossaryId, options);
+  this.list.sort('data-glossary-term', {order: 'asc'});
 };
 
 /** Add links to terms in body */
 Glossary.prototype.linkTerms = function() {
-  var terms = document.querySelectorAll(this.selectors.term);
+  var terms = document.querySelectorAll('[data-term]');
   forEach(terms, function(term) {
     term.setAttribute('title', 'Click to define');
     term.setAttribute('tabIndex', 0);
@@ -115,7 +144,7 @@ Glossary.prototype.linkTerms = function() {
 
 Glossary.prototype.handleTermTouch = function(e) {
   if (e.which === KEYCODE_ENTER || e.type === 'click') {
-    if (selectorMatches(e.target, this.selectors.term)) {
+    if (selectorMatches(e.target, '[data-term]')) {
       this.show();
       this.findTerm(e.target.getAttribute('data-term'));
     }
@@ -125,26 +154,22 @@ Glossary.prototype.handleTermTouch = function(e) {
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
   this.search.value = term;
+  var highlightClass = this.classes.highlightedTerm;
 
   // Highlight the term and remove other highlights
-  forEach(this.body.querySelectorAll('.term--highlight'), function(term) {
-    term.classList.remove('term--highlight');
+  forEach(this.body.querySelectorAll('.' + highlightClass), function(term) {
+    term.classList.remove(highlightClass);
   });
   forEach(this.body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
-    term.classList.add('term--highlight');
+    term.classList.add(highlightClass);
   });
   this.list.filter(function(item) {
-    return item._values['glossary-term'].toLowerCase() === term;
+    return item._values['data-glossary-term'].toLowerCase() === term;
   });
 
-  // Hack: Expand text for selected item
   this.list.search();
-  this.list.visibleItems.forEach(function(item) {
-    var elm = item.elm.querySelector('div');
-    if (elm && elm.classList.contains('accordion--collapsed')) {
-      elm.querySelector('.accordion__button').click();
-    }
-  });
+  var button = this.list.visibleItems[0].elm.querySelector('button');
+  this.accordion.expand(button);
 };
 
 Glossary.prototype.toggle = function() {
@@ -153,18 +178,16 @@ Glossary.prototype.toggle = function() {
 };
 
 Glossary.prototype.show = function() {
-  this.body.classList.add('is-open');
   this.body.setAttribute('aria-hidden', 'false');
-  this.toggleBtn.classList.add('active');
+  this.toggleBtn.setAttribute('aria-expanded', 'true');
   this.search.focus();
   this.isOpen = true;
   restoreTabindex(this.body);
 };
 
 Glossary.prototype.hide = function() {
-  this.body.classList.remove('is-open');
   this.body.setAttribute('aria-hidden', 'true');
-  this.toggleBtn.classList.remove('active');
+  this.toggleBtn.setAttribute('aria-expanded', 'false');
   this.toggleBtn.focus();
   this.isOpen = false;
   removeTabindex(this.body);

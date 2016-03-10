@@ -22,8 +22,12 @@ body {
   right: -30rem;
 }
 
-.js-accordion [aria-hidden=true] {
+.glossary div[aria-hidden=true] {
   display: none !important;
+}
+
+.glossary button {
+  width: 100%;
 }
 
 ul {

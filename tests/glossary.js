@@ -7,27 +7,25 @@ var Glossary = require('../src/glossary');
 
 var terms = [
   {
-    'glossary-term': 'foo',
-    'glossary-definition': 'definition of foo',
+    'term': 'foo',
+    'definition': 'definition of foo',
   },
   {
-    'glossary-term': 'bar',
-    'glossary-definition': 'definition of bar',
+    'term': 'bar',
+    'definition': 'definition of bar',
   }
 ];
 
 function isOpen(glossary) {
   return glossary.isOpen &&
-    glossary.body.classList.contains('is-open') &&
     glossary.body.getAttribute('aria-hidden') === 'false' &&
-    glossary.toggleBtn.classList.contains('active');
+    glossary.toggleBtn.getAttribute('aria-expanded') === 'true';
 }
 
 function isClosed(glossary) {
   return !glossary.isOpen &&
-    !glossary.body.classList.contains('is-open') &&
     glossary.body.getAttribute('aria-hidden') === 'true' &&
-    !glossary.toggleBtn.classList.contains('active');
+    glossary.toggleBtn.getAttribute('aria-expanded') === 'false';
 }
 
 // See http://stackoverflow.com/a/15948355/1222326
@@ -54,13 +52,13 @@ describe('glossary', function() {
   beforeEach(function() {
     this.fixture.innerHTML =
       '<button class="js-glossary-toggle"></button>' +
-      '<span class="term" data-term="foo"></span>' +
+      '<span data-term="foo"></span>' +
       '<div id="glossary">' +
         '<button class="js-glossary-close">' +
           '<span>Hide glossary</span>' +
         '</button>' +
-        '<input class="glossary__search" />' +
-        '<ul class="glossary__list js-accordion"></ul>' +
+        '<input class="js-glossary-search" />' +
+        '<ul class="js-glossary-list"></ul>' +
       '</div>';
     this.glossary = new Glossary(terms, {body: '#glossary'});
   });
@@ -87,7 +85,7 @@ describe('glossary', function() {
   });
 
   it('linkifies terms in the document', function() {
-    var $term = this.fixture.querySelector('.term');
+    var $term = this.fixture.querySelector('[data-term]');
     expect($term.title).to.equal('Click to define');
     click($term);
     var items = this.glossary.list.visibleItems;

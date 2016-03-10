@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var Glossary = require('../src/glossary').Glossary;
+var Glossary = require('../src/glossary');
 var terms = require('./terms.json');
 
 new Glossary(terms);
@@ -9,84 +9,84 @@ new Glossary(terms);
 },{"../src/glossary":23,"./terms.json":2}],2:[function(require,module,exports){
 module.exports=[
   {
-    "glossary-term": "Status",
-    "glossary-definition": "Refers to whether the candidate is an incumbent, challenger or running unopposed."
+    "term": "Status",
+    "definition": "Refers to whether the candidate is an incumbent, challenger or running unopposed."
   },
   {
-    "glossary-term": "Candidate ID",
-    "glossary-definition": "A unique identifier assigned to each candidate registered with the FEC. The initial character indicates the office sought. (H)ouse, (S)enate, (P)resident. If a person runs for several offices, they will have separate Candidate IDs for each office."
+    "term": "Candidate ID",
+    "definition": "A unique identifier assigned to each candidate registered with the FEC. The initial character indicates the office sought. (H)ouse, (S)enate, (P)resident. If a person runs for several offices, they will have separate Candidate IDs for each office."
   },
   {
-    "glossary-term": "Party",
-    "glossary-definition": "Party affiliation as stated on a candidate’s \"Statement of Candidacy.\""
+    "term": "Party",
+    "definition": "Party affiliation as stated on a candidate’s \"Statement of Candidacy.\""
   },
   {
-    "glossary-term": "District",
-    "glossary-definition": "A U.S. House of Representatives District. Because Senators represent an entire state, Senate races do not have districts associated with them."
+    "term": "District",
+    "definition": "A U.S. House of Representatives District. Because Senators represent an entire state, Senate races do not have districts associated with them."
   },
   {
-    "glossary-term": "Organization type",
-    "glossary-definition": "Certain filers, like Separate Segregated Funds, certain types of PACs, and Communication Cost filers identify the types of organizations they are associated with.  These entities can be associated with corporations, trade associations, labor organizations, cooperatives, membership organizations, or corporations without capital stock, or have no association."
+    "term": "Organization type",
+    "definition": "Certain filers, like Separate Segregated Funds, certain types of PACs, and Communication Cost filers identify the types of organizations they are associated with.  These entities can be associated with corporations, trade associations, labor organizations, cooperatives, membership organizations, or corporations without capital stock, or have no association."
   },
   {
-    "glossary-term": "Committee type",
-    "glossary-definition": "A definition that categorizes groups organized to raise and spend money in federal elections. The basic committee types are principal campaign committee, political party committee, and political action committee (PAC)."
+    "term": "Committee type",
+    "definition": "A definition that categorizes groups organized to raise and spend money in federal elections. The basic committee types are principal campaign committee, political party committee, and political action committee (PAC)."
   },
   {
-    "glossary-term": "Total receipts",
-    "glossary-definition": "The sum of all money received by a committee as reported to the FEC, including contributions, during a filing period."
+    "term": "Total receipts",
+    "definition": "The sum of all money received by a committee as reported to the FEC, including contributions, during a filing period."
   },
   {
-    "glossary-term": "Total disbursements",
-    "glossary-definition": "The sum of all money spent by a committee as reported to the FEC during a filing period."
+    "term": "Total disbursements",
+    "definition": "The sum of all money spent by a committee as reported to the FEC during a filing period."
   },
   {
-    "glossary-term": "Ending cash on hand",
-    "glossary-definition": "The ending cash balance on a report for a particular time period. Cash on hand includes funds held in checking and savings accounts, certificates of deposit, petty cash funds, traveler’s checks, treasury bills and other investments valued at cost."
+    "term": "Ending cash on hand",
+    "definition": "The ending cash balance on a report for a particular time period. Cash on hand includes funds held in checking and savings accounts, certificates of deposit, petty cash funds, traveler’s checks, treasury bills and other investments valued at cost."
   },
   {
-    "glossary-term": "Debt",
-    "glossary-definition": "The amount of money a committee owes to other entities at the end of the filing period."
+    "term": "Debt",
+    "definition": "The amount of money a committee owes to other entities at the end of the filing period."
   },
   {
-    "glossary-term": "Joint fundraising",
-    "glossary-definition": "Fundraising conducted jointly by a political committee and one or more other political committees or unregistered organizations.  Joint fundraising is often conducted between a principal campaign committee and a political party committee."
+    "term": "Joint fundraising",
+    "definition": "Fundraising conducted jointly by a political committee and one or more other political committees or unregistered organizations.  Joint fundraising is often conducted between a principal campaign committee and a political party committee."
   },
   {
-    "glossary-term": "Joint fundraising committee",
-    "glossary-definition": "A committee that has been set up for the purposes of fundraising for multiple committees at the same time, or an existing committee that has been authorized to serve that purpose."
+    "term": "Joint fundraising committee",
+    "definition": "A committee that has been set up for the purposes of fundraising for multiple committees at the same time, or an existing committee that has been authorized to serve that purpose."
   },
   {
-    "glossary-term": "Reports and statements",
-    "glossary-definition": "All committees registered with the FEC are required to file reports and statements regularly that disclose their financial activity.  The contents of those reports and statements, as well as the filing schedule, depend on the type of committee or organization."
+    "term": "Reports and statements",
+    "definition": "All committees registered with the FEC are required to file reports and statements regularly that disclose their financial activity.  The contents of those reports and statements, as well as the filing schedule, depend on the type of committee or organization."
   },
   {
-    "glossary-term": "Filing",
-    "glossary-definition": "A report or statement submitted to the FEC by a candidate, committee, or other filing entity. Entities are required to file to declare their status as a candidate or committee and to report the money they raise and spend."
+    "term": "Filing",
+    "definition": "A report or statement submitted to the FEC by a candidate, committee, or other filing entity. Entities are required to file to declare their status as a candidate or committee and to report the money they raise and spend."
   },
   {
-    "glossary-term": "Authorized committee",
-    "glossary-definition": "A committee that has been authorized by a candidate to raise or spend money on his or her behalf."
+    "term": "Authorized committee",
+    "definition": "A committee that has been authorized by a candidate to raise or spend money on his or her behalf."
   },
   {
-    "glossary-term": "Committee",
-    "glossary-definition": "An entity that meets one of the following conditions:<ul class='list--bulleted'><li>An authorized committee of a candidate (see definition of candidate)</li><li>A state party committee or nonparty committee, club, association or other group of persons that receives contributions or makes  expenditures, either of which aggregate over $1,000 during a calendar year</li><li>A local unit of a political party (except a state party committee) that: (1) receives contributions aggregating over $5,000 during  a calendar year; (2) makes contributions or  expenditures either of which aggregate over  $1,000 during a calendar year; or (3) makes payments aggregating over $5,000 during a  calendar year for certain activities which are exempt from the definitions of contribution and expenditure (11 CFR 100.80, 100.87 and 100.89;  11 CFR 100.140, 100.147 and 100.149)</li><li>Any separate segregated fund upon its establishment. 11 CFR 100.5.</li><ul>"
+    "term": "Committee",
+    "definition": "An entity that meets one of the following conditions:<ul class='list--bulleted'><li>An authorized committee of a candidate (see definition of candidate)</li><li>A state party committee or nonparty committee, club, association or other group of persons that receives contributions or makes  expenditures, either of which aggregate over $1,000 during a calendar year</li><li>A local unit of a political party (except a state party committee) that: (1) receives contributions aggregating over $5,000 during  a calendar year; (2) makes contributions or  expenditures either of which aggregate over  $1,000 during a calendar year; or (3) makes payments aggregating over $5,000 during a  calendar year for certain activities which are exempt from the definitions of contribution and expenditure (11 CFR 100.80, 100.87 and 100.89;  11 CFR 100.140, 100.147 and 100.149)</li><li>Any separate segregated fund upon its establishment. 11 CFR 100.5.</li><ul>"
   },
   {
-    "glossary-term": "Principal campaign committee",
-    "glossary-definition": "An authorized committee designated by a candidate as the principal committee to raise contributions and make expenditures for his or her campaign for a federal office."
+    "term": "Principal campaign committee",
+    "definition": "An authorized committee designated by a candidate as the principal committee to raise contributions and make expenditures for his or her campaign for a federal office."
   },
   {
-    "glossary-term": "Candidate",
-    "glossary-definition": "An individual seeking nomination for election, or election, to a federal office becomes a candidate when he or she (or agents working on his or her behalf) raises contributions or makes expenditures that exceed $5,000."
+    "term": "Candidate",
+    "definition": "An individual seeking nomination for election, or election, to a federal office becomes a candidate when he or she (or agents working on his or her behalf) raises contributions or makes expenditures that exceed $5,000."
   },
   {
-    "glossary-term": "None",
-    "glossary-definition": "If data appears as \"None\", it is best to check the source document. Common reasons that the data appears as \"None\" are:<ul class='list--bulleted'><li>Data is not processed yet; often, paper filings cause delays and inconsistent upload times.</li><li>Data is from an amendment that did not properly identify the form it was amending.</li><li>The filer did not fill out the information on the form.</li></ul>If you think there is an error, you can report that via <a href='mailto:betafeedback@fec.gov'>email</a>."
+    "term": "None",
+    "definition": "If data appears as \"None\", it is best to check the source document. Common reasons that the data appears as \"None\" are:<ul class='list--bulleted'><li>Data is not processed yet; often, paper filings cause delays and inconsistent upload times.</li><li>Data is from an amendment that did not properly identify the form it was amending.</li><li>The filer did not fill out the information on the form.</li></ul>If you think there is an error, you can report that via <a href='mailto:betafeedback@fec.gov'>email</a>."
   },
   {
-    "glossary-term": "Independent expenditure",
-    "glossary-definition": "An expenditure for a communication that expressly advocates the election or defeat of a clearly identified candidate and that is not made in cooperation, consultation or concert with, or at the request or suggestion of, any candidate, or his or her authorized committees or agents, or a political party committee or its agents. 11 CFR 100.16."
+    "term": "Independent expenditure",
+    "definition": "An expenditure for a communication that expressly advocates the election or defeat of a clearly identified candidate and that is not made in cooperation, consultation or concert with, or at the request or suggestion of, any candidate, or his or her authorized committees or agents, or a political party committee or its agents. 11 CFR 100.16."
   }
 ]
 
@@ -97,9 +97,9 @@ var _ = require('underscore');
 
 var defaultOpts = {
   collapseOthers: false,
-  classes: {
-    expandedButton: 'accordion-trigger--expanded'
-  }
+  customHiding: false,
+  contentPrefix: 'accordion',
+  openFirst: false
 };
 
 var defaultSelectors = {
@@ -108,69 +108,77 @@ var defaultSelectors = {
 };
 
 var Accordion = function(selectors, opts) {
-  var self = this;
-  self.selectors = _.extend({}, defaultSelectors, selectors);
-  self.opts = _.extend({}, defaultOpts, opts);
+  this.selectors = _.extend({}, defaultSelectors, selectors);
+  this.opts = _.extend({}, defaultOpts, opts);
 
-  self.body = document.querySelector(this.selectors.body);
-  self.triggers = self.findTriggers();
+  this.body = document.querySelector(this.selectors.body);
+  this.triggers = this.findTriggers();
 
-  self.body.addEventListener('click', function(e) {
-    if ( _.contains(self.triggers, e.target) ) {
-      if (self.opts.collapseOthers) {
-        self.collapseAll();
-      }
-      self.toggle(e.target);
-    }
-  });
+  this.listeners = [];
+  this.addEventListener(this.body, 'click', this.handleClickBody.bind(this));
+
+  if (this.opts.openFirst) {
+    this.expand(this.triggers[0]);
+  }
+};
+
+Accordion.prototype.handleClickBody = function(e) {
+  if (_.contains(this.triggers, e.target)) {
+    this.toggle(e.target);
+  }
 };
 
 Accordion.prototype.findTriggers = function() {
   var self = this;
   var triggers = this.body.querySelectorAll(this.selectors.trigger);
-  var newTriggers = [];
-  var index = 0;
-  _.each(triggers, function(trigger) {
+  _.each(triggers, function(trigger, index) {
     self.setAria(trigger, index);
-    newTriggers.push(trigger);
-    index++;
   });
-
-  return newTriggers;
+  return triggers;
 };
 
 Accordion.prototype.setAria = function(trigger, index) {
-  var contentID = 'content-' + index;
   var content = trigger.nextElementSibling;
+  var contentID;
+
+  if (content.hasAttribute('id')) {
+    contentID = content.getAttribute('id');
+  } else {
+    contentID = this.opts.contentPrefix + '-' + 'content-' + index;
+    content.setAttribute('id', contentID);
+  }
+
   trigger.setAttribute('aria-controls', contentID);
   trigger.setAttribute('aria-expanded', 'false');
-  content.setAttribute('id', contentID);
-  content.setAttribute('aria-hidden', true);
-}
+  content.setAttribute('aria-hidden', 'true');
+  this.setStyles(content);
+};
 
 Accordion.prototype.toggle = function(elm) {
-  var button = elm;
   var f = elm.getAttribute('aria-expanded') === 'true' ? this.collapse : this.expand;
-  f.call(this, button);
+  f.call(this, elm);
 };
 
 Accordion.prototype.expand = function(button) {
-  var content = document.querySelector('#' + button.getAttribute('aria-controls'));
+  if (this.opts.collapseOthers) {
+    this.collapseAll();
+  }
+  var content = document.getElementById(button.getAttribute('aria-controls'));
   button.setAttribute('aria-expanded', 'true');
-  button.classList.add(this.opts.classes.expandedButton);
   content.setAttribute('aria-hidden', 'false');
+  this.setStyles(content);
 };
 
 Accordion.prototype.collapse = function(button) {
-  var content = document.querySelector('#' + button.getAttribute('aria-controls'));
+  var content = document.getElementById(button.getAttribute('aria-controls'));
   button.setAttribute('aria-expanded', 'false');
-  button.classList.remove(this.opts.classes.expandedButton);
   content.setAttribute('aria-hidden', 'true');
+  this.setStyles(content);
 };
 
 Accordion.prototype.collapseAll = function() {
   var self = this;
-  this.triggers.forEach(function(trigger) {
+  _.each(this.triggers, function(trigger) {
     self.collapse(trigger);
   });
 };
@@ -182,9 +190,475 @@ Accordion.prototype.expandAll = function() {
   });
 };
 
-module.exports = {Accordion: Accordion};
+Accordion.prototype.setStyles = function(content) {
+  var prop = content.getAttribute('aria-hidden') === 'true' ? 'none' : 'block';
+
+  if (!this.opts.customHiding) {
+    content.style.display = prop;
+  };
+};
+
+Accordion.prototype.addEventListener = function(elm, event, callback) {
+  if (elm) {
+    elm.addEventListener(event, callback);
+    this.listeners.push({
+      elm: elm,
+      event: event,
+      callback: callback
+    });
+  }
+};
+
+Accordion.prototype.destroy = function() {
+  this.listeners.forEach(function(listener) {
+    listener.elm.removeEventListener(listener.event, listener.callback);
+  });
+};
+
+module.exports = { Accordion: Accordion };
 
 },{"underscore":22}],4:[function(require,module,exports){
+/**
+ * Module dependencies.
+ */
+
+var index = require('indexof');
+
+/**
+ * Whitespace regexp.
+ */
+
+var re = /\s+/;
+
+/**
+ * toString reference.
+ */
+
+var toString = Object.prototype.toString;
+
+/**
+ * Wrap `el` in a `ClassList`.
+ *
+ * @param {Element} el
+ * @return {ClassList}
+ * @api public
+ */
+
+module.exports = function(el){
+  return new ClassList(el);
+};
+
+/**
+ * Initialize a new ClassList for `el`.
+ *
+ * @param {Element} el
+ * @api private
+ */
+
+function ClassList(el) {
+  if (!el || !el.nodeType) {
+    throw new Error('A DOM element reference is required');
+  }
+  this.el = el;
+  this.list = el.classList;
+}
+
+/**
+ * Add class `name` if not already present.
+ *
+ * @param {String} name
+ * @return {ClassList}
+ * @api public
+ */
+
+ClassList.prototype.add = function(name){
+  // classList
+  if (this.list) {
+    this.list.add(name);
+    return this;
+  }
+
+  // fallback
+  var arr = this.array();
+  var i = index(arr, name);
+  if (!~i) arr.push(name);
+  this.el.className = arr.join(' ');
+  return this;
+};
+
+/**
+ * Remove class `name` when present, or
+ * pass a regular expression to remove
+ * any which match.
+ *
+ * @param {String|RegExp} name
+ * @return {ClassList}
+ * @api public
+ */
+
+ClassList.prototype.remove = function(name){
+  if ('[object RegExp]' == toString.call(name)) {
+    return this.removeMatching(name);
+  }
+
+  // classList
+  if (this.list) {
+    this.list.remove(name);
+    return this;
+  }
+
+  // fallback
+  var arr = this.array();
+  var i = index(arr, name);
+  if (~i) arr.splice(i, 1);
+  this.el.className = arr.join(' ');
+  return this;
+};
+
+/**
+ * Remove all classes matching `re`.
+ *
+ * @param {RegExp} re
+ * @return {ClassList}
+ * @api private
+ */
+
+ClassList.prototype.removeMatching = function(re){
+  var arr = this.array();
+  for (var i = 0; i < arr.length; i++) {
+    if (re.test(arr[i])) {
+      this.remove(arr[i]);
+    }
+  }
+  return this;
+};
+
+/**
+ * Toggle class `name`, can force state via `force`.
+ *
+ * For browsers that support classList, but do not support `force` yet,
+ * the mistake will be detected and corrected.
+ *
+ * @param {String} name
+ * @param {Boolean} force
+ * @return {ClassList}
+ * @api public
+ */
+
+ClassList.prototype.toggle = function(name, force){
+  // classList
+  if (this.list) {
+    if ("undefined" !== typeof force) {
+      if (force !== this.list.toggle(name, force)) {
+        this.list.toggle(name); // toggle again to correct
+      }
+    } else {
+      this.list.toggle(name);
+    }
+    return this;
+  }
+
+  // fallback
+  if ("undefined" !== typeof force) {
+    if (!force) {
+      this.remove(name);
+    } else {
+      this.add(name);
+    }
+  } else {
+    if (this.has(name)) {
+      this.remove(name);
+    } else {
+      this.add(name);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return an array of classes.
+ *
+ * @return {Array}
+ * @api public
+ */
+
+ClassList.prototype.array = function(){
+  var className = this.el.getAttribute('class') || '';
+  var str = className.replace(/^\s+|\s+$/g, '');
+  var arr = str.split(re);
+  if ('' === arr[0]) arr.shift();
+  return arr;
+};
+
+/**
+ * Check if class `name` is present.
+ *
+ * @param {String} name
+ * @return {ClassList}
+ * @api public
+ */
+
+ClassList.prototype.has =
+ClassList.prototype.contains = function(name){
+  return this.list
+    ? this.list.contains(name)
+    : !! ~index(this.array(), name);
+};
+
+},{"indexof":6}],5:[function(require,module,exports){
+var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
+    unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
+    prefix = bind !== 'addEventListener' ? 'on' : '';
+
+/**
+ * Bind `el` event `type` to `fn`.
+ *
+ * @param {Element} el
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @return {Function}
+ * @api public
+ */
+
+exports.bind = function(el, type, fn, capture){
+  el[bind](prefix + type, fn, capture || false);
+  return fn;
+};
+
+/**
+ * Unbind `el` event `type`'s callback `fn`.
+ *
+ * @param {Element} el
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @return {Function}
+ * @api public
+ */
+
+exports.unbind = function(el, type, fn, capture){
+  el[unbind](prefix + type, fn, capture || false);
+  return fn;
+};
+},{}],6:[function(require,module,exports){
+module.exports = function(arr, obj){
+  if (arr.indexOf) return arr.indexOf(obj);
+  for (var i = 0; i < arr.length; ++i) {
+    if (arr[i] === obj) return i;
+  }
+  return -1;
+};
+},{}],7:[function(require,module,exports){
+var hasOwn = Object.prototype.hasOwnProperty;
+var toStr = Object.prototype.toString;
+var undefined;
+
+var isArray = function isArray(arr) {
+	if (typeof Array.isArray === 'function') {
+		return Array.isArray(arr);
+	}
+
+	return toStr.call(arr) === '[object Array]';
+};
+
+var isPlainObject = function isPlainObject(obj) {
+	'use strict';
+	if (!obj || toStr.call(obj) !== '[object Object]') {
+		return false;
+	}
+
+	var has_own_constructor = hasOwn.call(obj, 'constructor');
+	var has_is_property_of_method = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
+	// Not own constructor property must be Object
+	if (obj.constructor && !has_own_constructor && !has_is_property_of_method) {
+		return false;
+	}
+
+	// Own properties are enumerated firstly, so to speed up,
+	// if last one is own, then all properties are own.
+	var key;
+	for (key in obj) {}
+
+	return key === undefined || hasOwn.call(obj, key);
+};
+
+module.exports = function extend() {
+	'use strict';
+	var options, name, src, copy, copyIsArray, clone,
+		target = arguments[0],
+		i = 1,
+		length = arguments.length,
+		deep = false;
+
+	// Handle a deep copy situation
+	if (typeof target === 'boolean') {
+		deep = target;
+		target = arguments[1] || {};
+		// skip the boolean and the target
+		i = 2;
+	} else if ((typeof target !== 'object' && typeof target !== 'function') || target == null) {
+		target = {};
+	}
+
+	for (; i < length; ++i) {
+		options = arguments[i];
+		// Only deal with non-null/undefined values
+		if (options != null) {
+			// Extend the base object
+			for (name in options) {
+				src = target[name];
+				copy = options[name];
+
+				// Prevent never-ending loop
+				if (target === copy) {
+					continue;
+				}
+
+				// Recurse if we're merging plain objects or arrays
+				if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
+					if (copyIsArray) {
+						copyIsArray = false;
+						clone = src && isArray(src) ? src : [];
+					} else {
+						clone = src && isPlainObject(src) ? src : {};
+					}
+
+					// Never move original objects, clone them
+					target[name] = extend(deep, clone, copy);
+
+				// Don't bring in undefined values
+				} else if (copy !== undefined) {
+					target[name] = copy;
+				}
+			}
+		}
+	}
+
+	// Return the modified object
+	return target;
+};
+
+
+},{}],8:[function(require,module,exports){
+/**
+ * Return the value for `attr` at `element`.
+ *
+ * @param {Element} el
+ * @param {String} attr
+ * @api public
+ */
+
+module.exports = function(el, attr) {
+  var result = (el.getAttribute && el.getAttribute(attr)) || null;
+  if( !result ) {
+    var attrs = el.attributes;
+    var length = attrs.length;
+    for(var i = 0; i < length; i++) {
+      if (attr[i] !== undefined) {
+        if(attr[i].nodeName === attr) {
+          result = attr[i].nodeValue;
+        }
+      }
+    }
+  }
+  return result;
+}
+},{}],9:[function(require,module,exports){
+/**
+ * Find all elements with class `className` inside `container`.
+ * Use `single = true` to increase performance in older browsers
+ * when only one element is needed.
+ *
+ * @param {String} className
+ * @param {Element} container
+ * @param {Boolean} single
+ * @api public
+ */
+
+module.exports = (function() {
+  if (document.getElementsByClassName) {
+    return function(container, className, single) {
+      if (single) {
+        return container.getElementsByClassName(className)[0];
+      } else {
+        return container.getElementsByClassName(className);
+      }
+    };
+  } else if (document.querySelector) {
+    return function(container, className, single) {
+      className = '.' + className;
+      if (single) {
+        return container.querySelector(className);
+      } else {
+        return container.querySelectorAll(className);
+      }
+    };
+  } else {
+    return function(container, className, single) {
+      var classElements = [],
+        tag = '*';
+      if (container == null) {
+        container = document;
+      }
+      var els = container.getElementsByTagName(tag);
+      var elsLen = els.length;
+      var pattern = new RegExp("(^|\\s)"+className+"(\\s|$)");
+      for (var i = 0, j = 0; i < elsLen; i++) {
+        if ( pattern.test(els[i].className) ) {
+          if (single) {
+            return els[i];
+          } else {
+            classElements[j] = els[i];
+            j++;
+          }
+        }
+      }
+      return classElements;
+    };
+  }
+})();
+
+},{}],10:[function(require,module,exports){
+var events = require('event'),
+  toArray = require('to-array');
+
+/**
+ * Bind `el` event `type` to `fn`.
+ *
+ * @param {Element} el, NodeList, HTMLCollection or Array
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @api public
+ */
+
+exports.bind = function(el, type, fn, capture){
+  el = toArray(el);
+  for ( var i = 0; i < el.length; i++ ) {
+    events.bind(el[i], type, fn, capture);
+  }
+};
+
+/**
+ * Unbind `el` event `type`'s callback `fn`.
+ *
+ * @param {Element} el, NodeList, HTMLCollection or Array
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @api public
+ */
+
+exports.unbind = function(el, type, fn, capture){
+  el = toArray(el);
+  for ( var i = 0; i < el.length; i++ ) {
+    events.unbind(el[i], type, fn, capture);
+  }
+};
+
+},{"event":5,"to-array":20}],11:[function(require,module,exports){
 /*
 List.js 1.1.1
 By Jonny Strömberg (www.jonnystromberg.com, www.listjs.com)
@@ -420,548 +894,7 @@ module.exports = List;
 
 })(window);
 
-},{"./src/add-async":15,"./src/filter":16,"./src/item":17,"./src/parse":18,"./src/search":19,"./src/sort":20,"./src/templater":21,"extend":7,"get-by-class":9,"indexof":6}],5:[function(require,module,exports){
-/**
- * Module dependencies.
- */
-
-var index = require('indexof');
-
-/**
- * Whitespace regexp.
- */
-
-var re = /\s+/;
-
-/**
- * toString reference.
- */
-
-var toString = Object.prototype.toString;
-
-/**
- * Wrap `el` in a `ClassList`.
- *
- * @param {Element} el
- * @return {ClassList}
- * @api public
- */
-
-module.exports = function(el){
-  return new ClassList(el);
-};
-
-/**
- * Initialize a new ClassList for `el`.
- *
- * @param {Element} el
- * @api private
- */
-
-function ClassList(el) {
-  if (!el || !el.nodeType) {
-    throw new Error('A DOM element reference is required');
-  }
-  this.el = el;
-  this.list = el.classList;
-}
-
-/**
- * Add class `name` if not already present.
- *
- * @param {String} name
- * @return {ClassList}
- * @api public
- */
-
-ClassList.prototype.add = function(name){
-  // classList
-  if (this.list) {
-    this.list.add(name);
-    return this;
-  }
-
-  // fallback
-  var arr = this.array();
-  var i = index(arr, name);
-  if (!~i) arr.push(name);
-  this.el.className = arr.join(' ');
-  return this;
-};
-
-/**
- * Remove class `name` when present, or
- * pass a regular expression to remove
- * any which match.
- *
- * @param {String|RegExp} name
- * @return {ClassList}
- * @api public
- */
-
-ClassList.prototype.remove = function(name){
-  if ('[object RegExp]' == toString.call(name)) {
-    return this.removeMatching(name);
-  }
-
-  // classList
-  if (this.list) {
-    this.list.remove(name);
-    return this;
-  }
-
-  // fallback
-  var arr = this.array();
-  var i = index(arr, name);
-  if (~i) arr.splice(i, 1);
-  this.el.className = arr.join(' ');
-  return this;
-};
-
-/**
- * Remove all classes matching `re`.
- *
- * @param {RegExp} re
- * @return {ClassList}
- * @api private
- */
-
-ClassList.prototype.removeMatching = function(re){
-  var arr = this.array();
-  for (var i = 0; i < arr.length; i++) {
-    if (re.test(arr[i])) {
-      this.remove(arr[i]);
-    }
-  }
-  return this;
-};
-
-/**
- * Toggle class `name`, can force state via `force`.
- *
- * For browsers that support classList, but do not support `force` yet,
- * the mistake will be detected and corrected.
- *
- * @param {String} name
- * @param {Boolean} force
- * @return {ClassList}
- * @api public
- */
-
-ClassList.prototype.toggle = function(name, force){
-  // classList
-  if (this.list) {
-    if ("undefined" !== typeof force) {
-      if (force !== this.list.toggle(name, force)) {
-        this.list.toggle(name); // toggle again to correct
-      }
-    } else {
-      this.list.toggle(name);
-    }
-    return this;
-  }
-
-  // fallback
-  if ("undefined" !== typeof force) {
-    if (!force) {
-      this.remove(name);
-    } else {
-      this.add(name);
-    }
-  } else {
-    if (this.has(name)) {
-      this.remove(name);
-    } else {
-      this.add(name);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return an array of classes.
- *
- * @return {Array}
- * @api public
- */
-
-ClassList.prototype.array = function(){
-  var className = this.el.getAttribute('class') || '';
-  var str = className.replace(/^\s+|\s+$/g, '');
-  var arr = str.split(re);
-  if ('' === arr[0]) arr.shift();
-  return arr;
-};
-
-/**
- * Check if class `name` is present.
- *
- * @param {String} name
- * @return {ClassList}
- * @api public
- */
-
-ClassList.prototype.has =
-ClassList.prototype.contains = function(name){
-  return this.list
-    ? this.list.contains(name)
-    : !! ~index(this.array(), name);
-};
-
-},{"indexof":6}],6:[function(require,module,exports){
-module.exports = function(arr, obj){
-  if (arr.indexOf) return arr.indexOf(obj);
-  for (var i = 0; i < arr.length; ++i) {
-    if (arr[i] === obj) return i;
-  }
-  return -1;
-};
-},{}],7:[function(require,module,exports){
-var hasOwn = Object.prototype.hasOwnProperty;
-var toStr = Object.prototype.toString;
-var undefined;
-
-var isArray = function isArray(arr) {
-	if (typeof Array.isArray === 'function') {
-		return Array.isArray(arr);
-	}
-
-	return toStr.call(arr) === '[object Array]';
-};
-
-var isPlainObject = function isPlainObject(obj) {
-	'use strict';
-	if (!obj || toStr.call(obj) !== '[object Object]') {
-		return false;
-	}
-
-	var has_own_constructor = hasOwn.call(obj, 'constructor');
-	var has_is_property_of_method = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
-	// Not own constructor property must be Object
-	if (obj.constructor && !has_own_constructor && !has_is_property_of_method) {
-		return false;
-	}
-
-	// Own properties are enumerated firstly, so to speed up,
-	// if last one is own, then all properties are own.
-	var key;
-	for (key in obj) {}
-
-	return key === undefined || hasOwn.call(obj, key);
-};
-
-module.exports = function extend() {
-	'use strict';
-	var options, name, src, copy, copyIsArray, clone,
-		target = arguments[0],
-		i = 1,
-		length = arguments.length,
-		deep = false;
-
-	// Handle a deep copy situation
-	if (typeof target === 'boolean') {
-		deep = target;
-		target = arguments[1] || {};
-		// skip the boolean and the target
-		i = 2;
-	} else if ((typeof target !== 'object' && typeof target !== 'function') || target == null) {
-		target = {};
-	}
-
-	for (; i < length; ++i) {
-		options = arguments[i];
-		// Only deal with non-null/undefined values
-		if (options != null) {
-			// Extend the base object
-			for (name in options) {
-				src = target[name];
-				copy = options[name];
-
-				// Prevent never-ending loop
-				if (target === copy) {
-					continue;
-				}
-
-				// Recurse if we're merging plain objects or arrays
-				if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
-					if (copyIsArray) {
-						copyIsArray = false;
-						clone = src && isArray(src) ? src : [];
-					} else {
-						clone = src && isPlainObject(src) ? src : {};
-					}
-
-					// Never move original objects, clone them
-					target[name] = extend(deep, clone, copy);
-
-				// Don't bring in undefined values
-				} else if (copy !== undefined) {
-					target[name] = copy;
-				}
-			}
-		}
-	}
-
-	// Return the modified object
-	return target;
-};
-
-
-},{}],8:[function(require,module,exports){
-/**
- * Return the value for `attr` at `element`.
- *
- * @param {Element} el
- * @param {String} attr
- * @api public
- */
-
-module.exports = function(el, attr) {
-  var result = (el.getAttribute && el.getAttribute(attr)) || null;
-  if( !result ) {
-    var attrs = el.attributes;
-    var length = attrs.length;
-    for(var i = 0; i < length; i++) {
-      if (attr[i] !== undefined) {
-        if(attr[i].nodeName === attr) {
-          result = attr[i].nodeValue;
-        }
-      }
-    }
-  }
-  return result;
-}
-},{}],9:[function(require,module,exports){
-/**
- * Find all elements with class `className` inside `container`.
- * Use `single = true` to increase performance in older browsers
- * when only one element is needed.
- *
- * @param {String} className
- * @param {Element} container
- * @param {Boolean} single
- * @api public
- */
-
-module.exports = (function() {
-  if (document.getElementsByClassName) {
-    return function(container, className, single) {
-      if (single) {
-        return container.getElementsByClassName(className)[0];
-      } else {
-        return container.getElementsByClassName(className);
-      }
-    };
-  } else if (document.querySelector) {
-    return function(container, className, single) {
-      className = '.' + className;
-      if (single) {
-        return container.querySelector(className);
-      } else {
-        return container.querySelectorAll(className);
-      }
-    };
-  } else {
-    return function(container, className, single) {
-      var classElements = [],
-        tag = '*';
-      if (container == null) {
-        container = document;
-      }
-      var els = container.getElementsByTagName(tag);
-      var elsLen = els.length;
-      var pattern = new RegExp("(^|\\s)"+className+"(\\s|$)");
-      for (var i = 0, j = 0; i < elsLen; i++) {
-        if ( pattern.test(els[i].className) ) {
-          if (single) {
-            return els[i];
-          } else {
-            classElements[j] = els[i];
-            j++;
-          }
-        }
-      }
-      return classElements;
-    };
-  }
-})();
-
-},{}],10:[function(require,module,exports){
-var events = require('event'),
-  toArray = require('to-array');
-
-/**
- * Bind `el` event `type` to `fn`.
- *
- * @param {Element} el, NodeList, HTMLCollection or Array
- * @param {String} type
- * @param {Function} fn
- * @param {Boolean} capture
- * @api public
- */
-
-exports.bind = function(el, type, fn, capture){
-  el = toArray(el);
-  for ( var i = 0; i < el.length; i++ ) {
-    events.bind(el[i], type, fn, capture);
-  }
-};
-
-/**
- * Unbind `el` event `type`'s callback `fn`.
- *
- * @param {Element} el, NodeList, HTMLCollection or Array
- * @param {String} type
- * @param {Function} fn
- * @param {Boolean} capture
- * @api public
- */
-
-exports.unbind = function(el, type, fn, capture){
-  el = toArray(el);
-  for ( var i = 0; i < el.length; i++ ) {
-    events.unbind(el[i], type, fn, capture);
-  }
-};
-
-},{"event":11,"to-array":12}],11:[function(require,module,exports){
-var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
-    unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
-    prefix = bind !== 'addEventListener' ? 'on' : '';
-
-/**
- * Bind `el` event `type` to `fn`.
- *
- * @param {Element} el
- * @param {String} type
- * @param {Function} fn
- * @param {Boolean} capture
- * @return {Function}
- * @api public
- */
-
-exports.bind = function(el, type, fn, capture){
-  el[bind](prefix + type, fn, capture || false);
-  return fn;
-};
-
-/**
- * Unbind `el` event `type`'s callback `fn`.
- *
- * @param {Element} el
- * @param {String} type
- * @param {Function} fn
- * @param {Boolean} capture
- * @return {Function}
- * @api public
- */
-
-exports.unbind = function(el, type, fn, capture){
-  el[unbind](prefix + type, fn, capture || false);
-  return fn;
-};
-},{}],12:[function(require,module,exports){
-/**
- * Convert an array-like object into an `Array`.
- * If `collection` is already an `Array`, then will return a clone of `collection`.
- *
- * @param {Array | Mixed} collection An `Array` or array-like object to convert e.g. `arguments` or `NodeList`
- * @return {Array} Naive conversion of `collection` to a new `Array`.
- * @api public
- */
-
-module.exports = function toArray(collection) {
-  if (typeof collection === 'undefined') return []
-  if (collection === null) return [null]
-  if (collection === window) return [window]
-  if (typeof collection === 'string') return [collection]
-  if (isArray(collection)) return collection
-  if (typeof collection.length != 'number') return [collection]
-  if (typeof collection === 'function' && collection instanceof Function) return [collection]
-
-  var arr = []
-  for (var i = 0; i < collection.length; i++) {
-    if (Object.prototype.hasOwnProperty.call(collection, i) || i in collection) {
-      arr.push(collection[i])
-    }
-  }
-  if (!arr.length) return []
-  return arr
-}
-
-function isArray(arr) {
-  return Object.prototype.toString.call(arr) === "[object Array]";
-}
-
-},{}],13:[function(require,module,exports){
-/*
- * Natural Sort algorithm for Javascript - Version 0.7 - Released under MIT license
- * Author: Jim Palmer (based on chunking idea from Dave Koelle)
- */
-
-module.exports = function(a, b, options) {
-  var re = /(^-?[0-9]+(\.?[0-9]*)[df]?e?[0-9]?$|^0x[0-9a-f]+$|[0-9]+)/gi,
-    sre = /(^[ ]*|[ ]*$)/g,
-    dre = /(^([\w ]+,?[\w ]+)?[\w ]+,?[\w ]+\d+:\d+(:\d+)?[\w ]?|^\d{1,4}[\/\-]\d{1,4}[\/\-]\d{1,4}|^\w+, \w+ \d+, \d{4})/,
-    hre = /^0x[0-9a-f]+$/i,
-    ore = /^0/,
-    options = options || {},
-    i = function(s) { return options.insensitive && (''+s).toLowerCase() || ''+s },
-    // convert all to strings strip whitespace
-    x = i(a).replace(sre, '') || '',
-    y = i(b).replace(sre, '') || '',
-    // chunk/tokenize
-    xN = x.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0'),
-    yN = y.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0'),
-    // numeric, hex or date detection
-    xD = parseInt(x.match(hre)) || (xN.length != 1 && x.match(dre) && Date.parse(x)),
-    yD = parseInt(y.match(hre)) || xD && y.match(dre) && Date.parse(y) || null,
-    oFxNcL, oFyNcL,
-    mult = options.desc ? -1 : 1;
-  // first try and sort Hex codes or Dates
-  if (yD)
-    if ( xD < yD ) return -1 * mult;
-    else if ( xD > yD ) return 1 * mult;
-  // natural sorting through split numeric strings and default strings
-  for(var cLoc=0, numS=Math.max(xN.length, yN.length); cLoc < numS; cLoc++) {
-    // find floats not starting with '0', string or 0 if not defined (Clint Priest)
-    oFxNcL = !(xN[cLoc] || '').match(ore) && parseFloat(xN[cLoc]) || xN[cLoc] || 0;
-    oFyNcL = !(yN[cLoc] || '').match(ore) && parseFloat(yN[cLoc]) || yN[cLoc] || 0;
-    // handle numeric vs string comparison - number < string - (Kyle Adams)
-    if (isNaN(oFxNcL) !== isNaN(oFyNcL)) { return (isNaN(oFxNcL)) ? 1 : -1; }
-    // rely on string comparison if different types - i.e. '02' < 2 != '02' < '2'
-    else if (typeof oFxNcL !== typeof oFyNcL) {
-      oFxNcL += '';
-      oFyNcL += '';
-    }
-    if (oFxNcL < oFyNcL) return -1 * mult;
-    if (oFxNcL > oFyNcL) return 1 * mult;
-  }
-  return 0;
-};
-
-/*
-var defaultSort = getSortFunction();
-
-module.exports = function(a, b, options) {
-  if (arguments.length == 1) {
-    options = a;
-    return getSortFunction(options);
-  } else {
-    return defaultSort(a,b);
-  }
-}
-*/
-},{}],14:[function(require,module,exports){
-module.exports = function(s) {
-    s = (s === undefined) ? "" : s;
-    s = (s === null) ? "" : s;
-    s = s.toString();
-    return s;
-};
-
-},{}],15:[function(require,module,exports){
+},{"./src/add-async":12,"./src/filter":13,"./src/item":14,"./src/parse":15,"./src/search":16,"./src/sort":17,"./src/templater":18,"extend":7,"get-by-class":9,"indexof":6}],12:[function(require,module,exports){
 module.exports = function(list) {
   var addAsync = function(values, callback, items) {
     var valuesToAdd = values.splice(0, 50);
@@ -979,7 +912,7 @@ module.exports = function(list) {
   return addAsync;
 };
 
-},{}],16:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = function(list) {
 
   // Add handlers
@@ -1010,7 +943,7 @@ module.exports = function(list) {
   };
 };
 
-},{}],17:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = function(list) {
   return function(initValues, element, notCreate) {
     var item = this;
@@ -1066,7 +999,7 @@ module.exports = function(list) {
   };
 };
 
-},{}],18:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = function(list) {
 
   var Item = require('./item')(list);
@@ -1115,7 +1048,7 @@ module.exports = function(list) {
   };
 };
 
-},{"./item":17}],19:[function(require,module,exports){
+},{"./item":14}],16:[function(require,module,exports){
 var events = require('events'),
   getByClass = require('get-by-class'),
   toString = require('to-string');
@@ -1236,7 +1169,7 @@ module.exports = function(list) {
   return searchMethod;
 };
 
-},{"events":10,"get-by-class":9,"to-string":14}],20:[function(require,module,exports){
+},{"events":10,"get-by-class":9,"to-string":21}],17:[function(require,module,exports){
 var naturalSort = require('natural-sort'),
   classes = require('classes'),
   events = require('events'),
@@ -1339,7 +1272,7 @@ module.exports = function(list) {
   return sort;
 };
 
-},{"classes":5,"events":10,"get-attribute":8,"get-by-class":9,"natural-sort":13}],21:[function(require,module,exports){
+},{"classes":4,"events":10,"get-attribute":8,"get-by-class":9,"natural-sort":19}],18:[function(require,module,exports){
 var getByClass = require('get-by-class');
 
 var Templater = function(list) {
@@ -1439,7 +1372,107 @@ module.exports = function(list) {
   return new Templater(list);
 };
 
-},{"get-by-class":9}],22:[function(require,module,exports){
+},{"get-by-class":9}],19:[function(require,module,exports){
+/*
+ * Natural Sort algorithm for Javascript - Version 0.7 - Released under MIT license
+ * Author: Jim Palmer (based on chunking idea from Dave Koelle)
+ */
+
+module.exports = function(a, b, options) {
+  var re = /(^-?[0-9]+(\.?[0-9]*)[df]?e?[0-9]?$|^0x[0-9a-f]+$|[0-9]+)/gi,
+    sre = /(^[ ]*|[ ]*$)/g,
+    dre = /(^([\w ]+,?[\w ]+)?[\w ]+,?[\w ]+\d+:\d+(:\d+)?[\w ]?|^\d{1,4}[\/\-]\d{1,4}[\/\-]\d{1,4}|^\w+, \w+ \d+, \d{4})/,
+    hre = /^0x[0-9a-f]+$/i,
+    ore = /^0/,
+    options = options || {},
+    i = function(s) { return options.insensitive && (''+s).toLowerCase() || ''+s },
+    // convert all to strings strip whitespace
+    x = i(a).replace(sre, '') || '',
+    y = i(b).replace(sre, '') || '',
+    // chunk/tokenize
+    xN = x.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0'),
+    yN = y.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0'),
+    // numeric, hex or date detection
+    xD = parseInt(x.match(hre)) || (xN.length != 1 && x.match(dre) && Date.parse(x)),
+    yD = parseInt(y.match(hre)) || xD && y.match(dre) && Date.parse(y) || null,
+    oFxNcL, oFyNcL,
+    mult = options.desc ? -1 : 1;
+  // first try and sort Hex codes or Dates
+  if (yD)
+    if ( xD < yD ) return -1 * mult;
+    else if ( xD > yD ) return 1 * mult;
+  // natural sorting through split numeric strings and default strings
+  for(var cLoc=0, numS=Math.max(xN.length, yN.length); cLoc < numS; cLoc++) {
+    // find floats not starting with '0', string or 0 if not defined (Clint Priest)
+    oFxNcL = !(xN[cLoc] || '').match(ore) && parseFloat(xN[cLoc]) || xN[cLoc] || 0;
+    oFyNcL = !(yN[cLoc] || '').match(ore) && parseFloat(yN[cLoc]) || yN[cLoc] || 0;
+    // handle numeric vs string comparison - number < string - (Kyle Adams)
+    if (isNaN(oFxNcL) !== isNaN(oFyNcL)) { return (isNaN(oFxNcL)) ? 1 : -1; }
+    // rely on string comparison if different types - i.e. '02' < 2 != '02' < '2'
+    else if (typeof oFxNcL !== typeof oFyNcL) {
+      oFxNcL += '';
+      oFyNcL += '';
+    }
+    if (oFxNcL < oFyNcL) return -1 * mult;
+    if (oFxNcL > oFyNcL) return 1 * mult;
+  }
+  return 0;
+};
+
+/*
+var defaultSort = getSortFunction();
+
+module.exports = function(a, b, options) {
+  if (arguments.length == 1) {
+    options = a;
+    return getSortFunction(options);
+  } else {
+    return defaultSort(a,b);
+  }
+}
+*/
+},{}],20:[function(require,module,exports){
+/**
+ * Convert an array-like object into an `Array`.
+ * If `collection` is already an `Array`, then will return a clone of `collection`.
+ *
+ * @param {Array | Mixed} collection An `Array` or array-like object to convert e.g. `arguments` or `NodeList`
+ * @return {Array} Naive conversion of `collection` to a new `Array`.
+ * @api public
+ */
+
+module.exports = function toArray(collection) {
+  if (typeof collection === 'undefined') return []
+  if (collection === null) return [null]
+  if (collection === window) return [window]
+  if (typeof collection === 'string') return [collection]
+  if (isArray(collection)) return collection
+  if (typeof collection.length != 'number') return [collection]
+  if (typeof collection === 'function' && collection instanceof Function) return [collection]
+
+  var arr = []
+  for (var i = 0; i < collection.length; i++) {
+    if (Object.prototype.hasOwnProperty.call(collection, i) || i in collection) {
+      arr.push(collection[i])
+    }
+  }
+  if (!arr.length) return []
+  return arr
+}
+
+function isArray(arr) {
+  return Object.prototype.toString.call(arr) === "[object Array]";
+}
+
+},{}],21:[function(require,module,exports){
+module.exports = function(s) {
+    s = (s === undefined) ? "" : s;
+    s = (s === null) ? "" : s;
+    s = s.toString();
+    return s;
+};
+
+},{}],22:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -2992,12 +3025,11 @@ module.exports = function(list) {
 },{}],23:[function(require,module,exports){
 'use strict';
 
-/* global document */
-
 var _ = require('underscore');
 var List = require('list.js');
-var Accordion = require('accordion/src/accordion').Accordion;
+var Accordion = require('aria-accordion').Accordion;
 
+var KEYCODE_ENTER = 13;
 var KEYCODE_ESC = 27;
 
 // https://davidwalsh.name/element-matches-selector
@@ -3009,36 +3041,50 @@ function selectorMatches(el, selector) {
   return f.call(el, selector);
 }
 
-var ITEM_TEMPLATE =
-  '<li id="glossary-list-item" class="glossary__item">' +
-    '<button class="accordion__header glossary-term">' +
+function forEach(values, callback) {
+  return [].forEach.call(values, callback);
+}
+
+var itemTemplate = _.template(
+  '<li class="{{ glossaryItemClass }}">' +
+    '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
     '</button>' +
-    '<p class="glossary-definition"></p>' +
-  '</li>';
+    '<div class="{{ definitionClass }}">{{ definition }}</div>' +
+  '</li>',
+  {interpolate: /\{\{(.+?)\}\}/g}
+);
 
 var defaultSelectors = {
-  body: '#glossary',
+  glossaryID: '#glossary',
   toggle: '.js-glossary-toggle',
   close: '.js-glossary-close',
-  term: '.term'
+  listClass: '.js-glossary-list',
+  searchClass: '.js-glossary-search'
 };
 
-function removeTabindex($elm) {
-  var elms = getTabIndex($elm);
-  [].forEach.call(elms, function(elm) {
+var defaultClasses = {
+  definitionClass: 'glossary__definition',
+  glossaryItemClass: 'glossary__item',
+  highlightedTerm: 'term--highlight',
+  termClass: 'glossary__term'
+};
+
+function removeTabindex(elm) {
+  var elms = getTabIndex(elm);
+  forEach(elms, function(elm) {
     elm.setAttribute('tabIndex', '-1');
   });
 }
 
-function restoreTabindex($elm) {
-  var elms = getTabIndex($elm);
-  [].forEach.call(elms, function(elm) {
+function restoreTabindex(elm) {
+  var elms = getTabIndex(elm);
+  forEach(elms, function(elm) {
     elm.setAttribute('tabIndex', '0');
   });
 }
 
-function getTabIndex($elm) {
-  return $elm.querySelectorAll('a, button, input, [tabindex]');
+function getTabIndex(elm) {
+  return elm.querySelectorAll('a, button, input, [tabindex]');
 }
 
 /**
@@ -3046,54 +3092,73 @@ function getTabIndex($elm) {
  * @constructor
  * @param {Array} terms - Term objects with "glossary-term" and "glossary-definition" keys
  * @param {Object} selectors - CSS selectors for glossary components
+ * @param {Object} classes - CSS classes to be applied for styling
  */
-function Glossary(terms, selectors) {
+function Glossary(terms, selectors, classes) {
   this.terms = terms;
   this.selectors = _.extend({}, defaultSelectors, selectors);
+  this.classes = _.extend({}, defaultClasses, classes);
 
-  this.$body = document.querySelector(this.selectors.body);
-  this.$toggle = document.querySelector(this.selectors.toggle);
-  this.$close = document.querySelector(this.selectors.close);
-  this.$search = this.$body.querySelector('.glossary__search');
+  this.body = document.querySelector(this.selectors.glossaryID);
+  this.toggleBtn = document.querySelector(this.selectors.toggle);
+  this.closeBtn = document.querySelector(this.selectors.close);
+  this.search = this.body.querySelector(this.selectors.searchClass);
+  this.list = this.body.querySelector(this.selectors.listClass);
 
   // Initialize state
   this.isOpen = false;
 
   // Update DOM
   this.populate();
+  this.initList();
   this.linkTerms();
 
   // Remove tabindices
-  removeTabindex(this.$body);
+  removeTabindex(this.body);
 
   // Initialize accordions
-  new Accordion();
+  this.accordion = new Accordion({body: this.selectors.listClass}, {contentPrefix: 'glossary'});
 
   // Bind listeners
-  this.$toggle.addEventListener('click', this.toggle.bind(this));
-  this.$close.addEventListener('click', this.hide.bind(this));
-  this.$body.addEventListener('click', '.toggle', this.toggle.bind(this));
-  this.$search.addEventListener('input', this.handleInput.bind(this));
-
-  document.body.addEventListener('keyup', this.handleKeyup.bind(this));
+  this.listeners = [];
+  this.addEventListener(this.toggleBtn, 'click', this.toggle.bind(this));
+  this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
+  this.addEventListener(this.body, 'click', '.toggle', this.toggle.bind(this));
+  this.addEventListener(this.search, 'input', this.handleInput.bind(this));
+  this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
 }
 
-/** Populate internal list.js list of terms */
 Glossary.prototype.populate = function() {
+  this.terms.forEach(function(term) {
+    var opts = {
+      term: term.term,
+      definition: term.definition,
+      definitionClass: this.classes.definitionClass,
+      glossaryItemClass: this.classes.glossaryItemClass,
+      termClass: this.classes.termClass
+    };
+    this.list.insertAdjacentHTML('beforeend', itemTemplate(opts));
+  }, this);
+};
+
+/** Initialize list.js list of terms */
+Glossary.prototype.initList = function() {
+  var glossaryId = this.selectors.glossaryID.slice(1);
+  var listClass = this.selectors.listClass.slice(1);
+  var searchClass = this.selectors.searchClass.slice(1);
   var options = {
-    item: ITEM_TEMPLATE,
-    valueNames: ['glossary-term'],
-    listClass: 'glossary__list',
-    searchClass: 'glossary__search'
+    valueNames: ['data-glossary-term'],
+    listClass: listClass,
+    searchClass: searchClass,
   };
-  this.list = new List('glossary', options, this.terms);
-  this.list.sort('glossary-term', {order: 'asc'});
+  this.list = new List(glossaryId, options);
+  this.list.sort('data-glossary-term', {order: 'asc'});
 };
 
 /** Add links to terms in body */
 Glossary.prototype.linkTerms = function() {
-  var $terms = document.querySelectorAll(this.selectors.term);
-  [].forEach.call($terms, function(term) {
+  var terms = document.querySelectorAll('[data-term]');
+  forEach(terms, function(term) {
     term.setAttribute('title', 'Click to define');
     term.setAttribute('tabIndex', 0);
     term.setAttribute('data-term', (term.getAttribute('data-term') || '').toLowerCase());
@@ -3103,8 +3168,8 @@ Glossary.prototype.linkTerms = function() {
 };
 
 Glossary.prototype.handleTermTouch = function(e) {
-  if (e.which === 13 || e.type === 'click') {
-    if (selectorMatches(e.target, this.selectors.term)) {
+  if (e.which === KEYCODE_ENTER || e.type === 'click') {
+    if (selectorMatches(e.target, '[data-term]')) {
       this.show();
       this.findTerm(e.target.getAttribute('data-term'));
     }
@@ -3113,27 +3178,23 @@ Glossary.prototype.handleTermTouch = function(e) {
 
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
-  this.$search.value = term;
+  this.search.value = term;
+  var highlightClass = this.classes.highlightedTerm;
 
   // Highlight the term and remove other highlights
-  [].forEach.call(this.$body.querySelectorAll('.term--highlight'), function(term) {
-    term.classList.remove('term--highlight');
+  forEach(this.body.querySelectorAll('.' + highlightClass), function(term) {
+    term.classList.remove(highlightClass);
   });
-  [].forEach.call(this.$body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
-    term.classList.add('term--highlight');
+  forEach(this.body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
+    term.classList.add(highlightClass);
   });
   this.list.filter(function(item) {
-    return item._values['glossary-term'].toLowerCase() === term;
+    return item._values['data-glossary-term'].toLowerCase() === term;
   });
 
-  // Hack: Expand text for selected item
   this.list.search();
-  this.list.visibleItems.forEach(function(item) {
-    var $elm = item.elm.querySelector('div');
-    if ($elm.classList.contains('accordion--collapsed')) {
-      $elm.querySelector('.accordion__button').click();
-    }
-  });
+  var button = this.list.visibleItems[0].elm.querySelector('button');
+  this.accordion.expand(button);
 };
 
 Glossary.prototype.toggle = function() {
@@ -3142,21 +3203,19 @@ Glossary.prototype.toggle = function() {
 };
 
 Glossary.prototype.show = function() {
-  this.$body.classList.add('is-open');
-  this.$body.setAttribute('aria-hidden', 'false');
-  this.$toggle.classList.add('active');
-  this.$search.focus();
+  this.body.setAttribute('aria-hidden', 'false');
+  this.toggleBtn.setAttribute('aria-expanded', 'true');
+  this.search.focus();
   this.isOpen = true;
-  restoreTabindex(this.$body);
+  restoreTabindex(this.body);
 };
 
 Glossary.prototype.hide = function() {
-  this.$body.classList.remove('is-open');
-  this.$body.setAttribute('aria-hidden', 'true');
-  this.$toggle.classList.remove('active');
-  this.$toggle.focus();
+  this.body.setAttribute('aria-hidden', 'true');
+  this.toggleBtn.setAttribute('aria-expanded', 'false');
+  this.toggleBtn.focus();
   this.isOpen = false;
-  removeTabindex(this.$body);
+  removeTabindex(this.body);
 };
 
 /** Remove existing filters on input */
@@ -3175,6 +3234,24 @@ Glossary.prototype.handleKeyup = function(e) {
   }
 };
 
-module.exports = {Glossary: Glossary};
+Glossary.prototype.addEventListener = function(elm, event, callback) {
+  if (elm) {
+    elm.addEventListener(event, callback);
+    this.listeners.push({
+      elm: elm,
+      event: event,
+      callback: callback
+    });
+  }
+};
 
-},{"accordion/src/accordion":3,"list.js":4,"underscore":22}]},{},[1]);
+Glossary.prototype.destroy = function() {
+  this.accordion.destroy();
+  this.listeners.forEach(function(listener) {
+    listener.elm.removeEventListener(listener.event, listener.callback);
+  });
+};
+
+module.exports = Glossary;
+
+},{"aria-accordion":3,"list.js":11,"underscore":22}]},{},[1]);
