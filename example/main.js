@@ -3100,7 +3100,7 @@ function Glossary(terms, selectors, classes) {
   this.classes = _.extend({}, defaultClasses, classes);
 
   this.body = document.querySelector(this.selectors.glossaryID);
-  this.toggleBtn = document.querySelector(this.selectors.toggle);
+  this.toggleBtn = document.querySelectorAll(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
   this.search = this.body.querySelector(this.selectors.searchClass);
   this.list = this.body.querySelector(this.selectors.listClass);

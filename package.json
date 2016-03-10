@@ -1,6 +1,10 @@
 {
   "name": "glossary-panel",
   "author": "18F",
+  "contributors": [
+    "Josh Carp <joshua.carp@gsa.gov>",
+    "Noah Manger <noah.manger@gsa.gov"
+  ],
   "version": "0.1.0",
   "description": "18F Site Glossary Panel",
   "repository": {
@@ -12,7 +16,7 @@
     "test": "mochify tests/glossary.js"
   },
   "dependencies": {
-    "aria-accordion": "git://github.com/18f/accordion.git",
+    "aria-accordion": "0.1.0",
     "list.js": "git://github.com/jmcarp/list.js.git",
     "underscore": "^1.8.3"
   },

@@ -8,9 +8,9 @@
 Add a simple glossary panel to your site to help your users understand jargon-y terms. As seen on [betaFEC](https://beta.fec.gov) and [EITI](https://useiti.doi.gov/).
 
 ## Download
-### Via npm (coming soon)
+### Via npm
 ```
-npm install @18f/glossary-panel
+npm install glossary-panel
 ```
 
 ## Set up your HTML
