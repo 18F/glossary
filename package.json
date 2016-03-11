@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "aria-accordion": "0.1.0",
-    "list.js": "git://github.com/jmcarp/list.js.git",
+    "list.js": "^1.2.0",
     "underscore": "^1.8.3"
   },
   "main": "src/glossary.js",
