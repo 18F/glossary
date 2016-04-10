@@ -4,6 +4,8 @@
 [![Test Coverage](https://img.shields.io/codecov/c/github/18F/glossary/master.svg)](https://codecov.io/github/18F/glossary)
 
 # Getting started
+### Note: as a contributor, please follow the 'Getting started' guide [here][(https://github.com/waynel/glossary/blob/master/CONTRIBUTING.md).
+
 # About
 Add a simple glossary panel to your site to help your users understand jargon-y terms. As seen on [betaFEC](https://beta.fec.gov) and [EITI](https://useiti.doi.gov/).
 
