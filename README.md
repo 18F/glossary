@@ -3,9 +3,11 @@
 [![Build Status](https://img.shields.io/travis/18F/glossary/master.svg)](https://travis-ci.org/18F/glossary)
 [![Test Coverage](https://img.shields.io/codecov/c/github/18F/glossary/master.svg)](https://codecov.io/github/18F/glossary)
 
-# Getting started
 # About
 Add a simple glossary panel to your site to help your users understand jargon-y terms. As seen on [betaFEC](https://beta.fec.gov) and [EITI](https://useiti.doi.gov/).
+
+# Getting started
+### Note: if you are a contributor, please see supplementary help docs [here](CONTRIBUTING.md).
 
 ## Download
 ### Via npm
@@ -14,7 +16,7 @@ npm install glossary-panel
 ```
 
 ## Set up your HTML
-The following is the bare minum HTML needed in your document:
+The following is the bare minimum HTML needed in your document:
 
 ```
 	<button class="js-glossary-toggle">Glossary</button>
