@@ -6,8 +6,13 @@
 # About
 Add a simple glossary panel to your site to help your users understand jargon-y terms. As seen on [betaFEC](https://beta.fec.gov) and [EITI](https://useiti.doi.gov/).
 
+For example:
+* https://beta.fec.gov/data/ - click on the book icon in the header
+* https://useiti.doi.gov/how-it-works/production/ - click on "fossil fuel"
+
 # Getting started
-### Note: if you are a contributor, please see supplementary help docs [here](CONTRIBUTING.md).
+
+Note: if you are a contributor, please see [CONTRIBUTING for additional help](CONTRIBUTING.md).
 
 ## Download
 ### Via npm
