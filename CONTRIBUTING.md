@@ -20,7 +20,8 @@ npm install
 
 ## Contributing
 1. Familiarize yourself with the example in 'glossary/example/'
-2. See 'Issues' tab in github for suggestions to contribute to
+2. NOTE: In the 'glossary/example' folder [main.js](example/main.js) is compiled via [init.js](example/init.js) in the same folder by Browsersify. 
+3. See 'Issues' tab in github for suggestions to contribute to
 
 ## Public domain
 
