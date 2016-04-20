@@ -19,10 +19,8 @@ function selectorMatches(el, selector) {
 
 // get nearest parent element matching selector
 function closest(el, selector) {
-    var matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
-
     while (el) {
-        if (matchesSelector.call(el, selector)) {
+        if (selectorMatches(el, selector)) {
             break;
         }
         el = el.parentElement;
@@ -114,7 +112,7 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
-  this.addEventListener(document.body,'click', this.toggleNonGlossary.bind(this));
+  this.addEventListener(document.body,'click', this.closeOpenGlossary.bind(this));
 }
 
 Glossary.prototype.populate = function() {
@@ -224,7 +222,7 @@ Glossary.prototype.handleKeyup = function(e) {
 };
 
 // Close glossary when clicking outside of glossa
-Glossary.prototype.toggleNonGlossary = function(e) {
+Glossary.prototype.closeOpenGlossary = function(e) {
   if ( e.target !== this.toggleBtn && this.isOpen) {
     if (!(closest(e.target, '#glossary'))) {
         this.hide();

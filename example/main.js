@@ -3044,10 +3044,9 @@ function selectorMatches(el, selector) {
 
 // get nearest parent element matching selector
 function closest(el, selector) {
-    var matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
-
     while (el) {
-        if (matchesSelector.call(el, selector)) {
+        // if (matchesSelector.call(el, selector)) {
+        if (selectorMatches(el, selector)) {
             break;
         }
         el = el.parentElement;
@@ -3252,7 +3251,6 @@ Glossary.prototype.handleKeyup = function(e) {
 Glossary.prototype.toggleNonGlossary = function(e) {
   if ( e.target !== this.toggleBtn && this.isOpen) {
     if (!(closest(e.target, '#glossary'))) {
-        console.log('click outside glossary');
         this.hide();
     }
   }
