@@ -16,6 +16,20 @@ function selectorMatches(el, selector) {
   return f.call(el, selector);
 }
 
+
+// get nearest parent element matching selector
+function closest(el, selector) {
+    var matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+
+    while (el) {
+        if (matchesSelector.call(el, selector)) {
+            break;
+        }
+        el = el.parentElement;
+    }
+    return el;
+}
+
 function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
@@ -100,6 +114,7 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
+  this.addEventListener(document.body, 'click', this.toggleNonGlossary.bind(this));
 }
 
 Glossary.prototype.populate = function() {
@@ -205,6 +220,13 @@ Glossary.prototype.handleKeyup = function(e) {
     if (this.isOpen) {
       this.hide();
     }
+  }
+};
+
+// Close glossary when clicking outside of glossa
+Glossary.prototype.toggleNonGlossary = function(e) {
+  if (!(closest(e.target, this.body))) {
+  
   }
 };
 
