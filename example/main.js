@@ -3139,7 +3139,7 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
-  this.addEventListener(document.body, 'click', this.toggleNonGlossary.bind(this));
+  this.addEventListener(document.body,'click', this.toggleNonGlossary.bind(this));
 }
 
 Glossary.prototype.populate = function() {
@@ -3248,9 +3248,13 @@ Glossary.prototype.handleKeyup = function(e) {
   }
 };
 
+// Close glossary when clicking outside of glossa
 Glossary.prototype.toggleNonGlossary = function(e) {
-  if (!(closest(e.target, this.body))) {
-    debugger;
+  if ( e.target !== this.toggleBtn && this.isOpen) {
+    if (!(closest(e.target, '#glossary'))) {
+        console.log('click outside glossary');
+        this.hide();
+    }
   }
 };
 
