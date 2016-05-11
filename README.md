@@ -30,7 +30,7 @@ The following is the bare minimum HTML needed in your document:
 	  <h2 id="glossary-title">Glossary</h2>
 	  <label for="glossary-search">Filter glossary terms</label>
 	  <input id="glossary-search" class="js-glossary-search" type="search" placeholder="e.g. Committee">
-	  <ul class="js-glossary-search"></ul>
+	  <ul class="js-glossary-list"></ul>
 	</div>
 ```
 
