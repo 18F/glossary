@@ -79,6 +79,7 @@ function Glossary(terms, selectors, classes) {
   this.closeBtn = document.querySelector(this.selectors.close);
   this.search = this.body.querySelector(this.selectors.searchClass);
   this.list = this.body.querySelector(this.selectors.listClass);
+  this.selectedTerm = this.toggleBtn;
 
   // Initialize state
   this.isOpen = false;
