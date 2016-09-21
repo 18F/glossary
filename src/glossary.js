@@ -145,6 +145,7 @@ Glossary.prototype.handleTermTouch = function(e) {
   if (e.which === KEYCODE_ENTER || e.type === 'click') {
     if (selectorMatches(e.target, '[data-term]')) {
       this.show();
+      this.$selectedTerm = $(e.target);
       this.findTerm(e.target.getAttribute('data-term'));
     }
   }
@@ -187,6 +188,7 @@ Glossary.prototype.show = function() {
 Glossary.prototype.hide = function() {
   this.body.setAttribute('aria-hidden', 'true');
   this.toggleBtn.setAttribute('aria-expanded', 'false');
+  this.$selectedTerm.focus();
   this.isOpen = false;
   removeTabindex(this.body);
 };
