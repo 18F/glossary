@@ -3104,6 +3104,7 @@ function Glossary(terms, selectors, classes) {
   this.closeBtn = document.querySelector(this.selectors.close);
   this.search = this.body.querySelector(this.selectors.searchClass);
   this.list = this.body.querySelector(this.selectors.listClass);
+  this.selectedTerm = this.toggleBtn;
 
   // Initialize state
   this.isOpen = false;
@@ -3169,8 +3170,12 @@ Glossary.prototype.linkTerms = function() {
 Glossary.prototype.handleTermTouch = function(e) {
   if (e.which === KEYCODE_ENTER || e.type === 'click') {
     if (selectorMatches(e.target, '[data-term]')) {
-      this.show();
+      this.show(e);
+      this.selectedTerm = e.target;
       this.findTerm(e.target.getAttribute('data-term'));
+    }
+    else {
+      this.selectedTerm = this.toggleBtn;
     }
   }
 };
@@ -3212,7 +3217,7 @@ Glossary.prototype.show = function() {
 Glossary.prototype.hide = function() {
   this.body.setAttribute('aria-hidden', 'true');
   this.toggleBtn.setAttribute('aria-expanded', 'false');
-  this.toggleBtn.focus();
+  this.selectedTerm.focus();
   this.isOpen = false;
   removeTabindex(this.body);
 };
