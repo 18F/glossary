@@ -23,7 +23,7 @@ npm install glossary-panel
 ## Set up your HTML
 The following is the bare minimum HTML needed in your document:
 
-```
+```html
 	<button class="js-glossary-toggle">Glossary</button>
 	<div id="glossary" aria-describedby="glossary-title" aria-hidden="true">
 	  <button title="Close glossary" class="js-glossary-close">Hide glossary</button>
@@ -38,7 +38,7 @@ It includes a toggle button, a div for the glossary, a close button inside the g
 
 Then, to add glossary terms to the body of the page, add a `data-term` attribute to the terms. For example:
 
-```
+```html
 A <span data-term="committee">committee</span> is a thing.
 ```
 
@@ -48,7 +48,7 @@ The data attribute must match the text of the term in your JSON file exactly, bu
 ## Initialize
 In whichever file you initialize your JavaScript components, initialize the glossary like so:
 
-```
+```js
 	var Glossary = require('@18f/glossary');
 
 	// JSON file of terms and definitions
@@ -65,7 +65,7 @@ In whichever file you initialize your JavaScript components, initialize the glos
 # Configuration
 The constructor expects an array of objects (`terms`) that follows this pattern:
 
-```
+```json
 [
   {
     "term": "Glossary",
