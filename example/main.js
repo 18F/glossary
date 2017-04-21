@@ -1,4 +1,165 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+var extend = require('./util').extend;
+
+var defaultOpts = {
+  collapseOthers: false,
+  customHiding: false,
+  contentPrefix: 'accordion',
+  openFirst: false
+};
+
+var defaultSelectors = {
+  trigger: 'button'
+};
+
+/**
+ * Creates a new accordion component
+ * @constructor
+ * @param {Element} elm - The element that contains the entire accordion
+ * @param {object} selectors - Selectors for locating DOM elements
+ * @param {object} opts - Options for configuring behavior
+ */
+
+var Accordion = function(elm, selectors, opts) {
+  this.elm = elm;
+  this.selectors = extend({}, defaultSelectors, selectors);
+  this.opts = extend({}, defaultOpts, opts);
+
+  this.triggers = this.findTriggers();
+
+  this.listeners = [];
+  this.addEventListener(this.elm, 'click', this.handleClickElm.bind(this));
+
+  if (this.opts.openFirst) {
+    this.expand(this.triggers[0]);
+  }
+};
+
+Accordion.prototype.handleClickElm = function(e) {
+  // If the target is the button, toggle the button
+  // Else see if the target is a child of a button
+  if (this.triggers.indexOf(e.target) > -1) {
+    this.toggle(e.target);
+  } else {
+    var self = this;
+    this.triggers.forEach(function(trigger){
+      if (e.target.parentElement === trigger) {
+        self.toggle(trigger);
+      }
+    });
+  }
+};
+
+Accordion.prototype.findTriggers = function() {
+  var self = this;
+  var triggers = [].slice.call(this.elm.querySelectorAll(this.selectors.trigger));
+  triggers.forEach(function(trigger, index) {
+    self.setAria(trigger, index);
+  });
+  return triggers;
+};
+
+Accordion.prototype.setAria = function(trigger, index) {
+  var content = trigger.nextElementSibling;
+  var contentID;
+
+  if (content.hasAttribute('id')) {
+    contentID = content.getAttribute('id');
+  } else {
+    contentID = this.opts.contentPrefix + '-' + 'content-' + index;
+    content.setAttribute('id', contentID);
+  }
+
+  trigger.setAttribute('aria-controls', contentID);
+  trigger.setAttribute('aria-expanded', 'false');
+  content.setAttribute('aria-hidden', 'true');
+  this.setStyles(content);
+};
+
+Accordion.prototype.toggle = function(elm) {
+  var f = elm.getAttribute('aria-expanded') === 'true' ? this.collapse : this.expand;
+  f.call(this, elm);
+};
+
+Accordion.prototype.expand = function(button) {
+  if (this.opts.collapseOthers) {
+    this.collapseAll();
+  }
+  var content = document.getElementById(button.getAttribute('aria-controls'));
+  button.setAttribute('aria-expanded', 'true');
+  content.setAttribute('aria-hidden', 'false');
+  this.setStyles(content);
+};
+
+Accordion.prototype.collapse = function(button) {
+  var content = document.getElementById(button.getAttribute('aria-controls'));
+  button.setAttribute('aria-expanded', 'false');
+  content.setAttribute('aria-hidden', 'true');
+  this.setStyles(content);
+};
+
+Accordion.prototype.collapseAll = function() {
+  var self = this;
+  this.triggers.forEach(function(trigger) {
+    self.collapse(trigger);
+  });
+};
+
+Accordion.prototype.expandAll = function() {
+  var self = this;
+  this.triggers.forEach(function(trigger) {
+    self.expand(trigger);
+  });
+};
+
+Accordion.prototype.setStyles = function(content) {
+  var prop = content.getAttribute('aria-hidden') === 'true' ? 'none' : 'block';
+
+  if (!this.opts.customHiding) {
+    content.style.display = prop;
+  }
+};
+
+Accordion.prototype.addEventListener = function(elm, event, callback) {
+  if (elm) {
+    elm.addEventListener(event, callback);
+    this.listeners.push({
+      elm: elm,
+      event: event,
+      callback: callback
+    });
+  }
+};
+
+Accordion.prototype.destroy = function() {
+  this.listeners.forEach(function(listener) {
+    listener.elm.removeEventListener(listener.event, listener.callback);
+  });
+};
+
+module.exports = { Accordion: Accordion };
+
+},{"./util":2}],2:[function(require,module,exports){
+var extend = function(out) {
+  out = out || {};
+  for (var i = 1; i < arguments.length; i++) {
+    if (!arguments[i]) continue;
+    for (var key in arguments[i]) {
+      if (arguments[i].hasOwnProperty(key)) {
+        out[key] = arguments[i][key];
+      }
+    }
+  }
+  return out;
+};
+
+module.exports = {
+  extend: extend
+}
+
+},{}],3:[function(require,module,exports){
 //THIS FILE IS GENERATED FROM EXAMPLE/INIT.JS
 
 'use strict';
@@ -8,7 +169,7 @@ var terms = require('./terms.json');
 
 new Glossary(terms);
 
-},{"../src/glossary":22,"./terms.json":2}],2:[function(require,module,exports){
+},{"../src/glossary":23,"./terms.json":4}],4:[function(require,module,exports){
 module.exports=[
   {
     "term": "Status",
@@ -92,138 +253,7 @@ module.exports=[
   }
 ]
 
-},{}],3:[function(require,module,exports){
-'use strict';
-
-var _ = require('underscore');
-
-var defaultOpts = {
-  collapseOthers: false,
-  customHiding: false,
-  contentPrefix: 'accordion',
-  openFirst: false
-};
-
-var defaultSelectors = {
-  body: '.js-accordion',
-  trigger: 'button'
-};
-
-var Accordion = function(selectors, opts) {
-  this.selectors = _.extend({}, defaultSelectors, selectors);
-  this.opts = _.extend({}, defaultOpts, opts);
-
-  this.body = document.querySelector(this.selectors.body);
-  this.triggers = this.findTriggers();
-
-  this.listeners = [];
-  this.addEventListener(this.body, 'click', this.handleClickBody.bind(this));
-
-  if (this.opts.openFirst) {
-    this.expand(this.triggers[0]);
-  }
-};
-
-Accordion.prototype.handleClickBody = function(e) {
-  if (_.contains(this.triggers, e.target)) {
-    this.toggle(e.target);
-  }
-};
-
-Accordion.prototype.findTriggers = function() {
-  var self = this;
-  var triggers = this.body.querySelectorAll(this.selectors.trigger);
-  _.each(triggers, function(trigger, index) {
-    self.setAria(trigger, index);
-  });
-  return triggers;
-};
-
-Accordion.prototype.setAria = function(trigger, index) {
-  var content = trigger.nextElementSibling;
-  var contentID;
-
-  if (content.hasAttribute('id')) {
-    contentID = content.getAttribute('id');
-  } else {
-    contentID = this.opts.contentPrefix + '-' + 'content-' + index;
-    content.setAttribute('id', contentID);
-  }
-
-  trigger.setAttribute('aria-controls', contentID);
-  trigger.setAttribute('aria-expanded', 'false');
-  content.setAttribute('aria-hidden', 'true');
-  this.setStyles(content);
-};
-
-Accordion.prototype.toggle = function(elm) {
-  var f = elm.getAttribute('aria-expanded') === 'true' ? this.collapse : this.expand;
-  f.call(this, elm);
-};
-
-Accordion.prototype.expand = function(button) {
-  if (this.opts.collapseOthers) {
-    this.collapseAll();
-  }
-  var content = document.getElementById(button.getAttribute('aria-controls'));
-  button.setAttribute('aria-expanded', 'true');
-  content.setAttribute('aria-hidden', 'false');
-  this.setStyles(content);
-};
-
-Accordion.prototype.collapse = function(button) {
-  var content = document.getElementById(button.getAttribute('aria-controls'));
-  button.setAttribute('aria-expanded', 'false');
-  content.setAttribute('aria-hidden', 'true');
-  this.setStyles(content);
-};
-
-Accordion.prototype.collapseAll = function() {
-  var self = this;
-  _.each(this.triggers, function(trigger) {
-    self.collapse(trigger);
-  });
-};
-
-Accordion.prototype.expandAll = function() {
-  var self = this;
-  this.triggers.forEach(function(trigger) {
-    self.expand(trigger);
-  });
-};
-
-Accordion.prototype.setStyles = function(content) {
-  var prop = content.getAttribute('aria-hidden') === 'true' ? 'none' : 'block';
-
-  if (!this.opts.customHiding) {
-    content.style.display = prop;
-  };
-};
-
-Accordion.prototype.addEventListener = function(elm, event, callback) {
-  if (elm) {
-    elm.addEventListener(event, callback);
-    this.listeners.push({
-      elm: elm,
-      event: event,
-      callback: callback
-    });
-  }
-};
-
-Accordion.prototype.destroy = function() {
-  this.listeners.forEach(function(listener) {
-    listener.elm.removeEventListener(listener.event, listener.callback);
-  });
-};
-
-module.exports = { Accordion: Accordion };
-
-},{"underscore":21}],4:[function(require,module,exports){
-/*
-List.js 1.1.1
-By Jonny Strömberg (www.jonnystromberg.com, www.listjs.com)
-*/
+},{}],5:[function(require,module,exports){
 (function( window, undefined ) {
 "use strict";
 
@@ -493,7 +523,7 @@ window.List = List;
 
 })(window);
 
-},{"./src/add-async":5,"./src/filter":6,"./src/item":7,"./src/parse":8,"./src/search":9,"./src/sort":10,"./src/templater":11,"./src/utils/classes":12,"./src/utils/events":13,"./src/utils/extend":14,"./src/utils/get-attribute":15,"./src/utils/get-by-class":16,"./src/utils/index-of":17,"./src/utils/natural-sort":18,"./src/utils/to-array":19,"./src/utils/to-string":20}],5:[function(require,module,exports){
+},{"./src/add-async":6,"./src/filter":7,"./src/item":8,"./src/parse":9,"./src/search":10,"./src/sort":11,"./src/templater":12,"./src/utils/classes":13,"./src/utils/events":14,"./src/utils/extend":15,"./src/utils/get-attribute":16,"./src/utils/get-by-class":17,"./src/utils/index-of":18,"./src/utils/natural-sort":19,"./src/utils/to-array":20,"./src/utils/to-string":21}],6:[function(require,module,exports){
 module.exports = function(list) {
   var addAsync = function(values, callback, items) {
     var valuesToAdd = values.splice(0, 50);
@@ -511,7 +541,7 @@ module.exports = function(list) {
   return addAsync;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = function(list) {
 
   // Add handlers
@@ -542,7 +572,7 @@ module.exports = function(list) {
   };
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = function(list) {
   return function(initValues, element, notCreate) {
     var item = this;
@@ -604,7 +634,7 @@ module.exports = function(list) {
   };
 };
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = function(list) {
 
   var Item = require('./item')(list);
@@ -653,7 +683,7 @@ module.exports = function(list) {
   };
 };
 
-},{"./item":7}],9:[function(require,module,exports){
+},{"./item":8}],10:[function(require,module,exports){
 module.exports = function(list) {
   var item,
     text,
@@ -671,10 +701,13 @@ module.exports = function(list) {
       if (args.length == 2 && args[1] instanceof Array) {
         columns = args[1];
       } else if (args.length == 2 && typeof(args[1]) == "function") {
+        columns = undefined;
         customSearch = args[1];
       } else if (args.length == 3) {
         columns = args[1];
         customSearch = args[2];
+      } else {
+        columns = undefined;
       }
     },
     setColumns: function() {
@@ -772,7 +805,7 @@ module.exports = function(list) {
   return searchMethod;
 };
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports = function(list) {
   list.sortFunction = list.sortFunction || function(itemA, itemB, options) {
     options.desc = options.order == "desc" ? true : false; // Natural sort uses this format
@@ -864,14 +897,16 @@ module.exports = function(list) {
   return sort;
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var Templater = function(list) {
   var itemSource,
     templater = this;
 
   var init = function() {
     itemSource = templater.getItemSource(list.item);
-    itemSource = templater.clearSourceItem(itemSource, list.valueNames);
+    if (itemSource) {
+      itemSource = templater.clearSourceItem(itemSource, list.valueNames);
+    }
   };
 
   this.clearSourceItem = function(el, valueNames) {
@@ -908,10 +943,10 @@ var Templater = function(list) {
           return nodes[i].cloneNode(true);
         }
       }
-    } else if (/^tr[\s>]/.exec(item)) {
-      var table = document.createElement('table');
-      table.innerHTML = item;
-      return table.firstChild;
+    } else if (/<tr[\s>]/g.exec(item)) {
+      var tbody = document.createElement('tbody');
+      tbody.innerHTML = item;
+      return tbody.firstChild;
     } else if (item.indexOf("<") !== -1) {
       var div = document.createElement('div');
       div.innerHTML = item;
@@ -922,7 +957,7 @@ var Templater = function(list) {
         return source;
       }
     }
-    throw new Error("The list need to have at list one item on init otherwise you'll have to add a template.");
+    return undefined;
   };
 
   this.get = function(item, valueNames) {
@@ -996,6 +1031,9 @@ var Templater = function(list) {
     if (item.elm !== undefined) {
       return false;
     }
+    if (itemSource === undefined) {
+      throw new Error("The list need to have at list one item on init otherwise you'll have to add a template.");
+    }
     /* If item source does not exists, use the first item in list as
     source for new items */
     var newItem = itemSource.cloneNode(true);
@@ -1035,7 +1073,7 @@ module.exports = function(list) {
   return new Templater(list);
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -1222,7 +1260,7 @@ ClassList.prototype.contains = function(name){
   return this.list ? this.list.contains(name) : !! ~index(this.array(), name);
 };
 
-},{"./index-of":17}],13:[function(require,module,exports){
+},{"./index-of":18}],14:[function(require,module,exports){
 var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
     unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
     prefix = bind !== 'addEventListener' ? 'on' : '',
@@ -1262,7 +1300,7 @@ exports.unbind = function(el, type, fn, capture){
   }
 };
 
-},{"./to-array":19}],14:[function(require,module,exports){
+},{"./to-array":20}],15:[function(require,module,exports){
 /*
  * Source: https://github.com/segmentio/extend
  */
@@ -1282,7 +1320,7 @@ module.exports = function extend (object) {
     return object;
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
  * A cross-browser implementation of getAttribute.
  * Source found here: http://stackoverflow.com/a/3755343/361337 written by Vivin Paliath
@@ -1310,7 +1348,7 @@ module.exports = function(el, attr) {
   return result;
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /**
  * A cross-browser implementation of getElementsByClass.
  * Heavily based on Dustin Diaz's function: http://dustindiaz.com/getelementsbyclass.
@@ -1368,7 +1406,7 @@ module.exports = (function() {
   }
 })();
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var indexOf = [].indexOf;
 
 module.exports = function(arr, obj){
@@ -1379,23 +1417,25 @@ module.exports = function(arr, obj){
   return -1;
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /*
- * Natural Sort algorithm for Javascript - Version 0.8 - Released under MIT license
+ * Natural Sort algorithm for Javascript - Version 0.8.1 - Released under MIT license
  * Author: Jim Palmer (based on chunking idea from Dave Koelle)
  */
 module.exports = function(a, b, opts) {
-    var re = /(^([+\-]?(?:\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)?$|^0x[\da-fA-F]+$|\d+)/g,
+    var re = /(^([+\-]?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?(?=\D|\s|$))|^0x[\da-fA-F]+$|\d+)/g,
         sre = /^\s+|\s+$/g,   // trim pre-post whitespace
         snre = /\s+/g,        // normalize all whitespace to single ' ' character
         dre = /(^([\w ]+,?[\w ]+)?[\w ]+,?[\w ]+\d+:\d+(:\d+)?[\w ]?|^\d{1,4}[\/\-]\d{1,4}[\/\-]\d{1,4}|^\w+, \w+ \d+, \d{4})/,
         hre = /^0x[0-9a-f]+$/i,
         ore = /^0/,
         options = opts || {},
-        i = function(s) { return options.insensitive && (''+s).toLowerCase() || ''+s; },
+        i = function(s) {
+            return (options.insensitive && ('' + s).toLowerCase() || '' + s).replace(sre, '');
+        },
         // convert all to strings strip whitespace
-        x = i(a) || '',
-        y = i(b) || '',
+        x = i(a),
+        y = i(b),
         // chunk/tokenize
         xN = x.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0'),
         yN = y.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0'),
@@ -1403,33 +1443,35 @@ module.exports = function(a, b, opts) {
         xD = parseInt(x.match(hre), 16) || (xN.length !== 1 && Date.parse(x)),
         yD = parseInt(y.match(hre), 16) || xD && y.match(dre) && Date.parse(y) || null,
         normChunk = function(s, l) {
-            // normalize spaces; find floats not starting with '0', string or 0 if not defined (Clint Priest)
-            return (!s.match(ore) || l == 1) && parseFloat(s) || s.replace(snre, ' ').replace(sre, '') || 0;
+           // normalize spaces; find floats not starting with '0', string or 0 if not defined (Clint Priest)
+           return (!s.match(ore) || l == 1) && parseFloat(s) || s.replace(snre, ' ').replace(sre, '') || 0;
         },
         oFxNcL, oFyNcL;
-    // first try and sort Hex codes or Dates
-    if (yD) {
-        if ( xD < yD ) { return -1; }
-        else if ( xD > yD ) { return 1; }
-    }
-    // natural sorting through split numeric strings and default strings
-    for(var cLoc=0, xNl = xN.length, yNl = yN.length, numS=Math.max(xNl, yNl); cLoc < numS; cLoc++) {
-        oFxNcL = normChunk(xN[cLoc], xNl);
-        oFyNcL = normChunk(yN[cLoc], yNl);
-        // handle numeric vs string comparison - number < string - (Kyle Adams)
-        if (isNaN(oFxNcL) !== isNaN(oFyNcL)) { return (isNaN(oFxNcL)) ? 1 : -1; }
-        // rely on string comparison if different types - i.e. '02' < 2 != '02' < '2'
-        else if (typeof oFxNcL !== typeof oFyNcL) {
-            oFxNcL += '';
-            oFyNcL += '';
-        }
-        if (oFxNcL < oFyNcL) { return -1; }
-        if (oFxNcL > oFyNcL) { return 1; }
-    }
+   // first try and sort Hex codes or Dates
+   if (yD) {
+       if (xD < yD) { return -1; }
+       else if (xD > yD) { return 1; }
+   }
+   // natural sorting through split numeric strings and default strings
+   for(var cLoc = 0, xNl = xN.length, yNl = yN.length, numS = Math.max(xNl, yNl); cLoc < numS; cLoc++) {
+       oFxNcL = normChunk(xN[cLoc] || '', xNl);
+       oFyNcL = normChunk(yN[cLoc] || '', yNl);
+       // handle numeric vs string comparison - number < string - (Kyle Adams)
+       if (isNaN(oFxNcL) !== isNaN(oFyNcL)) {
+           return isNaN(oFxNcL) ? 1 : -1;
+       }
+       // if unicode use locale comparison
+       if (/[^\x00-\x80]/.test(oFxNcL + oFyNcL) && oFxNcL.localeCompare) {
+           var comp = oFxNcL.localeCompare(oFyNcL);
+           return comp / Math.abs(comp);
+       }
+       if (oFxNcL < oFyNcL) { return -1; }
+       else if (oFxNcL > oFyNcL) { return 1; }
+   }
     return 0;
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * Source: https://github.com/timoxley/to-array
  *
@@ -1464,7 +1506,7 @@ function isArray(arr) {
   return Object.prototype.toString.call(arr) === "[object Array]";
 }
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = function(s) {
   s = (s === undefined) ? "" : s;
   s = (s === null) ? "" : s;
@@ -1472,7 +1514,7 @@ module.exports = function(s) {
   return s;
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -3022,7 +3064,7 @@ module.exports = function(s) {
   }
 }.call(this));
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 var _ = require('underscore');
@@ -3103,7 +3145,7 @@ function Glossary(terms, selectors, classes) {
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
   this.search = this.body.querySelector(this.selectors.searchClass);
-  this.list = this.body.querySelector(this.selectors.listClass);
+  this.listElm = this.body.querySelector(this.selectors.listClass);
   this.selectedTerm = this.toggleBtn;
 
   // Initialize state
@@ -3118,7 +3160,7 @@ function Glossary(terms, selectors, classes) {
   removeTabindex(this.body);
 
   // Initialize accordions
-  this.accordion = new Accordion({body: this.selectors.listClass}, {contentPrefix: 'glossary'});
+  this.accordion = new Accordion(this.listElm, null, {contentPrefix: 'glossary'});
 
   // Bind listeners
   this.listeners = [];
@@ -3137,7 +3179,7 @@ Glossary.prototype.populate = function() {
       glossaryItemClass: this.classes.glossaryItemClass,
       termClass: this.classes.termClass
     };
-    this.list.insertAdjacentHTML('beforeend', itemTemplate(opts));
+    this.listElm.insertAdjacentHTML('beforeend', itemTemplate(opts));
   }, this);
 };
 
@@ -3258,4 +3300,4 @@ Glossary.prototype.destroy = function() {
 
 module.exports = Glossary;
 
-},{"aria-accordion":3,"list.js":4,"underscore":21}]},{},[1]);
+},{"aria-accordion":1,"list.js":5,"underscore":22}]},{},[3]);

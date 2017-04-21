@@ -78,7 +78,7 @@ function Glossary(terms, selectors, classes) {
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
   this.search = this.body.querySelector(this.selectors.searchClass);
-  this.list = this.body.querySelector(this.selectors.listClass);
+  this.listElm = this.body.querySelector(this.selectors.listClass);
   this.selectedTerm = this.toggleBtn;
 
   // Initialize state
@@ -93,7 +93,7 @@ function Glossary(terms, selectors, classes) {
   removeTabindex(this.body);
 
   // Initialize accordions
-  this.accordion = new Accordion({body: this.selectors.listClass}, {contentPrefix: 'glossary'});
+  this.accordion = new Accordion(this.listElm, null, {contentPrefix: 'glossary'});
 
   // Bind listeners
   this.listeners = [];
@@ -112,7 +112,7 @@ Glossary.prototype.populate = function() {
       glossaryItemClass: this.classes.glossaryItemClass,
       termClass: this.classes.termClass
     };
-    this.list.insertAdjacentHTML('beforeend', itemTemplate(opts));
+    this.listElm.insertAdjacentHTML('beforeend', itemTemplate(opts));
   }, this);
 };
 

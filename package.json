@@ -16,7 +16,7 @@
     "test": "mochify tests/glossary.js"
   },
   "dependencies": {
-    "aria-accordion": "0.1.2",
+    "aria-accordion": "1.0.0",
     "list.js": "1.3.0",
     "underscore": "^1.8.3"
   },
