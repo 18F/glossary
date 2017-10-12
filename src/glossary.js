@@ -1,7 +1,8 @@
 'use strict';
 
-var _ = require('underscore');
 var List = require('list.js');
+var template = require('lodash.template');
+var objectAssign = require('object-assign');
 var Accordion = require('aria-accordion').Accordion;
 
 var KEYCODE_ENTER = 13;
@@ -20,7 +21,7 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
-var itemTemplate = _.template(
+var itemTemplate = template(
   '<li class="{{ glossaryItemClass }}">' +
     '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
     '</button>' +
@@ -71,8 +72,8 @@ function getTabIndex(elm) {
  */
 function Glossary(terms, selectors, classes) {
   this.terms = terms;
-  this.selectors = _.extend({}, defaultSelectors, selectors);
-  this.classes = _.extend({}, defaultClasses, classes);
+  this.selectors = objectAssign({}, defaultSelectors, selectors);
+  this.classes = objectAssign({}, defaultClasses, classes);
 
   this.body = document.querySelector(this.selectors.glossaryID);
   this.toggleBtn = document.querySelector(this.selectors.toggle);

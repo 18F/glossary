@@ -18,6 +18,8 @@
   "dependencies": {
     "aria-accordion": "1.0.0",
     "list.js": "1.3.0",
+    "lodash.template": "^4.4.0",
+    "object-assign": "^4.1.1",
     "underscore": "^1.8.3"
   },
   "main": "src/glossary.js",
