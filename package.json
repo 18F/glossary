@@ -12,6 +12,7 @@
     "url": "git://github.com/18F/glossary.git"
   },
   "scripts": {
+    "cover": "mochify tests/glossary.js --cover",
     "start": "parcel example/index.html",
     "test": "mochify tests/glossary.js"
   },
