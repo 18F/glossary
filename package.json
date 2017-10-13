@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "browserify example/init.js > example/main.js",
+    "cover": "mochify tests/glossary.js --cover",
     "test": "mochify tests/glossary.js"
   },
   "dependencies": {
