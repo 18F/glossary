@@ -19,9 +19,9 @@ npm install
 ```
 
 ## Contributing
-1. Familiarize yourself with the example in 'glossary/example/'
-2. NOTE: In the 'glossary/example' folder [main.js](example/main.js) is compiled via [init.js](example/init.js) in the same folder by Browsersify. 
-3. See 'Issues' tab in github for suggestions to contribute to
+* Familiarize yourself with the example in 'glossary/example/'
+  * **IMPORTANT:** [main.js](example/main.js) compiles to [init.js](example/init.js) , using `browserify` via `npm run build` -- you'll need to run this to see any changes applied to the example. 
+* Look at existing ['Issues'](https://github.com/18F/glossary/issues) for ideas on how to contribute. 
 
 ## Public domain
 
