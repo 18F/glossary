@@ -3044,13 +3044,13 @@ function selectorMatches(el, selector) {
 
 // get nearest parent element matching selector
 function closest(el, selector) {
-    while (el) {
-        if (selectorMatches(el, selector)) {
-            break;
-        }
-        el = el.parentElement;
+  while (el) {
+    if (selectorMatches(el, selector)) {
+      break;
     }
-    return el;
+    el = el.parentElement;
+  }
+  return el;
 }
 
 function forEach(values, callback) {
@@ -3246,10 +3246,10 @@ Glossary.prototype.handleKeyup = function(e) {
   }
 };
 
-// Close glossary when clicking outside of glossa
+// Close glossary when clicking outside of glossary
 Glossary.prototype.closeOpenGlossary = function(e) {
   if ( e.target !== this.toggleBtn && this.isOpen) {
-    if (!(closest(e.target, '#glossary'))) {
+    if (!(closest(e.target, this.selectors.glossaryID))) {
         this.hide();
     }
   }
