@@ -112,7 +112,7 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
-  this.addEventListener(document.body,'click', this.closeOpenGlossary.bind(this));
+  this.addEventListener(document,'click', this.closeOpenGlossary.bind(this));
 }
 
 Glossary.prototype.populate = function() {
