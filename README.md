@@ -1,6 +1,6 @@
 # Glossary panel
 
-[![Build Status](https://img.shields.io/travis/18F/glossary/master.svg)](https://travis-ci.org/18F/glossary)
+[![CircleCI](https://circleci.com/gh/18F/glossary.svg?style=svg)](https://circleci.com/gh/18F/glossary)
 [![Test Coverage](https://img.shields.io/codecov/c/github/18F/glossary/master.svg)](https://codecov.io/github/18F/glossary)
 
 # About
