@@ -1,7 +1,6 @@
 'use strict';
 
 var List = require('list.js');
-var template = require('lodash.template');
 var objectAssign = require('object-assign');
 var Accordion = require('aria-accordion').Accordion;
 
@@ -33,14 +32,14 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
-var itemTemplate = template(
-  '<li class="{{ glossaryItemClass }}">' +
-    '<button class="data-glossary-term {{ termClass }}">{{ term }}' +
-    '</button>' +
-    '<div class="{{ definitionClass }}">{{ definition }}</div>' +
-  '</li>',
-  {interpolate: /\{\{(.+?)\}\}/g}
-);
+var itemTemplate = function(values) {
+  return '<li class="' + values.glossaryItemClass + '">' +
+      '<button class="data-glossary-term ' + values.termClass + '">' +
+        values.term +
+      '</button>' +
+      '<div class="' + values.definitionClass + '">' + values.definition + '</div>' +
+    '</li>'
+}
 
 var defaultSelectors = {
   glossaryID: '#glossary',
