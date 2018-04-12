@@ -49,7 +49,7 @@ The data attribute must match the text of the term in your JSON file exactly, bu
 In whichever file you initialize your JavaScript components, initialize the glossary like so:
 
 ```js
-	var Glossary = require('@18f/glossary');
+	var Glossary = require('glossary-panel');
 
 	// JSON file of terms and definitions
 	var terms = require('terms');
