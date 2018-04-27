@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "browserify example/init.js > example/main.js",
-    "test": "mochify tests/glossary.js"
+    "test": "mochify tests/glossary.js --phantomjs"
   },
   "dependencies": {
     "aria-accordion": "1.0.0",
