@@ -85,7 +85,7 @@ The constructor also accepts an optional hash of `selectors` as its second param
 And you can pass an optional hash of `classes` to be applied to to the DOM:
 
 - `definitionClass`: Single class applied to the `<div>` that contains the term's definition. _Default_: `glossary__definition`
-- `glossaryItemClass`: Single class applied to the `<li>` that contains the term and deffinition. _Default_: `glossary__item`
+- `glossaryItemClass`: Single class applied to the `<li>` that contains the term and definition. _Default_: `glossary__item`
 - `highlightedTerm`: Single class applied to terms in the body when they are highlighted. _Default_: `term--higlight`
 - `termClass`: Single class applied to the `<button>` element that opens the definition. _Default_: `glossary__term`
 
@@ -97,7 +97,7 @@ And you can pass an optional hash of `classes` to be applied to to the DOM:
 - `Glossary.findTerm(term)`: If the glossary is opens, filters the list down to the term called, expands the term, and highlights the associated term in the DOM
 
 # Styling
-To style the glossary terms and defintions in the accordion list, either use the default classes or whichever ones you passed in. To change the style of the buttons when the accordion elements are expanded, you can select for `[aria-expanded="true"]`.
+To style the glossary terms and definitions in the accordion list, either use the default classes or whichever ones you passed in. To change the style of the buttons when the accordion elements are expanded, you can select for `[aria-expanded="true"]`.
 
 You will need to add styles for `[aria-hidden="true"]` in order to hide the glossary panel and the glossary definitions.
 
