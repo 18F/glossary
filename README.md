@@ -54,7 +54,7 @@ In whichever file you initialize your JavaScript components, initialize the glos
 	// JSON file of terms and definitions
 	var terms = require('terms');
 
-	// Optional configurion objects
+	// Optional configuration objects
 	var selectors = { ... };
 	var classes = { ... };
 
