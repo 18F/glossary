@@ -27,4 +27,4 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm run test --phantomjs --cover
+      - run: npm run cover
