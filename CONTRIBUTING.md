@@ -19,9 +19,8 @@ npm install
 ```
 
 ## Contributing
-* Familiarize yourself with the example in 'glossary/example/'
-  * **IMPORTANT:** [main.js](example/main.js) compiles to [init.js](example/init.js) , using `browserify` via `npm run build` -- you'll need to run this to see any changes applied to the example. 
-* Look at existing ['Issues'](https://github.com/18F/glossary/issues) for ideas on how to contribute. 
+* Familiarize yourself with the 'example/'
+* Look at existing ['Issues'](https://github.com/18F/glossary/issues) for ideas on how to contribute.
 
 ## Public domain
 

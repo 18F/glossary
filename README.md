@@ -12,6 +12,14 @@ For example:
 
 # Getting started
 
+To run the example locally:
+
+```sh
+npm install -g parcel-bundler
+npm start
+open http://localhost:1234
+```
+
 Note: if you are a contributor, please see [CONTRIBUTING for additional help](CONTRIBUTING.md).
 
 ## Download
