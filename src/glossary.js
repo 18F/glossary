@@ -2,7 +2,6 @@
 
 var List = require('list.js/src');
 var objectAssign = require('object-assign');
-var Accordion = require('aria-accordion').Accordion;
 
 var KEYCODE_ENTER = 13;
 var KEYCODE_ESC = 27;
@@ -105,9 +104,6 @@ function Glossary(terms, selectors, classes) {
   // Remove tabindices
   removeTabindex(this.body);
 
-  // Initialize accordions
-  this.accordion = new Accordion(this.listElm, null, {contentPrefix: 'glossary'});
-
   // Bind listeners
   this.listeners = [];
   this.addEventListener(this.toggleBtn, 'click', this.toggle.bind(this));
@@ -187,8 +183,6 @@ Glossary.prototype.findTerm = function(term) {
   });
 
   this.list.search();
-  var button = this.list.visibleItems[0].elm.querySelector('button');
-  this.accordion.expand(button);
 };
 
 Glossary.prototype.toggle = function() {
@@ -249,7 +243,6 @@ Glossary.prototype.addEventListener = function(elm, event, callback) {
 };
 
 Glossary.prototype.destroy = function() {
-  this.accordion.destroy();
   this.listeners.forEach(function(listener) {
     listener.elm.removeEventListener(listener.event, listener.callback);
   });

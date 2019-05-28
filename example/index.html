@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>18F Glossary</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uswds@2.0.2/dist/css/uswds.min.css"
+      integrity="sha256-nScTHA2B7yJzzR+dL2LEnu8Ivcp2LyBPB2P3HxAl2UI=" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,10 +23,12 @@
     <label for="glossary-search" class="label">Filter glossary terms</label>
     <input id="glossary-search" class="js-glossary-search" type="search" placeholder="e.g. Committee">
     <div class="glossary__content" id="glossary-result">
-      <ul class="js-glossary-list"></ul>
+      <ul class="js-glossary-list usa-accordion"></ul>
     </div>
   </div>
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/uswds@2.0.2/dist/js/uswds.min.js"
+  integrity="sha256-Z/KQi5BWSoN0Q6SPp/Vic92ouw15xr45XSKUkKh6JcY=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="init.js"></script>
 </html>
