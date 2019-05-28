@@ -1,6 +1,6 @@
 'use strict';
 
-var List = require('list.js');
+var List = require('list.js/src');
 var objectAssign = require('object-assign');
 var Accordion = require('aria-accordion').Accordion;
 
