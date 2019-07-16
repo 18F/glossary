@@ -32,14 +32,14 @@ npm install glossary-panel
 The following is the bare minimum HTML needed in your document:
 
 ```html
-	<button class="js-glossary-toggle">Glossary</button>
-	<div id="glossary" aria-describedby="glossary-title" aria-hidden="true">
-	  <button title="Close glossary" class="js-glossary-close">Hide glossary</button>
-	  <h2 id="glossary-title">Glossary</h2>
-	  <label for="glossary-search">Filter glossary terms</label>
-	  <input id="glossary-search" class="js-glossary-search" type="search" placeholder="e.g. Committee">
-	  <ul class="js-glossary-list"></ul>
-	</div>
+<button class="js-glossary-toggle">Glossary</button>
+<div id="glossary" aria-describedby="glossary-title" aria-hidden="true">
+  <button title="Close glossary" class="js-glossary-close">Hide glossary</button>
+  <h2 id="glossary-title">Glossary</h2>
+  <label for="glossary-search">Filter glossary terms</label>
+  <input id="glossary-search" class="js-glossary-search" type="search" placeholder="e.g. Committee">
+  <ul class="js-glossary-list"></ul>
+</div>
 ```
 
 It includes a toggle button, a div for the glossary, a close button inside the glossary, a title, a search input and label, and a `<ul>` for the terms.
@@ -57,17 +57,16 @@ The data attribute must match the text of the term in your JSON file exactly, bu
 In whichever file you initialize your JavaScript components, initialize the glossary like so:
 
 ```js
-	var Glossary = require('glossary-panel');
+var Glossary = require('glossary-panel');
 
-	// JSON file of terms and definitions
-	var terms = require('terms');
+// JSON file of terms and definitions
+var terms = require('./terms');
 
-	// Optional configuration objects
-	var selectors = { ... };
-	var classes = { ... };
+// Optional configuration objects
+var selectors = { ... };
+var classes = { ... };
 
-	new Glossary(terms, selectors, classes);
-
+new Glossary(terms, selectors, classes);
 ```
 
 # Configuration
