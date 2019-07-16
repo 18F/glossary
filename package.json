@@ -22,9 +22,9 @@
   },
   "main": "src/glossary.js",
   "devDependencies": {
-    "chai": "^3.2.0",
-    "mocha": "^2.2.5",
-    "mochify": "^2.13.0"
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "mochify": "^6.2.0"
   },
   "bugs": {
     "url": "https://github.com/18f/glossary/issues"
