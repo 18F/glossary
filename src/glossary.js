@@ -178,11 +178,10 @@ Glossary.prototype.handleTermTouch = function(e) {
   if (e.which === KEYCODE_ENTER || e.type === 'click') {
     if (selectorMatches(e.target, '[data-term]')) {
       this.show(e);
-      this.selectedTerm = e.target;
       this.findTerm(e.target.getAttribute('data-term'));
-    } else {
-      this.selectedTerm = this.toggleBtn;
     }
+
+    this.selectedTerm = e.target;
   }
 };
 
@@ -249,7 +248,11 @@ Glossary.prototype.handleKeyup = function(e) {
 
 // Close glossary when clicking outside of glossary
 Glossary.prototype.closeOpenGlossary = function(e) {
-  if (e.target !== this.toggleBtn && this.isOpen) {
+  if (
+    e.target !== this.toggleBtn &&
+    !e.target.getAttribute('data-term') &&
+    this.isOpen
+  ) {
     if (!closest(e.target, this.selectors.glossaryID)) {
       this.hide();
     }
