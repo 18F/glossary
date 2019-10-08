@@ -10,12 +10,16 @@ var KEYCODE_ESC = 27;
 // https://davidwalsh.name/element-matches-selector
 function selectorMatches(el, selector) {
   var p = Element.prototype;
-  var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function(s) {
-    return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
-  };
+  var f =
+    p.matches ||
+    p.webkitMatchesSelector ||
+    p.mozMatchesSelector ||
+    p.msMatchesSelector ||
+    function(s) {
+      return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
+    };
   return f.call(el, selector);
 }
-
 
 // get nearest parent element matching selector
 function closest(el, selector) {
@@ -33,27 +37,37 @@ function forEach(values, callback) {
 }
 
 var itemTemplate = function(values) {
-  return '<li class="' + values.glossaryItemClass + '">' +
-      '<button class="data-glossary-term ' + values.termClass + '">' +
-        values.term +
-      '</button>' +
-      '<div class="' + values.definitionClass + '">' + values.definition + '</div>' +
+  return (
+    '<li class="' +
+    values.glossaryItemClass +
+    '">' +
+    '<button class="data-glossary-term ' +
+    values.termClass +
+    '">' +
+    values.term +
+    '</button>' +
+    '<div class="' +
+    values.definitionClass +
+    '">' +
+    values.definition +
+    '</div>' +
     '</li>'
-}
+  );
+};
 
 var defaultSelectors = {
   glossaryID: '#glossary',
   toggle: '.js-glossary-toggle',
   close: '.js-glossary-close',
   listClass: '.js-glossary-list',
-  searchClass: '.js-glossary-search'
+  searchClass: '.js-glossary-search',
 };
 
 var defaultClasses = {
   definitionClass: 'glossary__definition',
   glossaryItemClass: 'glossary__item',
   highlightedTerm: 'term--highlight',
-  termClass: 'glossary__term'
+  termClass: 'glossary__term',
 };
 
 function removeTabindex(elm) {
@@ -105,7 +119,9 @@ function Glossary(terms, selectors, classes) {
   removeTabindex(this.body);
 
   // Initialize accordions
-  this.accordion = new Accordion(this.listElm, null, {contentPrefix: 'glossary'});
+  this.accordion = new Accordion(this.listElm, null, {
+    contentPrefix: 'glossary',
+  });
 
   // Bind listeners
   this.listeners = [];
@@ -113,7 +129,7 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
-  this.addEventListener(document,'click', this.closeOpenGlossary.bind(this));
+  this.addEventListener(document, 'click', this.closeOpenGlossary.bind(this));
 }
 
 Glossary.prototype.populate = function() {
@@ -123,7 +139,7 @@ Glossary.prototype.populate = function() {
       definition: term.definition,
       definitionClass: this.classes.definitionClass,
       glossaryItemClass: this.classes.glossaryItemClass,
-      termClass: this.classes.termClass
+      termClass: this.classes.termClass,
     };
     this.listElm.insertAdjacentHTML('beforeend', itemTemplate(opts));
   }, this);
@@ -140,7 +156,7 @@ Glossary.prototype.initList = function() {
     searchClass: searchClass,
   };
   this.list = new List(glossaryId, options);
-  this.list.sort('data-glossary-term', {order: 'asc'});
+  this.list.sort('data-glossary-term', { order: 'asc' });
 };
 
 /** Add links to terms in body */
@@ -149,7 +165,10 @@ Glossary.prototype.linkTerms = function() {
   forEach(terms, function(term) {
     term.setAttribute('title', 'Click to define');
     term.setAttribute('tabIndex', 0);
-    term.setAttribute('data-term', (term.getAttribute('data-term') || '').toLowerCase());
+    term.setAttribute(
+      'data-term',
+      (term.getAttribute('data-term') || '').toLowerCase(),
+    );
   });
   document.body.addEventListener('click', this.handleTermTouch.bind(this));
   document.body.addEventListener('keyup', this.handleTermTouch.bind(this));
@@ -161,8 +180,7 @@ Glossary.prototype.handleTermTouch = function(e) {
       this.show(e);
       this.selectedTerm = e.target;
       this.findTerm(e.target.getAttribute('data-term'));
-    }
-    else {
+    } else {
       this.selectedTerm = this.toggleBtn;
     }
   }
@@ -177,9 +195,12 @@ Glossary.prototype.findTerm = function(term) {
   forEach(this.body.querySelectorAll('.' + highlightClass), function(term) {
     term.classList.remove(highlightClass);
   });
-  forEach(this.body.querySelectorAll('span[data-term="' + term + '"]'), function(term) {
-    term.classList.add(highlightClass);
-  });
+  forEach(
+    this.body.querySelectorAll('span[data-term="' + term + '"]'),
+    function(term) {
+      term.classList.add(highlightClass);
+    },
+  );
   this.list.filter(function(item) {
     return item._values['data-glossary-term'].toLowerCase() === term;
   });
@@ -228,9 +249,9 @@ Glossary.prototype.handleKeyup = function(e) {
 
 // Close glossary when clicking outside of glossary
 Glossary.prototype.closeOpenGlossary = function(e) {
-  if ( e.target !== this.toggleBtn && this.isOpen) {
-    if (!(closest(e.target, this.selectors.glossaryID))) {
-        this.hide();
+  if (e.target !== this.toggleBtn && this.isOpen) {
+    if (!closest(e.target, this.selectors.glossaryID)) {
+      this.hide();
     }
   }
 };
@@ -241,7 +262,7 @@ Glossary.prototype.addEventListener = function(elm, event, callback) {
     this.listeners.push({
       elm: elm,
       event: event,
-      callback: callback
+      callback: callback,
     });
   }
 };
