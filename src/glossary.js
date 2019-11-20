@@ -212,6 +212,7 @@ Glossary.prototype.findTerm = function(term) {
 };
 
 Glossary.prototype.toggle = function() {
+  console.log('this: ', this);
   var method = this.isOpen ? this.hide : this.show;
   method.apply(this);
 };
