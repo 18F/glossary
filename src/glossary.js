@@ -188,7 +188,7 @@ Glossary.prototype.handleTermTouch = function(e) {
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
   this.accordion.collapseAll()
-  
+
   this.search.value = term;
   var highlightClass = this.classes.highlightedTerm;
 
@@ -208,28 +208,7 @@ Glossary.prototype.findTerm = function(term) {
 
   this.list.search();
   var button = this.list.visibleItems[0].elm.querySelector('button');
-  console.log('this.accordion: ', this.accordion);
-  /* this.accordion.triggers.forEach((trigger) => {
-    try {
-      //this.accordion.collapse(trigger);
-      
-      // make our on safe version of the accordion collapse function
-      const control = trigger.getAttribute('aria-controls');
-      console.log('control: ', control);
-      const content = window.document.getElementById(control);
-      console.log('content: ', content);
 
-      if(content) {
-        trigger.setAttribute('aria-expanded', 'false');
-        content.setAttribute('aria-hidden', 'true');
-        this.accordion.setStyles(content);
-      }
-    } catch (e) {
-      console.log('e: ', e);
-      console.log('trigger: ', trigger);
-    }
-  }); */
-  //this.accordion.collapseAll();
   this.accordion.expand(button);
 };
 
@@ -239,7 +218,6 @@ Glossary.prototype.toggle = function() {
 };
 
 Glossary.prototype.show = function() {
-  console.log('this: ', this);
   this.body.setAttribute('aria-hidden', 'false');
   this.toggleBtn.setAttribute('aria-expanded', 'true');
   this.isOpen = true;
@@ -247,7 +225,6 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
-  console.log('this: ', this);
   this.body.setAttribute('aria-hidden', 'true');
   this.toggleBtn.setAttribute('aria-expanded', 'false');
   this.selectedTerm.focus();
@@ -257,6 +234,8 @@ Glossary.prototype.hide = function() {
 
 /** Remove existing filters on input */
 Glossary.prototype.handleInput = function() {
+  this.accordion.collapseAll();
+  
   if (this.list.filtered) {
     this.list.filter();
   }
