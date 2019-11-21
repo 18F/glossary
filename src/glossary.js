@@ -212,12 +212,12 @@ Glossary.prototype.findTerm = function(term) {
 };
 
 Glossary.prototype.toggle = function() {
-  console.log('this: ', this);
   var method = this.isOpen ? this.hide : this.show;
   method.apply(this);
 };
 
 Glossary.prototype.show = function() {
+  console.log('this: ', this);
   this.body.setAttribute('aria-hidden', 'false');
   this.toggleBtn.setAttribute('aria-expanded', 'true');
   this.isOpen = true;
@@ -225,6 +225,7 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
+  console.log('this: ', this);
   this.body.setAttribute('aria-hidden', 'true');
   this.toggleBtn.setAttribute('aria-expanded', 'false');
   this.selectedTerm.focus();
