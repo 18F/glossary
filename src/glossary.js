@@ -235,6 +235,7 @@ Glossary.prototype.hide = function() {
   this.body.setAttribute('aria-hidden', 'true');
   this.toggleBtn.setAttribute('aria-expanded', 'false');
   this.selectedTerm.focus();
+  collapseTerms(this.accordion, this.list);
   this.isOpen = false;
   removeTabindex(this.body);
 };
