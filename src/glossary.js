@@ -209,7 +209,19 @@ Glossary.prototype.findTerm = function(term) {
   console.log('this.accordion: ', this.accordion);
   this.accordion.triggers.forEach((trigger) => {
     try {
-      this.accordion.collapse(trigger);
+      //this.accordion.collapse(trigger);
+      
+      // make our on safe version of the accordion collapse function
+      const control = trigger.getAttribute('aria-controls');
+      console.log('control: ', control);
+      const content = document.getElementById(control);
+      console.log('content: ', content);
+
+      if(content) {
+        trigger.setAttribute('aria-expanded', 'false');
+        content.setAttribute('aria-hidden', 'true');
+        this.accordion.setStyles(content);
+      }
     } catch (e) {
       console.log('e: ', e);
       console.log('trigger: ', trigger);
