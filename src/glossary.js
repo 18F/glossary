@@ -206,13 +206,10 @@ Glossary.prototype.findTerm = function(term) {
 
   this.list.search();
   var button = this.list.visibleItems[0].elm.querySelector('button');
-  console.log('this.accordion: ', this.accordion);
-  this.accordion.collapseAll();
   this.accordion.expand(button);
 };
 
 Glossary.prototype.toggle = function() {
-  console.log('this: ', this);
   var method = this.isOpen ? this.hide : this.show;
   method.apply(this);
 };
