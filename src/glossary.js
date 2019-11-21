@@ -187,7 +187,7 @@ Glossary.prototype.handleTermTouch = function(e) {
 
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
-  this.accordion.collapseAll()
+  this.accordion.collapseAll();
 
   this.search.value = term;
   var highlightClass = this.classes.highlightedTerm;
@@ -233,11 +233,12 @@ Glossary.prototype.hide = function() {
 };
 
 /** Remove existing filters on input */
-Glossary.prototype.handleInput = function() {
-  this.accordion.collapseAll();
-  
+Glossary.prototype.handleInput = function() {  
+  console.log('this.list: ', this.list);
+  console.log('this.accordion: ', this.accordion);
   if (this.list.filtered) {
     this.list.filter();
+    this.accordion.collapseAll();
   }
 };
 
