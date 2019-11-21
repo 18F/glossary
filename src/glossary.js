@@ -88,6 +88,14 @@ function getTabIndex(elm) {
   return elm.querySelectorAll('a, button, input, [tabindex]');
 }
 
+/** Collapse visible terms */
+function collapseTerms(accordion, list) {
+  // collapse any visible terms
+  list.visibleItems.forEach((term) => {
+    accordion.collapse(term.elm.firstChild);
+  })
+}
+
 /**
  * Glossary widget
  * @constructor
@@ -207,7 +215,7 @@ Glossary.prototype.findTerm = function(term) {
   this.list.search();
   var button = this.list.visibleItems[0].elm.querySelector('button');
 
-  collapseTerms();
+  collapseTerms(this.accordion, this.list);
   this.accordion.expand(button);
 };
 
@@ -237,16 +245,8 @@ Glossary.prototype.handleInput = function() {
     this.list.filter();
   }
 
-  collapseTerms();
+  collapseTerms(this.accordion, this.list);
 };
-
-/** Collapse visible terms */
-function collapseTerms() {
-  // collapse any visible terms
-  this.list.visibleItems.forEach((term) => {
-    this.accordion.collapse(term.elm.firstChild);
-  })
-}
 
 /** Close glossary on escape keypress */
 Glossary.prototype.handleKeyup = function(e) {
