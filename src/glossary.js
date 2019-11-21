@@ -214,7 +214,7 @@ Glossary.prototype.findTerm = function(term) {
       // make our on safe version of the accordion collapse function
       const control = trigger.getAttribute('aria-controls');
       console.log('control: ', control);
-      const content = document.getElementById(control);
+      const content = window.document.getElementById(control);
       console.log('content: ', content);
 
       if(content) {
