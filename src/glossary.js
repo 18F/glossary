@@ -238,8 +238,12 @@ Glossary.prototype.handleInput = function() {
   console.log('this.accordion: ', this.accordion);
   if (this.list.filtered) {
     this.list.filter();
-    this.accordion.collapseAll();
   }
+
+  // collapse any visible terms
+  this.list.visibleItems.forEach((term) => {
+    this.accordion.collapse(term.elm.firstChild);
+  })
 };
 
 /** Close glossary on escape keypress */
