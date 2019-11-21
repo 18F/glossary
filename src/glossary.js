@@ -121,6 +121,7 @@ function Glossary(terms, selectors, classes) {
   // Initialize accordions
   this.accordion = new Accordion(this.listElm, null, {
     contentPrefix: 'glossary',
+    collapseOthers: true,
   });
 
   // Bind listeners
@@ -207,7 +208,6 @@ Glossary.prototype.findTerm = function(term) {
   this.list.search();
   var button = this.list.visibleItems[0].elm.querySelector('button');
   console.log('this.accordion: ', this.accordion);
-  this.accordion.collapseAll();
   this.accordion.expand(button);
 };
 
