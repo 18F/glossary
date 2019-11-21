@@ -214,7 +214,7 @@ Glossary.prototype.findTerm = function(term) {
 
   this.list.search();
   var button = this.list.visibleItems[0].elm.querySelector('button');
-
+  
   collapseTerms(this.accordion, this.list);
   this.accordion.expand(button);
 };
