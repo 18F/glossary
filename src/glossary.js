@@ -92,7 +92,10 @@ function getTabIndex(elm) {
 function collapseTerms(accordion, list) {
   // collapse any visible terms
   list.visibleItems.forEach((term) => {
-    accordion.collapse(term.elm.firstChild);
+    // Collapse the term if it is on the DOM
+    const termElm = term.elm.firstChild;
+    const content = document.getElementById(termElm.getAttribute('aria-controls'));
+    if(content) accordion.collapse(term.elm.firstChild);
   })
 }
 
@@ -175,7 +178,7 @@ Glossary.prototype.linkTerms = function() {
     term.setAttribute('tabIndex', 0);
     term.setAttribute(
       'data-term',
-      (term.getAttribute('data-term') || '').toLowerCase(),
+      (term.getAttribute('data-term') || ''),
     );
   });
   document.body.addEventListener('click', this.handleTermTouch.bind(this));
@@ -209,7 +212,7 @@ Glossary.prototype.findTerm = function(term) {
     },
   );
   this.list.filter(function(item) {
-    return item._values['data-glossary-term'].toLowerCase() === term;
+    return item._values['data-glossary-term'].toLowerCase() === term.toLowerCase();
   });
 
   this.list.search();
