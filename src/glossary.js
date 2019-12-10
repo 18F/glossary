@@ -92,6 +92,7 @@ function getTabIndex(elm) {
 function collapseTerms(accordion, list) {
   // collapse any visible terms
   list.visibleItems.forEach((term) => {
+    console.log('term: ', term);
     accordion.collapse(term.elm.firstChild);
   })
 }
