@@ -209,7 +209,7 @@ Glossary.prototype.findTerm = function(term) {
     },
   );
   this.list.filter(function(item) {
-    return item._values['data-glossary-term'].toLowerCase() === term;
+    return item._values['data-glossary-term'].toLowerCase() === term.toLowerCase();
   });
 
   this.list.search();
