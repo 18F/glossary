@@ -93,7 +93,9 @@ function collapseTerms(accordion, list) {
   // collapse any visible terms
   list.visibleItems.forEach((term) => {
     console.log('term: ', term);
-    accordion.collapse(term.elm.firstChild);
+    const termElm = term.elm.firstChild;
+    const content = document.getElementById(termElm.getAttribute('aria-controls'));
+    if(content) accordion.collapse(term.elm.firstChild);
   })
 }
 
