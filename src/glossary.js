@@ -198,6 +198,9 @@ Glossary.prototype.handleTermTouch = function(e) {
 
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
+  // skip find term if the search box is not on the DOM
+  if(!this.search) return ;
+
   this.search.value = term;
   var highlightClass = this.classes.highlightedTerm;
 
