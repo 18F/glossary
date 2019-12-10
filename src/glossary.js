@@ -176,7 +176,7 @@ Glossary.prototype.linkTerms = function() {
     term.setAttribute('tabIndex', 0);
     term.setAttribute(
       'data-term',
-      (term.getAttribute('data-term') || '').toLowerCase(),
+      (term.getAttribute('data-term') || ''),
     );
   });
   document.body.addEventListener('click', this.handleTermTouch.bind(this));
