@@ -92,7 +92,6 @@ function getTabIndex(elm) {
 function collapseTerms(accordion, list) {
   // collapse any visible terms
   list.visibleItems.forEach((term) => {
-    console.log('term: ', term);
     const termElm = term.elm.firstChild;
     const content = document.getElementById(termElm.getAttribute('aria-controls'));
     if(content) accordion.collapse(term.elm.firstChild);
