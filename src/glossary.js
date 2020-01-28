@@ -40,6 +40,8 @@ var itemTemplate = function(values) {
   return (
     '<li class="' +
     values.glossaryItemClass +
+    '" data-glossary-term-value="' +
+    values.term.toLowerCase() + 
     '">' +
     '<button class="data-glossary-term ' +
     values.termClass +
@@ -164,7 +166,6 @@ Glossary.prototype.initList = function() {
   var options = {
     valueNames: ['data-glossary-term'],
     listClass: listClass,
-    searchClass: searchClass,
   };
   this.list = new List(glossaryId, options);
   this.list.sort('data-glossary-term', { order: 'asc' });
@@ -214,15 +215,34 @@ Glossary.prototype.findTerm = function(term) {
       term.classList.add(highlightClass);
     },
   );
-  this.list.filter(function(item) {
-    return item._values['data-glossary-term'].toLowerCase() === term.toLowerCase();
-  });
 
-  this.list.search();
-  var button = this.list.visibleItems[0].elm.querySelector('button');
+  const lowerCaseTerm = term.toLowerCase();
+
+  // hide all terms
+  forEach(
+    this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
+    function (term) {
+      term.style = 'display: none;'
+    }
+  );
+
+  // show terms that match the search criteria and store the first term that was found
+  let firstTerm = null;
+  forEach(
+    this.body.querySelectorAll('li[data-glossary-term-value*="' + lowerCaseTerm + '"]'),
+    function (term) {
+      term.style = 'display: list-item;'
+      if(!firstTerm) firstTerm = term;
+    }
+  );
   
   collapseTerms(this.accordion, this.list);
-  this.accordion.expand(button);
+  
+  // expand the first term
+  if(firstTerm) {
+    var button = firstTerm.querySelector('button');
+    this.accordion.expand(button);
+  }
 };
 
 Glossary.prototype.toggle = function() {
@@ -248,8 +268,19 @@ Glossary.prototype.hide = function() {
 
 /** Remove existing filters on input */
 Glossary.prototype.handleInput = function() {  
-  if (this.list.filtered) {
-    this.list.filter();
+  const term = this.search.value;
+  if(term) {
+    // perform the search
+    this.findTerm(term);
+  }
+  else {
+    // display everything since the search field is empty
+    forEach(
+      this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
+      function (term) {
+        term.style = 'display: list-item;'
+      }
+    );
   }
 
   collapseTerms(this.accordion, this.list);
