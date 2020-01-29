@@ -108,7 +108,7 @@ function showHideAllTerms(show) {
   forEach(
     this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
     function (term) {
-      term.style = display +
+      term.style = display;
     }
   )
 }
