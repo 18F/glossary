@@ -304,8 +304,8 @@ Glossary.prototype.handleInput = function() {
       function (term) {
         term.style = 'display: list-item;'
       }
-    );
-  } */
+    );*/
+  } 
 
   collapseTerms(this.accordion, this.list);
 };
