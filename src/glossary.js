@@ -102,15 +102,15 @@ function collapseTerms(accordion, list) {
 }
 
 /** Shows or hides all terms */
-function showHideAllTerms(show) {
-  let display = show ? 'display: list-item;' : 'display: none;';
+function showHideAllTerms(show, className) {
+  const cssValue = show ? 'display: list-item;' : 'display: none;';
 
   forEach(
-    this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
+    this.body.querySelectorAll('li[class*="' + className + '"]'),
     function (term) {
-      term.style = display;
+      term.style = cssValue;
     }
-  )
+  );
 }
 
 /**
@@ -231,7 +231,7 @@ Glossary.prototype.findTerm = function(term) {
   const lowerCaseTerm = term.toLowerCase();
 
   // hide all terms
-  showHideAllTerms(false);
+  showHideAllTerms(false, this.classes.glossaryItemClass);
   /* forEach(
     this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
     function (term) {
@@ -273,7 +273,7 @@ Glossary.prototype.show = function() {
 Glossary.prototype.hide = function() {
   // remove the search criteria
   this.search.value = '';
-  showHideAllTerms();
+  showHideAllTerms(true, this.classes.glossaryItemClass);
   /* forEach(
     this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
     function (term) {
@@ -298,7 +298,7 @@ Glossary.prototype.handleInput = function() {
   }
   else {
     // display everything since the search field is empty
-    showHideAllTerms(true);
+    showHideAllTerms(true, this.classes.glossaryItemClass);
     /* forEach(
       this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
       function (term) {
