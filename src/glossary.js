@@ -101,6 +101,18 @@ function collapseTerms(accordion, list) {
   })
 }
 
+/** Shows or hides all terms */
+function showHideAllTerms(show) {
+  let display = show ? 'display: list-item;' : 'display: none;';
+
+  forEach(
+    this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
+    function (term) {
+      term.style = display +
+    }
+  )
+}
+
 /**
  * Glossary widget
  * @constructor
@@ -219,12 +231,13 @@ Glossary.prototype.findTerm = function(term) {
   const lowerCaseTerm = term.toLowerCase();
 
   // hide all terms
-  forEach(
+  showHideAllTerms(false);
+  /* forEach(
     this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
     function (term) {
       term.style = 'display: none;'
     }
-  );
+  ); */
 
   // show terms that match the search criteria and store the first term that was found
   let firstTerm = null;
@@ -260,12 +273,13 @@ Glossary.prototype.show = function() {
 Glossary.prototype.hide = function() {
   // remove the search criteria
   this.search.value = '';
-  forEach(
+  showHideAllTerms();
+  /* forEach(
     this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
     function (term) {
       term.style = 'display: list-item;'
     }
-  );
+  ); */
   
   this.body.setAttribute('aria-hidden', 'true');
   this.toggleBtn.setAttribute('aria-expanded', 'false');
@@ -284,13 +298,14 @@ Glossary.prototype.handleInput = function() {
   }
   else {
     // display everything since the search field is empty
-    forEach(
+    showHideAllTerms(true);
+    /* forEach(
       this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
       function (term) {
         term.style = 'display: list-item;'
       }
     );
-  }
+  } */
 
   collapseTerms(this.accordion, this.list);
 };
