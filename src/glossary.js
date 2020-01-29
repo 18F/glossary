@@ -258,16 +258,16 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
+  // remove the search criteria
+  this.search.value = '';
+  this.findTerm('');
+  
   this.body.setAttribute('aria-hidden', 'true');
   this.toggleBtn.setAttribute('aria-expanded', 'false');
   this.selectedTerm.focus();
   collapseTerms(this.accordion, this.list);
   this.isOpen = false;
   removeTabindex(this.body);
-
-  // remove the search criteria
-  this.search.value = '';
-  this.findTerm('');
 };
 
 /** Remove existing filters on input */
