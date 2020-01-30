@@ -307,7 +307,7 @@ Glossary.prototype.handleKeyup = function(e) {
 // Close glossary when clicking outside of glossary
 Glossary.prototype.closeOpenGlossary = function(e) {
   if (
-    e.target !== this.toggleBtn &&
+    (e.target !== this.toggleBtn && e.target.parentElement !== this.toggleBtn) &&
     !e.target.getAttribute('data-term') &&
     this.isOpen
   ) {
