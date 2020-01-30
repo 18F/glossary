@@ -258,6 +258,15 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
+  // remove the search criteria
+  this.search.value = '';
+  forEach(
+    this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
+    function (term) {
+      term.style = 'display: list-item;'
+    }
+  );
+  
   this.body.setAttribute('aria-hidden', 'true');
   this.toggleBtn.setAttribute('aria-expanded', 'false');
   this.selectedTerm.focus();
