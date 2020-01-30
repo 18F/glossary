@@ -258,6 +258,9 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
+  //scroll to the top
+  this.body.scrollTo(0, 0);
+
   // remove the search criteria
   this.search.value = '';
   forEach(
