@@ -262,7 +262,9 @@ Glossary.prototype.hide = function() {
   this.body.scrollTo(0, 0);
 
   // remove the search criteria
-  this.search.value = '';
+  if (this.search){
+    this.search.value = '';
+  } 
   forEach(
     this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
     function (term) {
