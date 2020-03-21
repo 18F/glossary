@@ -4,11 +4,12 @@
 [![Test Coverage](https://img.shields.io/codecov/c/github/18F/glossary/master.svg)](https://codecov.io/github/18F/glossary)
 
 # About
-Add a simple glossary panel to your site to help your users understand jargon-y terms. As seen on [betaFEC](https://beta.fec.gov) and [EITI](https://useiti.doi.gov/).
+Add a simple glossary panel to your site to help your users understand jargon-y terms. As seen on [FEC.gov](https://www.fec.gov) and DOI's [Natural Resources Revenue Data](https://revenuedata.doi.gov/).
 
 For example:
-* https://beta.fec.gov/data/ - click on the book icon in the header
-* https://useiti.doi.gov/how-it-works/production/ - click on "fossil fuel"
+* https://www.fec.gov/data/ - click on the `Glossary` book icon in the header
+* https://www.fec.gov/help-candidates-and-committees/registering-candidate/ - click on `contributions`
+* https://revenuedata.doi.gov/ - click on `royalties`
 
 # Getting started
 
