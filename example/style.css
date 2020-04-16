@@ -16,6 +16,7 @@ body {
   right: 0;
   padding: .5rem;
   transition: right .2s;
+  overflow: scroll;
 }
 
 .glossary[aria-hidden=true] {
