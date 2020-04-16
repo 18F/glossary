@@ -33,11 +33,12 @@ function forEach(values, callback) {
 }
 
 var itemTemplate = function(values) {
+  var id = 'glossary-term-' + values.termId;
   return '<li class="' + values.glossaryItemClass + '">' +
-      '<button class="data-glossary-term ' + values.termClass + '">' +
+      '<button class="data-glossary-term ' + values.termClass + '" aria-controls="' + id + '">' +
         values.term +
       '</button>' +
-      '<div class="' + values.definitionClass + '">' + values.definition + '</div>' +
+      '<div id="' + id + '" class="' + values.definitionClass + '">' + values.definition + '</div>' +
     '</li>'
 }
 
@@ -117,13 +118,14 @@ function Glossary(terms, selectors, classes) {
 }
 
 Glossary.prototype.populate = function() {
-  this.terms.forEach(function(term) {
+  this.terms.forEach(function(term, i) {
     var opts = {
       term: term.term,
       definition: term.definition,
       definitionClass: this.classes.definitionClass,
       glossaryItemClass: this.classes.glossaryItemClass,
-      termClass: this.classes.termClass
+      termClass: this.classes.termClass,
+      termId: i
     };
     this.listElm.insertAdjacentHTML('beforeend', itemTemplate(opts));
   }, this);
