@@ -36,6 +36,7 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
+// check if the value exists within the values array
 function contains(values, value) {
   for(let i = 0; i < values.length; i++) {
     if(values[i] === value) return true;
@@ -159,6 +160,7 @@ Glossary.prototype.clearTerms = function() {
   forEach(
     document.getElementsByClassName('js-glossary-list'),
     function(list) {
+      // remove all child elements from the parent list (i.e. <ul>)
       list.innerHTML = '';
     },
   );
@@ -167,6 +169,7 @@ Glossary.prototype.clearTerms = function() {
 Glossary.prototype.populate = function() {
   const termsAdded = [];
   this.terms.forEach(function(term) {
+    // Add the term if it hasn't already been added
     if(!contains(termsAdded, term.term)) {
       termsAdded.push(term.term);
       var opts = {
