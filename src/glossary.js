@@ -124,6 +124,7 @@ function Glossary(terms, selectors, classes) {
   this.isOpen = false;
 
   // Update DOM
+  this.clearTerms();
   this.populate();
   this.initList();
   this.linkTerms();
@@ -143,6 +144,17 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
   this.addEventListener(document, 'click', this.closeOpenGlossary.bind(this));
+}
+
+/** Clears terms from the glossary list to ensure no duplication. */
+Glossary.prototype.clearTerms = function() {  
+  forEach(
+    document.getElementsByClassName('js-glossary-list'),
+    function(list) {
+      // remove all child elements from the parent list (i.e. <ul>)
+      list.innerHTML = '';
+    },
+  );
 }
 
 Glossary.prototype.populate = function() {
