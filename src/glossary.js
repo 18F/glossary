@@ -159,7 +159,6 @@ Glossary.prototype.clearTerms = function() {
 
 Glossary.prototype.populate = function() {
   this.terms.forEach(function(term) {
-    termsAdded.push(term.term);
     var opts = {
       term: term.term,
       definition: term.definition,
