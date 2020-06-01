@@ -36,15 +36,6 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
-// check if the value exists within the values array
-function contains(values, value) {
-  for(let i = 0; i < values.length; i++) {
-    if(values[i] === value) return true;
-  }
-
-  return false;
-}
-
 var itemTemplate = function(values) {
   return (
     '<li class="' +
@@ -167,20 +158,16 @@ Glossary.prototype.clearTerms = function() {
 }
 
 Glossary.prototype.populate = function() {
-  const termsAdded = [];
   this.terms.forEach(function(term) {
-    // Add the term if it hasn't already been added
-    if(!contains(termsAdded, term.term)) {
-      termsAdded.push(term.term);
-      var opts = {
-        term: term.term,
-        definition: term.definition,
-        definitionClass: this.classes.definitionClass,
-        glossaryItemClass: this.classes.glossaryItemClass,
-        termClass: this.classes.termClass,
-      };
-      this.listElm.insertAdjacentHTML('beforeend', itemTemplate(opts));
-    }
+    termsAdded.push(term.term);
+    var opts = {
+      term: term.term,
+      definition: term.definition,
+      definitionClass: this.classes.definitionClass,
+      glossaryItemClass: this.classes.glossaryItemClass,
+      termClass: this.classes.termClass,
+    };
+    this.listElm.insertAdjacentHTML('beforeend', itemTemplate(opts));
   }, this);
 };
 
