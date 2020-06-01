@@ -36,6 +36,14 @@ function forEach(values, callback) {
   return [].forEach.call(values, callback);
 }
 
+function contains(values, value) {
+  for(let i = 0; i < values.length; i++) {
+    if(values[i] === value) return true;
+  }
+
+  return false;
+}
+
 var itemTemplate = function(values) {
   return (
     '<li class="' +
@@ -146,15 +154,19 @@ function Glossary(terms, selectors, classes) {
 }
 
 Glossary.prototype.populate = function() {
+  const termsAdded = [];
   this.terms.forEach(function(term) {
-    var opts = {
-      term: term.term,
-      definition: term.definition,
-      definitionClass: this.classes.definitionClass,
-      glossaryItemClass: this.classes.glossaryItemClass,
-      termClass: this.classes.termClass,
-    };
-    this.listElm.insertAdjacentHTML('beforeend', itemTemplate(opts));
+    if(!contains(termsAdded, term.term)) {
+      termsAdded.push(term.term);
+      var opts = {
+        term: term.term,
+        definition: term.definition,
+        definitionClass: this.classes.definitionClass,
+        glossaryItemClass: this.classes.glossaryItemClass,
+        termClass: this.classes.termClass,
+      };
+      this.listElm.insertAdjacentHTML('beforeend', itemTemplate(opts));
+    }
   }, this);
 };
 
