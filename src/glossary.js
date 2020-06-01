@@ -162,6 +162,7 @@ function Glossary(terms, selectors, classes) {
 }
 
 Glossary.prototype.populate = function() {
+  console.log('populate...');
   const termsAdded = [];
   this.terms.forEach(function(term) {
     if(!contains(termsAdded, term.term)) {
@@ -180,6 +181,7 @@ Glossary.prototype.populate = function() {
 
 /** Initialize list.js list of terms */
 Glossary.prototype.initList = function() {
+  console.log('initList...');
   var glossaryId = this.selectors.glossaryID.slice(1);
   var listClass = this.selectors.listClass.slice(1);
   var searchClass = this.selectors.searchClass.slice(1);
