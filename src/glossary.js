@@ -71,9 +71,6 @@ var defaultSelectors = {
   close: '.js-glossary-close',
   listClass: '.js-glossary-list',
   searchClass: '.js-glossary-search',
-  test: '.js-glossary-test',
-  test2: '.js-glossary-test2',
-  test3: '.js-glossary-test3',
 };
 
 var defaultClasses = {
@@ -127,9 +124,6 @@ function Glossary(terms, selectors, classes) {
   this.body = document.querySelector(this.selectors.glossaryID);
   this.toggleBtn = document.querySelector(this.selectors.toggle);
   this.closeBtn = document.querySelector(this.selectors.close);
-  this.testBtn = document.querySelector(this.selectors.test);
-  this.testBtn2 = document.querySelector(this.selectors.test2);
-  this.testBtn3 = document.querySelector(this.selectors.test3);
   this.search = this.body.querySelector(this.selectors.searchClass);
   this.listElm = this.body.querySelector(this.selectors.listClass);
   this.selectedTerm = this.toggleBtn;
@@ -155,9 +149,6 @@ function Glossary(terms, selectors, classes) {
   this.listeners = [];
   this.addEventListener(this.toggleBtn, 'click', this.toggle.bind(this));
   this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
-  this.addEventListener(this.testBtn, 'click', this.populate.bind(this));
-  this.addEventListener(this.testBtn2, 'click', this.initList.bind(this));
-  this.addEventListener(this.testBtn3, 'click', this.clearTerms.bind(this));
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
   this.addEventListener(document, 'click', this.closeOpenGlossary.bind(this));
@@ -165,8 +156,6 @@ function Glossary(terms, selectors, classes) {
 
 /** Clears terms from the glossary list to ensure no duplication. */
 Glossary.prototype.clearTerms = function() {  
-  console.log('clearterms...');
-  console.log(': ', document.getElementsByClassName('js-glossary-list'));
   forEach(
     document.getElementsByClassName('js-glossary-list'),
     function(list) {
@@ -176,7 +165,6 @@ Glossary.prototype.clearTerms = function() {
 }
 
 Glossary.prototype.populate = function() {
-  console.log('populate...');
   const termsAdded = [];
   this.terms.forEach(function(term) {
     if(!contains(termsAdded, term.term)) {
@@ -195,7 +183,6 @@ Glossary.prototype.populate = function() {
 
 /** Initialize list.js list of terms */
 Glossary.prototype.initList = function() {
-  console.log('initList...');
   var glossaryId = this.selectors.glossaryID.slice(1);
   var listClass = this.selectors.listClass.slice(1);
   var searchClass = this.selectors.searchClass.slice(1);
