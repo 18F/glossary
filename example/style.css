@@ -38,7 +38,7 @@ li {
   list-style-type: none;
 }
 
-button {
+.testing {
   appearance: none;
   background-color: #0071bc;
   border: 1px solid #205493;

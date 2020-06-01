@@ -51,13 +51,13 @@ var itemTemplate = function(values) {
     '" data-glossary-term-value="' +
     values.term.toLowerCase() + 
     '">' +
-    '<button class="data-glossary-term ' +
+    '<button class="data-glossary-term testing ' +
     values.termClass +
     '">' +
     values.term +
     '</button>' +
-    '<button class=".js-glossary-test">Test</button>' +
-    '<button class=".js-glossary-test2">Test2</button>' +
+    '<button class="js-glossary-test">Test</button>' +
+    '<button class="js-glossary-test2">Test2</button>' +
     '<div class="' +
     values.definitionClass +
     '">' +
