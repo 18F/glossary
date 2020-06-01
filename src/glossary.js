@@ -166,8 +166,9 @@ function Glossary(terms, selectors, classes) {
 /** Clears terms from the glossary list to ensure no duplication. */
 Glossary.prototype.clearTerms = function() {  
   console.log('clearterms...');
+  console.log(': ', document.getElementsByClassName('js-glossary-list'));
   forEach(
-    document.getElementsByClassName('js-glossary-search'),
+    document.getElementsByClassName('js-glossary-list'),
     function(list) {
       list.innerHTML = '';
     },
