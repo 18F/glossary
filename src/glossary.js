@@ -271,6 +271,7 @@ Glossary.prototype.show = function() {
 
 Glossary.prototype.hide = function() {
   //scroll to the top - handle older browsers where .scrollTo is not supported
+  alert("in hide function")
   try{
   const scrollingElement = document.scrollingElement || document.documentElement;
   scrollingElement.scrollTop = 0;
