@@ -144,6 +144,7 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
   this.addEventListener(document, 'click', this.closeOpenGlossary.bind(this));
+  this.addEventListener(document, 'touchstart', this.closeOpenGlossary.bind(this));
 }
 
 /** Clears terms from the glossary list to ensure no duplication. */
