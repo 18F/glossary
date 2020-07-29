@@ -336,6 +336,7 @@ Glossary.prototype.closeOpenGlossary = function(e) {
     !e.target.getAttribute('data-term') &&
     this.isOpen
   ) {
+    alert('in closeopenglossary!')
     if (!closest(e.target, this.selectors.glossaryID)) {
       this.hide();
     }
