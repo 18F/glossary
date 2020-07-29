@@ -143,7 +143,8 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.closeBtn, 'click', this.hide.bind(this));
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
-  this.addEventListener(document, 'click touchstart', this.closeOpenGlossary.bind(this));
+  this.addEventListener(document, 'click', this.closeOpenGlossary.bind(this));
+  this.addEventListener(document, 'touchstart', this.closeOpenGlossary.bind(this)); // for iPads 
 }
 
 /** Clears terms from the glossary list to ensure no duplication. */
@@ -270,9 +271,7 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
-  //scroll to the top - handle older browsers where .scrollTo is not supported
-  alert("in hide function")
-  try{
+  //scroll to the top: handle older browsers where .scrollTo is not supported
   const scrollingElement = document.scrollingElement || document.documentElement;
   scrollingElement.scrollTop = 0;
 
@@ -294,10 +293,6 @@ Glossary.prototype.hide = function() {
   collapseTerms(this.accordion, this.list);
   this.isOpen = false;
   removeTabindex(this.body);
-  }
-  catch(e){
-    alert(e)
-  }
 };
 
 /** Remove existing filters on input */
@@ -336,7 +331,6 @@ Glossary.prototype.closeOpenGlossary = function(e) {
     !e.target.getAttribute('data-term') &&
     this.isOpen
   ) {
-    alert('in closeopenglossary!')
     if (!closest(e.target, this.selectors.glossaryID)) {
       this.hide();
     }
