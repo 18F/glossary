@@ -144,6 +144,7 @@ function Glossary(terms, selectors, classes) {
   this.addEventListener(this.search, 'input', this.handleInput.bind(this));
   this.addEventListener(document.body, 'keyup', this.handleKeyup.bind(this));
   this.addEventListener(document, 'click', this.closeOpenGlossary.bind(this));
+  this.addEventListener(document, 'touchstart', this.closeOpenGlossary.bind(this)); // for iPads 
 }
 
 /** Clears terms from the glossary list to ensure no duplication. */
@@ -270,8 +271,9 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
-  //scroll to the top
-  this.body.scrollTo(0, 0);
+  //scroll to the top: handle older browsers where .scrollTo is not supported
+  const scrollingElement = document.scrollingElement || document.documentElement;
+  scrollingElement.scrollTop = 0;
 
   // remove the search criteria
   if (this.search){
@@ -280,7 +282,8 @@ Glossary.prototype.hide = function() {
   forEach(
     this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
     function (term) {
-      term.style = 'display: list-item;'
+      // handle older browsers where .style is readonly
+      term.style.cssText = 'display: list-item;'
     }
   );
   
