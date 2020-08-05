@@ -276,6 +276,7 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
+  try{
   //scroll to the top: handle older browsers where .scrollTo is not supported
   const scrollingElement = document.scrollingElement || document.documentElement;
   scrollingElement.scrollTop = 0;
@@ -298,6 +299,10 @@ Glossary.prototype.hide = function() {
   collapseTerms(this.accordion, this.list);
   this.isOpen = false;
   removeTabindex(this.body);
+  }
+  catch(e){
+    alert(e)
+  }
 };
 
 /** Remove existing filters on input */
