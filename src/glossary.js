@@ -212,7 +212,6 @@ Glossary.prototype.handleTermTouch = function(e) {
 
 /** Highlight a term */
 Glossary.prototype.findTerm = function(term) {
-  try{
   // skip find term if the search box is not on the DOM
   if(!this.search) return ;
 
@@ -257,10 +256,6 @@ Glossary.prototype.findTerm = function(term) {
     var button = firstTerm.querySelector('button');
     this.accordion.expand(button);
   }
-}
-catch(e){
-  alert(e)
-}
 };
 
 Glossary.prototype.toggle = function() {
@@ -276,7 +271,6 @@ Glossary.prototype.show = function() {
 };
 
 Glossary.prototype.hide = function() {
-  try{
   //scroll to the top: handle older browsers where .scrollTo is not supported
   const scrollingElement = document.scrollingElement || document.documentElement;
   scrollingElement.scrollTop = 0;
@@ -299,10 +293,6 @@ Glossary.prototype.hide = function() {
   collapseTerms(this.accordion, this.list);
   this.isOpen = false;
   removeTabindex(this.body);
-  }
-  catch(e){
-    alert(e)
-  }
 };
 
 /** Remove existing filters on input */
