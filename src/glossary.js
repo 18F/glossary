@@ -235,7 +235,7 @@ Glossary.prototype.findTerm = function(term) {
   forEach(
     this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
     function (term) {
-      term.style = 'display: none;'
+      term.style.cssText = 'display: none;'
     }
   );
 
@@ -244,7 +244,7 @@ Glossary.prototype.findTerm = function(term) {
   forEach(
     this.body.querySelectorAll('li[data-glossary-term-value*="' + lowerCaseTerm + '"]'),
     function (term) {
-      term.style = 'display: list-item;'
+      term.style.cssText = 'display: list-item;'
       if(!firstTerm) firstTerm = term;
     }
   );
@@ -307,7 +307,7 @@ Glossary.prototype.handleInput = function() {
     forEach(
       this.body.querySelectorAll('li[class*="' + this.classes.glossaryItemClass + '"]'),
       function (term) {
-        term.style = 'display: list-item;'
+        term.style.cssText = 'display: list-item;'
       }
     );
   }
