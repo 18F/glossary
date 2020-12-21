@@ -250,7 +250,7 @@ Glossary.prototype.findTerm = function(term) {
 
       const termStr = term.getAttribute('data-glossary-term-value')
       console.log('term: ', termStr);
-      if(lowerCaseTerm === termStr.toLowerCase()) exactTerm = termStr;
+      if(lowerCaseTerm === termStr.toLowerCase()) exactTerm = term;
     }
   );
   
