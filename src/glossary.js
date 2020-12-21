@@ -203,7 +203,7 @@ Glossary.prototype.handleTermTouch = function(e) {
   if (e.which === KEYCODE_ENTER || e.type === 'click') {
     if (selectorMatches(e.target, '[data-term]')) {
       this.show(e);
-      this.findTerm(e.target.getAttribute('data-term'));
+      this.findTerm(e.target.getAttribute('data-term'), true);
     }
 
     this.selectedTerm = e.target;
@@ -211,7 +211,7 @@ Glossary.prototype.handleTermTouch = function(e) {
 };
 
 /** Highlight a term */
-Glossary.prototype.findTerm = function(term) {
+Glossary.prototype.findTerm = function(term, fromTouch = false) {
   // skip find term if the search box is not on the DOM
   if(!this.search) return ;
 
@@ -239,22 +239,47 @@ Glossary.prototype.findTerm = function(term) {
     }
   );
 
-  // show terms that match the search criteria and store the first term that was found
-  let firstTerm = null;
-  forEach(
-    this.body.querySelectorAll('li[data-glossary-term-value*="' + lowerCaseTerm + '"]'),
-    function (term) {
-      term.style.cssText = 'display: list-item;'
-      if(!firstTerm) firstTerm = term;
-    }
-  );
-  
   collapseTerms(this.accordion, this.list);
+
+  // perform a search on the provided term
+  const exactMatch = this.body.querySelectorAll('li[data-glossary-term-value="' + lowerCaseTerm + '"]');
+  const matches = this.body.querySelectorAll('li[data-glossary-term-value*="' + lowerCaseTerm + '"]');
   
-  // expand the first term
-  if(firstTerm) {
-    var button = firstTerm.querySelector('button');
-    this.accordion.expand(button);
+  if(fromTouch) {
+    if(exactMatch.length > 0) {
+      // show the exact match term 
+      const term = exactMatch[0];
+      term.style.cssText = 'display: list-item;'
+
+      // expand the exact match term
+      var button = term.querySelector('button');
+      this.accordion.expand(button);      
+    }
+    else {
+      // show terms that match the search criteria and store the first term that was found
+      let firstTerm = null;
+      forEach(
+        matches,
+        function (term) {
+          term.style.cssText = 'display: list-item;'
+          if(!firstTerm) firstTerm = term;
+        }
+      );
+      
+      // expand the first term, only if from term touch event and not for search input
+      if(firstTerm) {
+        var button = firstTerm.querySelector('button');
+        this.accordion.expand(button);
+      }
+    }
+  } else {
+    // from search input, go ahead and show all partial matches
+    forEach(
+      matches,
+      function (term) {
+        term.style.cssText = 'display: list-item;'
+      }
+    );
   }
 };
 
@@ -311,8 +336,6 @@ Glossary.prototype.handleInput = function() {
       }
     );
   }
-
-  collapseTerms(this.accordion, this.list);
 };
 
 /** Close glossary on escape keypress */
