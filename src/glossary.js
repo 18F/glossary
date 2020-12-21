@@ -255,7 +255,7 @@ Glossary.prototype.findTerm = function(term, fromTouch = false) {
       var button = term.querySelector('button');
       this.accordion.expand(button);      
     }
-    else if(firstTerm) {
+    else {
       // show terms that match the search criteria and store the first term that was found
       let firstTerm = null;
       forEach(
@@ -265,10 +265,12 @@ Glossary.prototype.findTerm = function(term, fromTouch = false) {
           if(!firstTerm) firstTerm = term;
         }
       );
-
+      
       // expand the first term, only if from term touch event and not for search input
-      var button = firstTerm.querySelector('button');
-      this.accordion.expand(button);
+      if(firstTerm) {
+        var button = firstTerm.querySelector('button');
+        this.accordion.expand(button);
+      }
     }
   } else {
     // from search input, go ahead and show all partial matches
