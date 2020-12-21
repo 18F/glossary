@@ -241,18 +241,25 @@ Glossary.prototype.findTerm = function(term) {
 
   // show terms that match the search criteria and store the first term that was found
   let firstTerm = null;
+  let exactTerm = null;
   forEach(
     this.body.querySelectorAll('li[data-glossary-term-value*="' + lowerCaseTerm + '"]'),
     function (term) {
       term.style.cssText = 'display: list-item;'
       if(!firstTerm) firstTerm = term;
+      console.log('term: ', term);
+      if(lowerCaseTerm === term.toLowerCase()) exactTerm = term;
     }
   );
   
   collapseTerms(this.accordion, this.list);
   
   // expand the first term
-  if(firstTerm) {
+  if(exactTerm) {
+    var button = exactTerm.querySelector('button');
+    this.accordion.expand(button);
+  }
+  else if(firstTerm) {
     var button = firstTerm.querySelector('button');
     this.accordion.expand(button);
   }
