@@ -276,7 +276,6 @@ Glossary.prototype.findTerm = function(term, fromTouch = false) {
       matches,
       function (term) {
         term.style.cssText = 'display: list-item;'
-        if(!firstTerm) firstTerm = term;
       }
     );
   }
