@@ -270,6 +270,15 @@ Glossary.prototype.findTerm = function(term, fromTouch = false) {
       var button = firstTerm.querySelector('button');
       this.accordion.expand(button);
     }
+  } else {
+    // from search input, go ahead and show all partial matches
+    forEach(
+      matches,
+      function (term) {
+        term.style.cssText = 'display: list-item;'
+        if(!firstTerm) firstTerm = term;
+      }
+    );
   }
 };
 
