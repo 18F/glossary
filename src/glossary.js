@@ -96,7 +96,7 @@ function collapseTerms(accordion, list) {
   list.visibleItems.forEach((term) => {
     // Collapse the term if it is on the DOM
     const termElm = term.elm.firstChild;
-    const content = document.getElementById(termElm.getAttribute('aria-controls'));
+    const content = termElm ? document.getElementById(termElm.getAttribute('aria-controls')) : null;
     if(content) accordion.collapse(term.elm.firstChild);
   })
 }
