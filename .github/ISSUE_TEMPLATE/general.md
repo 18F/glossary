@@ -18,6 +18,6 @@ assignees: ""
 
 ## Acceptance Criteria
 
-<!-- Definition of Done. ](https://www.agilealliance.org/glossary/definition-of-done) Should be as objective as possible. -->
+<!-- [Definition of Done.](https://www.agilealliance.org/glossary/definition-of-done). This should be as objective as possible. -->
 
 - [ ]
